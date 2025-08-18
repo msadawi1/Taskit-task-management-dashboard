@@ -13,7 +13,7 @@ export default function TaskSection(props) {
             priority: 0,
             weeklyGoalId: 1,
             dueDate: dayjs("2025-08-19T10:00:00"),
-            status: "completed"
+            status: true
         },
         {
             id: 2,
@@ -21,7 +21,7 @@ export default function TaskSection(props) {
             priority: 1,
             weeklyGoalId: 1,
             dueDate: dayjs("2025-08-20T14:00:00"),
-            status: "in-progress"
+            status: false
         },
         {
             id: 3,
@@ -29,7 +29,7 @@ export default function TaskSection(props) {
             priority: 0,
             weeklyGoalId: 2,
             dueDate: dayjs("2025-08-21T07:30:00"),
-            status: "in-progress"
+            status: false
         },
         {
             id: 4,
@@ -37,7 +37,7 @@ export default function TaskSection(props) {
             priority: 2,
             weeklyGoalId: 2,
             dueDate: dayjs("2025-08-19T18:30:00"),
-            status: "completed"
+            status: true
         },
         {
             id: 5,
@@ -45,7 +45,7 @@ export default function TaskSection(props) {
             priority: 0,
             weeklyGoalId: 3,
             dueDate: dayjs("2025-08-17T20:00:00"),
-            status: "completed"
+            status: true
         }
     ]);
     function addTask(title, goalId, priority, dueDate) {
@@ -57,24 +57,29 @@ export default function TaskSection(props) {
             dueDate: dueDate,
         }]);
     }
+    function completeTask(id) {
+        setTasks(prevValue => prevValue.map(task => task.id === id ? {...task, status: !task.status} : task ));
+    }
     function removeTask(id) {
         setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
     }
     return (
-        <Grid container spacing={1} sx={{width: '100%'}}>
-            <Grid size={12} sx={{ mb: 2 }}>
+        <Grid container spacing={1} sx={{ width: '100%' }}>
+            <Grid size={12}>
                 <Typography variant='h5' fontWeight={500} color="primary">Daily Tasks</Typography>
             </Grid>
-            {tasks.map(task =>
-                <Grid key={task.id} size={12}>
-                    <Task {...task} goal={props.goals.find(goal => goal.id === task.weeklyGoalId)} onHide={removeTask} />
-                </Grid>
-            )}
-            <Grid size={12} sx={{mt: 2}}>
+            <Grid container sx={{maxHeight: '250px', overflowY: 'scroll', m: 0, pt: 2}}>
+                {tasks.map(task =>
+                    <Grid key={task.id} size={12}>
+                        <Task onCheck={completeTask} {...task} goal={props.goals.find(goal => goal.id === task.weeklyGoalId)} onHide={removeTask} />
+                    </Grid>
+                )}
+            </Grid>
+            <Grid size={12} sx={{ mt: 2 }}>
                 <Typography variant='h6' fontWeight={500} color="primary">New Task</Typography>
             </Grid>
             <Grid size={12}>
-                <TaskForm onAdd={addTask} weeklyGoals={props.goals}/>
+                <TaskForm onAdd={addTask} weeklyGoals={props.goals} />
             </Grid>
         </Grid>
     );

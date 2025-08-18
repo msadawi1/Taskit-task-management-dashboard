@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import dayjs from "dayjs";
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid';
-import Box from "@mui/material/Box";
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
 import Chip from '@mui/material/Chip';
@@ -22,9 +21,10 @@ const priortyText = {
 };
 
 export default function Task(props) {
-    const [isChecked, setChecked] = useState(false);
+    const [isChecked, setChecked] = useState(props.status);
     function toggleCheck() {
         setChecked(!isChecked);
+        props.onCheck(props.id);
     }
     function formatDate(d) {
         const today = dayjs();
@@ -41,18 +41,22 @@ export default function Task(props) {
         <Paper elevation={0} sx={{ p: 1 }}>
             <Grid container rowSpacing={1} columnSpacing={0.8} sx={{ width: "100%" }} alignItems='flex-start'>
                 <Grid size="auto">
-                    <Checkbox onClick={toggleCheck} variant='contained' color='primary' disableelevation="true" sx={{ fontWeight: "400", borderRadius: 4, p: 0 }} />
+                    <Checkbox onClick={toggleCheck} size="small" variant='contained' color='primary' disableelevation="true" sx={{ fontWeight: "400", borderRadius: 4, p: 0 }} />
                 </Grid>
-                <Grid size="grow" sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Box sx={{ display: 'flex' }}>
-                        <Typography variant='h6' fontWeight={400} sx={{ lineHeight: 1.2, textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'secondary.dark' : 'primary.main' }}>
+                <Grid size="grow" container spacing={0} direction='row' sx={{ p: 0, m: 0 }}>
+                    <Grid size='auto'>
+                        <Typography variant='subtitle1' fontWeight={400} sx={{ lineHeight: 1.2, textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'secondary.dark' : 'primary.main' }}>
                             {props.title}
                         </Typography>
+                    </Grid>
+                    <Grid size='auto'>
                         <Chip label={priortyText[props.priority]} color={priorityColors[props.priority]} size="small" sx={{ ml: 1 }} />
-                    </Box>
-                    <Typography variant='body2' color="secondary.dark">
-                        <strong style={{ fontWeight: 500 }}>Weekly Goal:</strong> {props.goal.title}
-                    </Typography>
+                    </Grid>
+                    <Grid size={12}>
+                        <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
+                            <strong style={{ fontWeight: 500 }}>Weekly Goal:</strong> {props.goal.title}
+                        </Typography>
+                    </Grid>
                 </Grid>
                 <Grid
                     size="auto"
