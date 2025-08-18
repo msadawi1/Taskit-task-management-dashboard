@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import dayjs from 'dayjs';
 import TextField from "@mui/material/TextField";
 import Grid from '@mui/material/Grid';
@@ -11,14 +11,15 @@ import Box from '@mui/material/Box';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { useGoalSelectContext } from "./context";
 import Typography from "@mui/material/Typography";
 
 export default function TaskForm(props) {
     const [title, setTitle] = useState('');
     const [dueDate, setDueDate] = useState(null);
-    const [goalSelect, setGoalSelect] = useState('');
     const [priority, setPriority] = useState('');
     const [error, setError] = useState('');
+    const { goalSelect, setGoalSelect } = useGoalSelectContext();
     const updatePriority = (event) => {
         const newValue = event.target.value;
         setPriority(newValue);
@@ -27,15 +28,14 @@ export default function TaskForm(props) {
         const newValue = event.target.value;
         setGoalSelect(newValue);
     };
-    const titleRef = useRef();
     function updateTitle(event) {
         const newValue = event.target.value;
         setTitle(newValue);
     }
     function addTask(event) {
         event.preventDefault();
-        const currentDateTime = dayjs();
-        if(!currentDateTime.isBefore(dueDate)) {
+        if(!dueDate) {
+            setError("Please choose due date.");
             return;
         };
         props.onAdd(title, goalSelect, priority, dueDate);
@@ -48,27 +48,24 @@ export default function TaskForm(props) {
         const currentDateTime = dayjs();
         if (!newValue || !newValue.isAfter(currentDateTime)) {
             setError("Due time must be after the current time.");
+            return false;
         } else {
             setError("");
             setDueDate(newValue);
+            return true;
         }
     }
-    useEffect(() => {
-        if (props.autoFocus) {
-            titleRef.current?.focus();
-        }
-    }, [props.autoFocus]);
-    return (<form autoComplete="off">
+    return (<form onSubmit={addTask} autoComplete="off" ref={props.formRef}>
         <Grid container columnSpacing={1} rowSpacing={1} sx={{ width: '55%' }}>
             <Grid size={12} sx={{mb: 1}}>
                 <Typography color="warning" variant="body1">{error}</Typography>
             </Grid>
             <Grid size={12}>
-                <TextField required={true} id="standard-outlined" sx={{ width: '100%' }} size="medium" value={title} onChange={updateTitle} label="Task title" inputRef={titleRef} />
+                <TextField required={true} id="standard-outlined" sx={{ width: '100%' }} size="medium" value={title} onChange={updateTitle} label="Task title" inputRef={props.inputRef} />
             </Grid>
             <Grid size={12}>
                 <Box sx={{ minWidth: 105 }}>
-                    <FormControl fullWidth size='medium'>
+                    <FormControl fullWidth required={true} size='medium'>
                         <InputLabel id="goal-select-label">Goal</InputLabel>
                         <Select
                             labelId="goal-select-label"
@@ -76,7 +73,6 @@ export default function TaskForm(props) {
                             value={goalSelect}
                             label="Goal"
                             onChange={updateGoal}
-                            required={true}
                         >
                             {props.weeklyGoals.map(goal =>
                                 <MenuItem key={goal.id} id={goal.id} value={goal.id}>{goal.title[0].toUpperCase() + goal.title.slice(1, goal.title.length)}</MenuItem>
@@ -87,7 +83,7 @@ export default function TaskForm(props) {
             </Grid>
             <Grid size={6}>
                 <Box sx={{ minWidth: 105 }}>
-                    <FormControl fullWidth size='medium'>
+                    <FormControl fullWidth required={true} size='medium'>
                         <InputLabel id="priority-select-label">Priority</InputLabel>
                         <Select
                             labelId="priority-select-label"
@@ -100,7 +96,6 @@ export default function TaskForm(props) {
                                     priority === 0 ? 'warning.main' :
                                         priority === 1 ? 'info.main' : 'success.main'
                             }}
-                            required={true}
                         >
                             <MenuItem value={0} sx={{ color: 'warning.main' }}>High</MenuItem>
                             <MenuItem value={1} sx={{ color: 'info.main' }}>Medium</MenuItem>
@@ -115,7 +110,7 @@ export default function TaskForm(props) {
                 </LocalizationProvider>
             </Grid>
             <Grid size={12}>
-                <Button onClick={addTask} fullWidth variant='contained' type="submit" color='primary' size="medium" disableElevation sx={{ borderRadius: 0 }}>Add</Button>
+                <Button fullWidth variant='contained' type="submit" color='primary' size="medium" disableElevation sx={{ borderRadius: 0 }}>Add</Button>
             </Grid>
         </Grid>
     </form>);

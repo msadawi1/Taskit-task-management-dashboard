@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import dayjs from "dayjs";
 import Sidebar from "./components/Sidebar"
 import Header from "./components/Header";
 import GoalSection from "./components/Goals";
 import Tasks from "./components/Tasks";
 import Box from "@mui/material/Box";
-import { TasksContext } from "./components/context";
+import { TasksContext, GoalSelectContext } from "./components/context";
 import { createTheme, ThemeProvider, CssBaseline, Divider } from '@mui/material';
 
 const sideBarWidth = 300;
 
 const theme = createTheme({
+  components: {
+    MuiFormLabel: {
+      styleOverrides: {
+        asterisk: {
+          display: "none", // hide the star
+        },
+      },
+    },
+  },
   palette: {
     mode: 'light',
     primary: {
@@ -56,6 +65,9 @@ function App() {
     { id: 2, title: "Improve Fitness", status: "in-progress" },
     { id: 3, title: "Develop Coding Skills", status: "completed" }
   ]);
+  const [goalSelect, setGoalSelect] = useState('');
+  const formRef = useRef(null);
+  const taskTitleRef = useRef(null);
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -98,6 +110,12 @@ function App() {
       status: true
     }
   ]);
+  function scrollToForm() {
+    formRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      taskTitleRef.current?.focus();
+    }, 200);
+  }
   function removeGoal(id) {
     setWeeklyGoals(prevGoals => prevGoals.filter(goal => goal.id !== id));
     setTasks(prevValue => prevValue.filter(task => task.weeklyGoalId !== id));
@@ -113,14 +131,16 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Sidebar width={sideBarWidth} />
-      <TasksContext.Provider value={{tasks, setTasks}}>
-        <Box component='main' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, p: 3, pr: 15, ml: `${sideBarWidth}px`, gap: 3 }}>
-          <Header />
-          <Divider />
-          <GoalSection goals={weeklyGoals} onRemove={removeGoal} onAdd={addGoal} />
-          <Divider />
-          <Tasks goals={weeklyGoals} />
-        </Box>
+      <TasksContext.Provider value={{ tasks, setTasks }}>
+        <GoalSelectContext.Provider value={{ goalSelect, setGoalSelect }}>
+          <Box component='main' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, p: 3, pr: 15, ml: `${sideBarWidth}px`, gap: 3 }}>
+            <Header />
+            <Divider />
+            <GoalSection scrollToForm={scrollToForm} goals={weeklyGoals} onRemove={removeGoal} onAdd={addGoal} />
+            <Divider />
+            <Tasks formRef={formRef} inputRef={taskTitleRef} goals={weeklyGoals} />
+          </Box>
+        </GoalSelectContext.Provider>
       </TasksContext.Provider>
     </ThemeProvider>
   );

@@ -4,10 +4,14 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useTasksContext } from "./context";
+import { useGoalSelectContext } from "./context";
 
 export default function WeeklyGoal(props) {
-    const tasks = useTasksContext();
+    const { setGoalSelect } = useGoalSelectContext();
+    function handleClick() {
+        setGoalSelect(props.id);
+        props.onClick();
+    }
     return (
         <Grid container columnSpacing={1} sx={{ width: "100%" }} alignItems='center'>
             <Grid size="grow">
@@ -19,7 +23,7 @@ export default function WeeklyGoal(props) {
                 </IconButton >
             </Grid>
             <Grid size={12}>
-                <Button variant='contained' type="button" color='secondary' size="small" disableElevation sx={{ fontWeight: "400", borderRadius: 4 }}>Add Daily Task</Button>
+                <Button variant='contained' onClick={handleClick} type="button" color='secondary' size="small" disableElevation sx={{ fontWeight: "400", borderRadius: 4 }}>Add Daily Task</Button>
             </Grid>
         </Grid>
     );

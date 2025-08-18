@@ -28,7 +28,7 @@ export default function TaskSection(props) {
             <Grid size={12}>
                 <Typography variant='h5' fontWeight={500} color="primary">Daily Tasks</Typography>
             </Grid>
-            <Grid container size={12} sx={{maxHeight: '250px', overflowY: 'scroll', m: 0, pt: 2}}>
+            <Grid container size={12} sx={{maxHeight: '550px', overflowY: 'scroll', m: 0, pt: 2}}>
                 {tasks.map(task =>
                     <Grid key={task.id} size={12}>
                         <Task onCheck={completeTask} {...task} goal={props.goals.find(goal => goal.id === task.weeklyGoalId)} onHide={removeTask} />
@@ -39,7 +39,7 @@ export default function TaskSection(props) {
                 <Typography variant='h6' fontWeight={500} color="primary">New Task</Typography>
             </Grid>
             <Grid size={12}>
-                <TaskForm onAdd={addTask} weeklyGoals={props.goals} />
+                <TaskForm formRef={props.formRef} inputRef={props.inputRef} onAdd={addTask} weeklyGoals={props.goals} />
             </Grid>
         </Grid>
     );
