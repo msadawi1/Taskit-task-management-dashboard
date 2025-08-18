@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import dayjs from "dayjs";
 import Sidebar from "./components/Sidebar"
 import Header from "./components/Header";
 import GoalSection from "./components/Goals";
 import Tasks from "./components/Tasks";
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
+import { TasksContext } from "./components/context";
 import { createTheme, ThemeProvider, CssBaseline, Divider } from '@mui/material';
 
 const sideBarWidth = 300;
@@ -54,8 +56,51 @@ function App() {
     { id: 2, title: "Improve Fitness", status: "in-progress" },
     { id: 3, title: "Develop Coding Skills", status: "completed" }
   ]);
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      title: "Write Introduction & Methodology",
+      priority: 0,
+      weeklyGoalId: 1,
+      dueDate: dayjs("2025-08-19T10:00:00"),
+      status: true
+    },
+    {
+      id: 2,
+      title: "Analyze Results & Create Charts",
+      priority: 1,
+      weeklyGoalId: 1,
+      dueDate: dayjs("2025-08-20T14:00:00"),
+      status: false
+    },
+    {
+      id: 3,
+      title: "Run 10km",
+      priority: 0,
+      weeklyGoalId: 2,
+      dueDate: dayjs("2025-08-21T07:30:00"),
+      status: false
+    },
+    {
+      id: 4,
+      title: "Do strength training (upper body)",
+      priority: 2,
+      weeklyGoalId: 2,
+      dueDate: dayjs("2025-08-19T18:30:00"),
+      status: true
+    },
+    {
+      id: 5,
+      title: "Solve 5 coding challenges",
+      priority: 0,
+      weeklyGoalId: 3,
+      dueDate: dayjs("2025-08-17T20:00:00"),
+      status: true
+    }
+  ]);
   function removeGoal(id) {
     setWeeklyGoals(prevGoals => prevGoals.filter(goal => goal.id !== id));
+    setTasks(prevValue => prevValue.filter(task => task.weeklyGoalId !== id));
   }
   function addGoal(input) {
     setWeeklyGoals(prevValue => [...prevValue, {
@@ -68,13 +113,15 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Sidebar width={sideBarWidth} />
-      <Box component='main' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, p: 3, pr: 15, ml: `${sideBarWidth}px`, gap: 3 }}>
-        <Header />
-        <Divider />
-        <GoalSection goals={weeklyGoals} onRemove={removeGoal} onAdd={addGoal} />
-        <Divider />
-        <Tasks goals={weeklyGoals} />
-      </Box>
+      <TasksContext.Provider value={{tasks, setTasks}}>
+        <Box component='main' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, p: 3, pr: 15, ml: `${sideBarWidth}px`, gap: 3 }}>
+          <Header />
+          <Divider />
+          <GoalSection goals={weeklyGoals} onRemove={removeGoal} onAdd={addGoal} />
+          <Divider />
+          <Tasks goals={weeklyGoals} />
+        </Box>
+      </TasksContext.Provider>
     </ThemeProvider>
   );
 }

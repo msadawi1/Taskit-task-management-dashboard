@@ -13,7 +13,7 @@ export default function GoalSection(props) {
     const inputRef = useRef(null);
     useEffect(() => {
         inputRef.current.focus();
-    });
+    }, []);
     function updateInput(event) {
         const newValue = event.target.value;
         setInput(newValue);
