@@ -1,21 +1,16 @@
 import React, { useState, useRef } from "react";
 import dayjs from "dayjs";
-import Sidebar from "./components/Sidebar"
-import Header from "./components/Header";
-import GoalSection from "./components/Goals";
-import Tasks from "./components/Tasks";
-import Box from "@mui/material/Box";
+import Navbar from "./components/Navbar"
+import Dashboard from "./components/Dashboard"
 import { TasksContext, GoalSelectContext } from "./components/context";
-import { createTheme, ThemeProvider, CssBaseline, Divider } from '@mui/material';
-
-const sideBarWidth = 300;
+import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
 
 const theme = createTheme({
   components: {
     MuiFormLabel: {
       styleOverrides: {
         asterisk: {
-          display: "none", // hide the star
+          display: "none",
         },
       },
     },
@@ -60,6 +55,7 @@ const theme = createTheme({
 });
 
 function App() {
+  const [tab, setTab] = React.useState("dashboard");
   const [weeklyGoals, setWeeklyGoals] = useState([
     { id: 1, title: "Complete Project Report", status: "in-progress" },
     { id: 2, title: "Improve Fitness", status: "in-progress" },
@@ -114,7 +110,7 @@ function App() {
     formRef.current?.scrollIntoView({ behavior: 'smooth' });
     setTimeout(() => {
       taskTitleRef.current?.focus();
-    }, 200);
+    }, 300);
   }
   function removeGoal(id) {
     setWeeklyGoals(prevGoals => prevGoals.filter(goal => goal.id !== id));
@@ -127,21 +123,34 @@ function App() {
       status: 'in-progress'
     }]);
   }
+  function TabPanel({ children, value, index }) {
+    return value === index ? <Box sx={{ p: 2, flexGrow: 1 }}>{children}</Box> : null;
+  }
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Sidebar width={sideBarWidth} />
-      <TasksContext.Provider value={{ tasks, setTasks }}>
-        <GoalSelectContext.Provider value={{ goalSelect, setGoalSelect }}>
-          <Box component='main' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, p: 3, pr: 15, ml: `${sideBarWidth}px`, gap: 3 }}>
-            <Header />
-            <Divider />
-            <GoalSection scrollToForm={scrollToForm} goals={weeklyGoals} onRemove={removeGoal} onAdd={addGoal} />
-            <Divider />
-            <Tasks formRef={formRef} inputRef={taskTitleRef} goals={weeklyGoals} />
-          </Box>
-        </GoalSelectContext.Provider>
-      </TasksContext.Provider>
+      <Box sx={{ display: "flex", minHeight: "100vh" }}>
+        <Box sx={{ width: 300, flexShrink: 0, borderRight: 1, borderColor: "divider", position: 'sticky', top: 0, height: '100vh' }}>
+          <Navbar value={tab} onChange={setTab} />
+        </Box>
+        <Box sx={{ flexGrow: 1, p: 3 }}>
+          <TabPanel value={tab} index="dashboard">
+            <TasksContext.Provider value={{ tasks, setTasks }}>
+              <GoalSelectContext.Provider value={{ goalSelect, setGoalSelect }}>
+                <Dashboard scrollToForm={scrollToForm} goals={weeklyGoals} onRemove={removeGoal} onAdd={addGoal} formRef={formRef} inputRef={taskTitleRef} />
+              </GoalSelectContext.Provider>
+            </TasksContext.Provider>
+          </TabPanel>
+          <TabPanel value={tab} index="timer">
+          </TabPanel>
+          <TabPanel value={tab} index="calendar">
+          </TabPanel>
+          <TabPanel value={tab} index="summaries">
+          </TabPanel>
+          <TabPanel value={tab} index="settings">
+          </TabPanel>
+        </Box>
+      </Box>
     </ThemeProvider>
   );
 }

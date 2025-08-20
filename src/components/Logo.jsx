@@ -9,11 +9,12 @@ export default function Logo() {
     return (
         <ListItem disablePadding>
             <ListItemButton disabled={true} sx={{
+                display: 'flex', justifyContent: 'center', p: 0, pr: 2,
                 '&.Mui-disabled': {
                     opacity: 1,
                 },
             }}>
-                <ListItemIcon sx={{ color: 'primary.main', mr: '8px !important' }}>
+                <ListItemIcon sx={{ color: 'primary.main', mr: '8px !important', minWidth: 0  }}>
                     <TaskAltIcon />
                 </ListItemIcon>
                 <Typography variant='h5' fontWeight="600">
