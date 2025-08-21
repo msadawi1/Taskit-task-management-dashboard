@@ -23,13 +23,27 @@ export default function TaskSection(props) {
     function removeTask(id) {
         setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
     }
+    const completedTasks = [];
+    const ongoingTasks = [];
+    tasks.forEach(task => {
+        if (task.status) {
+            completedTasks.push(task);
+        } else {
+            ongoingTasks.push(task);
+        }
+    })
     return (
         <Grid container spacing={1} sx={{ width: '100%' }}>
             <Grid size={12}>
                 <Typography variant='h5' fontWeight={500} color="primary">Daily Tasks</Typography>
             </Grid>
             <Grid container size={12} sx={{maxHeight: '550px', overflowY: 'scroll', m: 0, pt: 2}}>
-                {tasks.map(task =>
+                {ongoingTasks.map(task =>
+                    <Grid key={task.id} size={12}>
+                        <Task onCheck={completeTask} {...task} goal={props.goals.find(goal => goal.id === task.weeklyGoalId)} onHide={removeTask} />
+                    </Grid>
+                )}
+                {completedTasks.map(task =>
                     <Grid key={task.id} size={12}>
                         <Task onCheck={completeTask} {...task} goal={props.goals.find(goal => goal.id === task.weeklyGoalId)} onHide={removeTask} />
                     </Grid>
@@ -39,7 +53,7 @@ export default function TaskSection(props) {
                 <Typography variant='h6' fontWeight={500} color="primary">New Task</Typography>
             </Grid>
             <Grid size={12}>
-                <TaskForm formRef={props.formRef} inputRef={props.inputRef} onAdd={addTask} weeklyGoals={props.goals} />
+                <TaskForm ref={props.taskFormRef} formRef={props.formRef} inputRef={props.inputRef} onAdd={addTask} weeklyGoals={props.goals} />
             </Grid>
         </Grid>
     );

@@ -4,12 +4,12 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useGoalSelectContext } from "./context";
+import { useTaskFormRefContext } from "./context";
 
 export default function WeeklyGoal(props) {
-    const { setGoalSelect } = useGoalSelectContext();
+    const taskFormRef = useTaskFormRefContext();
     function handleClick() {
-        setGoalSelect(props.id);
+        taskFormRef.current?.setGoal(props.id);
         props.onClick();
     }
     return (

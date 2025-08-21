@@ -10,7 +10,7 @@ import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import Box from '@mui/material/Box';
 import Logo from './Logo';
 
-export default function Navbar({ value, onChange }) {
+export default function Navbar({ value, onChange, index }) {
     return (
         <Box>
             <Box sx={{px: 0, py: 2}}>
@@ -44,12 +44,12 @@ export default function Navbar({ value, onChange }) {
                         bgcolor: "action.selected",
                     },
                 }}>
-                <Tab label="Dashboard" icon={<DashboardIcon />} iconPosition="start" value="dashboard" />
-                <Tab label="Timer" icon={<AccessAlarmIcon />} iconPosition="start" value="timer" />
-                <Tab label="Calendar" icon={<CalendarTodayIcon />} iconPosition="start" value="calendar" />
-                <Tab label="Summaries" icon={<LibraryBooksIcon />} iconPosition="start" value="summaries" />
+                <Tab label="Dashboard" icon={<DashboardIcon />} iconPosition="start" value={index.dashboard} />
+                <Tab label="Timer" icon={<AccessAlarmIcon />} iconPosition="start" value={index.timer} />
+                <Tab label="Calendar" icon={<CalendarTodayIcon />} iconPosition="start" value={index.calendar} />
+                <Tab label="Summaries" icon={<LibraryBooksIcon />} iconPosition="start" value={index.summaries} />
                 <Divider />
-                <Tab label="Settings" icon={<SettingsIcon />} iconPosition="start" value="settings" />
+                <Tab label="Settings" icon={<SettingsIcon />} iconPosition="start" value={index.settings} />
             </Tabs>
         </Box>
     );

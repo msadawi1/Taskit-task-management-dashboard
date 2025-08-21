@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 export const TasksContext = createContext();
-export const GoalSelectContext = createContext();
+export const TaskFormRefContext = createContext();
 
 export function useTasksContext() {
     const tasks = useContext(TasksContext);
@@ -10,9 +10,9 @@ export function useTasksContext() {
     return tasks;
 }
 
-export function useGoalSelectContext() {
-    const selectedGoal = useContext(GoalSelectContext);
-    if(!selectedGoal)
-        throw new Error("Error: tasks context is undefined, try wrapping element inside context provider.");
-    return selectedGoal; 
+export function useTaskFormRefContext() {
+    const taskFormRef = useContext(TaskFormRefContext);
+    if (!taskFormRef)
+        throw new Error("Error: task form context is undefined, try wrapping element inside context provider.");
+    return taskFormRef;
 }

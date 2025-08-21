@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import dayjs from "dayjs";
 import Navbar from "./components/Navbar"
 import Dashboard from "./components/Dashboard"
-import { TasksContext, GoalSelectContext } from "./components/context";
+import { TasksContext } from "./components/context";
 import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
 
 const theme = createTheme({
@@ -54,14 +54,22 @@ const theme = createTheme({
   },
 });
 
+const navbarIndex = {
+  dashboard: 0,
+  timer: 1,
+  calendar: 2,
+  summaries: 3,
+  settings: 4,
+}
+
 function App() {
-  const [tab, setTab] = React.useState("dashboard");
+  const [tab, setTab] = useState(navbarIndex.dashboard);
   const [weeklyGoals, setWeeklyGoals] = useState([
     { id: 1, title: "Complete Project Report", status: "in-progress" },
     { id: 2, title: "Improve Fitness", status: "in-progress" },
     { id: 3, title: "Develop Coding Skills", status: "completed" }
   ]);
-  const [goalSelect, setGoalSelect] = useState('');
+
   const formRef = useRef(null);
   const taskTitleRef = useRef(null);
   const [tasks, setTasks] = useState([
@@ -131,23 +139,21 @@ function App() {
       <CssBaseline />
       <Box sx={{ display: "flex", minHeight: "100vh" }}>
         <Box sx={{ width: 300, flexShrink: 0, borderRight: 1, borderColor: "divider", position: 'sticky', top: 0, height: '100vh' }}>
-          <Navbar value={tab} onChange={setTab} />
+          <Navbar value={tab} onChange={setTab} index={navbarIndex} />
         </Box>
         <Box sx={{ flexGrow: 1, p: 3 }}>
-          <TabPanel value={tab} index="dashboard">
+          <TabPanel value={tab} index={navbarIndex.dashboard}>
             <TasksContext.Provider value={{ tasks, setTasks }}>
-              <GoalSelectContext.Provider value={{ goalSelect, setGoalSelect }}>
                 <Dashboard scrollToForm={scrollToForm} goals={weeklyGoals} onRemove={removeGoal} onAdd={addGoal} formRef={formRef} inputRef={taskTitleRef} />
-              </GoalSelectContext.Provider>
             </TasksContext.Provider>
           </TabPanel>
-          <TabPanel value={tab} index="timer">
+          <TabPanel value={tab} index={navbarIndex.timer}>
           </TabPanel>
-          <TabPanel value={tab} index="calendar">
+          <TabPanel value={tab} index={navbarIndex.calendar}>
           </TabPanel>
-          <TabPanel value={tab} index="summaries">
+          <TabPanel value={tab} index={navbarIndex.summaries}>
           </TabPanel>
-          <TabPanel value={tab} index="settings">
+          <TabPanel value={tab} index={navbarIndex.settings}>
           </TabPanel>
         </Box>
       </Box>

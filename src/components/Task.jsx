@@ -50,7 +50,7 @@ export default function Task(props) {
                         </Typography>
                     </Grid>
                     <Grid size='auto'>
-                        <Chip label={priortyText[props.priority]} color={priorityColors[props.priority]} size="small" sx={{ ml: 1 }} />
+                        <Chip label={priortyText[props.priority]} color={!props.status ? priorityColors[props.priority] : 'secondary'} size="small" sx={{ ml: 1, }} />
                     </Grid>
                     <Grid size={12}>
                         <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
@@ -67,8 +67,8 @@ export default function Task(props) {
                         justifyContent: "center",
                         mr: 1
                     }}>
-                    <Typography variant="body2" color={props.dueDate.isAfter(dayjs()) ? "primary" : "warning"}>{formatDate(props.dueDate)}</Typography>
-                    <Typography variant="body2" color={props.dueDate.isAfter(dayjs()) ? "primary" : "warning"}>
+                    <Typography variant="body2" color={props.status ? "secondary.dark" : props.dueDate.isAfter(dayjs()) ? "primary" : "warning"}>{formatDate(props.dueDate)}</Typography>
+                    <Typography variant="body2" color={props.status ? "secondary.dark" : props.dueDate.isAfter(dayjs()) ? "primary" : "warning"}>
                         {props.dueDate.format("h:mm A")}
                     </Typography>
                 </Grid>

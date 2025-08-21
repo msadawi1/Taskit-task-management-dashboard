@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import Button from "@mui/material/Button"
+import React, { useState, useRef  } from "react";
+import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -9,9 +9,6 @@ import TextField from "@mui/material/TextField";
 export default function GoalSection(props) {
     const [input, setInput] = useState('');
     const inputRef = useRef(null);
-    useEffect(() => {
-        inputRef.current.focus();
-    }, []);
     function updateInput(event) {
         const newValue = event.target.value;
         setInput(newValue);
@@ -33,7 +30,7 @@ export default function GoalSection(props) {
                         {...goal}
                         onRemove={props.onRemove}
                         onClick={props.scrollToForm}
-                        />
+                    />
                 </Grid>
             )}
             <Grid size={12}>
