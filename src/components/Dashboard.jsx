@@ -11,7 +11,6 @@ export default function Dahsboard({ scrollToForm, goals, onRemove, onAdd, formRe
     const taskFormRef = useRef(null);
     return (<Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
         <Header />
-        <Divider />
         <TaskFormRefContext.Provider value={taskFormRef}>
             <GoalSection scrollToForm={scrollToForm} goals={goals} onRemove={onRemove} onAdd={onAdd} />
             <Divider />

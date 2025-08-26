@@ -21,7 +21,6 @@ const TaskForm = forwardRef((props, ref) => {
         priority: '',
         error: ""
     });
-    console.log(taskFormInput.dueDate);
     useImperativeHandle(ref, () => ({
         setGoal: (goalId) => setTaskFormInput(prevValue => ({ ...prevValue, goalId: goalId }))
     }));

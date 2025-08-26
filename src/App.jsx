@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import dayjs from "dayjs";
 import Navbar from "./components/Navbar"
+import TimerMenu from "./components/TimerMenu";
 import Dashboard from "./components/Dashboard"
 import { TasksContext } from "./components/context";
 import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
@@ -26,21 +27,27 @@ const theme = createTheme({
       contrastText: '#454545ff',
     },
     warning: {
-      main: '#c62828',      // Red 800 (deep but vibrant)
-      dark: '#8e0000',      // Rich dark crimson
-      light: '#ef5350',     // Red 400 (slightly lighter than main)
+      main: '#c62828',      // Red 800
+      dark: '#8e0000',      // Dark crimson
+      light: '#ef5350',     // Red 400
       contrastText: '#ffffff',
     },
     info: {
-      main: '#ef6c00',      // Orange 800 (burnt orange)
-      dark: '#b53d00',      // Deep rust orange
-      light: '#ff9800',     // Orange 500 (vivid accent)
+      main: '#ef6c00',      // Orange 800 (keep as is)
+      dark: '#b53d00',
+      light: '#ff9800',
       contrastText: '#ffffff',
     },
     success: {
-      main: '#2e7d32',      // Green 800 (forest green)
-      dark: '#1b5e20',      // Darker evergreen
-      light: '#66bb6a',     // Green 400 (fresh accent)
+      main: '#2e7d32',      // Green 800
+      dark: '#1b5e20',
+      light: '#66bb6a',
+      contrastText: '#ffffff',
+    },
+    blue: {
+      main: '#11346aff',      // Blue 800 (deep blue for info-like use)
+      dark: '#0d47a1',      // Blue 900 (navy)
+      light: '#42a5f5',     // Blue 400 (bright accent)
       contrastText: '#ffffff',
     },
     background: {
@@ -53,6 +60,7 @@ const theme = createTheme({
     },
   },
 });
+
 
 const navbarIndex = {
   dashboard: 0,
@@ -144,10 +152,13 @@ function App() {
         <Box sx={{ flexGrow: 1, p: 3 }}>
           <TabPanel value={tab} index={navbarIndex.dashboard}>
             <TasksContext.Provider value={{ tasks, setTasks }}>
-                <Dashboard scrollToForm={scrollToForm} goals={weeklyGoals} onRemove={removeGoal} onAdd={addGoal} formRef={formRef} inputRef={taskTitleRef} />
+              <Dashboard scrollToForm={scrollToForm} goals={weeklyGoals} onRemove={removeGoal} onAdd={addGoal} formRef={formRef} inputRef={taskTitleRef} />
             </TasksContext.Provider>
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.timer}>
+            <TasksContext.Provider value={{ tasks, setTasks }}>
+              <TimerMenu />
+            </TasksContext.Provider>
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.calendar}>
           </TabPanel>
