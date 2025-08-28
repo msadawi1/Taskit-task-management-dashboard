@@ -1,19 +1,13 @@
-import React, { useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { decodeDuration } from "./utils/TimerUtils.js";
+import { useInterval } from "./hooks/useInterval.js";
 
-export default function Timer({ duration, onChange, onDecrement, isTimerStarted, isTimerPaused }) {
+export default function Timer({ duration, onChange, onDecrement, isStarted, isPaused }) {
     const { hours, minutes, seconds } = decodeDuration(duration);
-    useEffect(() => {
-        if (!isTimerStarted || isTimerPaused) return;
-        const interval = setInterval(() => {
-            onDecrement();
-        }, 1000);
-        return () => clearInterval(interval);
-    }, [isTimerStarted, isTimerPaused, onDecrement]);
+    useInterval(onDecrement, 1000, isStarted && !isPaused);
     return (
         <Grid container columnSpacing={3}>
             <Grid size={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
@@ -29,7 +23,7 @@ export default function Timer({ duration, onChange, onDecrement, isTimerStarted,
                         input: {
                             disableUnderline: true,
                         }
-                    }} disabled={isTimerStarted} required={true} id="hours" onChange={(e) => onChange(+e.target.value, minutes, seconds)} value={String(hours).padStart(2, "0")} />
+                    }} disabled={isStarted} required={true} id="hours" onChange={(e) => onChange(+e.target.value, minutes, seconds)} value={String(hours).padStart(2, "0")} />
                 </Paper>
                 <InputLabel id="hours" sx={{ fontSize: 18 }}>Hours</InputLabel>
             </Grid>
@@ -37,7 +31,7 @@ export default function Timer({ duration, onChange, onDecrement, isTimerStarted,
                 <Paper sx={{ alignSelf: 'stretch' }} elevation={0}>
                     <TextField variant="standard" fullWidth={true} size="large" name="minutes" slotProps={{
                         htmlInput: {
-                            'type': 'number', 'min': '3', 'max': '59', 'style': {
+                            'type': 'number', 'min': '5', 'max': '59', 'style': {
                                 padding: '20px',
                                 fontSize: '24px',
                                 textAlign: 'center'
@@ -46,7 +40,7 @@ export default function Timer({ duration, onChange, onDecrement, isTimerStarted,
                         input: {
                             disableUnderline: true,
                         }
-                    }} disabled={isTimerStarted} required={true} id="minutes" onChange={(e) => onChange(hours, +e.target.value, seconds)}
+                    }} disabled={isStarted} required={true} id="minutes" onChange={(e) => onChange(hours, +e.target.value, seconds)}
                         value={String(minutes).padStart(2, "0")} />
                 </Paper>
                 <InputLabel id="minutes" sx={{ fontSize: 18 }}>Minutes</InputLabel>
