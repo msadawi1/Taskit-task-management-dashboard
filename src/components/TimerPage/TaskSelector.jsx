@@ -2,11 +2,9 @@ import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
-import useTaskSelection from "../hooks/useTaskSelection";
 import MenuItem from "@mui/material/MenuItem";
 
-export default function TaskSelector() {
-    const { tasks, selectedTaskId, error, handleChange } = useTaskSelection();
+export default function TaskSelector({ tasks, taskId, onChange, error }) {
     function capitalize(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
@@ -18,8 +16,8 @@ export default function TaskSelector() {
                 labelId="task-select-label"
                 id="task-select"
                 label="Choose a task to focus on"
-                value={selectedTaskId}
-                onChange={handleChange}
+                value={taskId}
+                onChange={onChange}
                 required
             >
                 {tasks.filter(task => !task.status).map(task =>

@@ -5,33 +5,38 @@ import SessionSummary from "./TimerPage/SessionSummary.jsx";
 import TaskSelector from "./TimerPage/TaskSelector.jsx";
 import TimerControls from "./TimerPage/TimerControls.jsx";
 import SessionStatus from "./TimerPage/SessionStatus.jsx";
-import useTimer from "./hooks/useTimer.js"
+import useTimerSession from "./hooks/useTimerSession.js";
 
 export default function TimerMenu() {
     // default value 25 minutes
-    const { 
+    const {
         isStarted,
         isPaused,
         isFinished,
         elapsed,
         duration,
-        handleStart,
-        handleStop,
         togglePause,
         decrementCounter,
-        updateDuration
-     } = useTimer();
+        updateDuration,
+        tasks,
+        handleChange,
+        input,
+        error,
+        startSession,
+        stopSession,
+        getSelectedTaskTitle,
+    } = useTimerSession();
     return (
         <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
             <Header />
             <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 2 }}>
                 <Box sx={{ height: 70 }}>
-                    {!isStarted && <TaskSelector /> }
-                    {isStarted && <SessionStatus />}
+                    {!isStarted && <TaskSelector tasks={tasks} error={error} onChange={handleChange} taskId={input} />}
+                    {isStarted && <SessionStatus taskTitle={getSelectedTaskTitle()} />}
                 </Box>
                 <Timer duration={duration} onChange={updateDuration} onDecrement={decrementCounter} isStarted={isStarted} isPaused={isPaused} />
-                <TimerControls isStarted={isStarted} isPaused={isPaused} onStart={handleStart} onPause={togglePause} onStop={handleStop}/>
-                {isFinished && <SessionSummary elapsed={elapsed}/>}
+                <TimerControls isStarted={isStarted} isPaused={isPaused} onStart={startSession} onPause={togglePause} onStop={stopSession} />
+                {isFinished && <SessionSummary elapsed={elapsed} taskTitle={getSelectedTaskTitle()} />}
             </Box>
         </Box>
     );

@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react';
 import { decodeDuration, encodeDuration } from '../utils/TimerUtils';
+import { useState, useCallback } from 'react';
 
-export default function useTimer(durationMins = 25) {
+export default function useTimerCore(durationMins = 25) {
     const [isStarted, setStarted] = useState(false);
     const [isPaused, setPaused] = useState(false);
     const [elapsed, setElapsed] = useState(0);
@@ -15,26 +15,27 @@ export default function useTimer(durationMins = 25) {
         setPaused(false);
         setElapsed(0);
         setStarted(true);
+        setFinished(false);
     }
     const handleStop = useCallback(() => {
         setDuration(minDuration);
         setStarted(false);
         setPaused(false);
-    }, [minDuration]); 
+        setFinished(false);
+    }, [minDuration]);
     function togglePause() {
         setPaused(!isPaused);
     }
     const handleFinish = useCallback(() => {
-        setElapsed(prev => decodeDuration(Math.max(prev, 5000)));
-        setFinished(true);
-        alert("Timer has finished!");
+        setElapsed(prev => decodeDuration(prev));
         handleStop();
+        setFinished(true);
     }, [handleStop]);
     const decrementCounter = useCallback(() => {
         setDuration(prev => {
-            if (prev <= 1000) {
+            if (prev < 1000) {
                 handleFinish();
-                return 0;
+                return prev;
             }
             return Math.max(prev - 1000, 0)
         });
@@ -49,9 +50,8 @@ export default function useTimer(durationMins = 25) {
         duration,
         handleStop,
         handleStart,
-        handleFinish,
         togglePause,
         decrementCounter,
-        updateDuration
+        updateDuration,
     }
 }
