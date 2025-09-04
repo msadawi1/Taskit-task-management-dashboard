@@ -1,10 +1,11 @@
-import { decodeDuration, encodeDuration } from '../utils/TimerUtils';
+import { encodeDuration } from '../utils/TimerUtils';
 import { useState, useCallback } from 'react';
 
 export default function useTimerCore(durationMins = 25) {
     const [isStarted, setStarted] = useState(false);
     const [isPaused, setPaused] = useState(false);
-    const [elapsed, setElapsed] = useState(0);
+    // initial elapsed time as -1000 explained below
+    const [elapsed, setElapsed] = useState(-1000);
     const [duration, setDuration] = useState(encodeDuration(0, durationMins, 0));
     const [isFinished, setFinished] = useState(false);
     const minDuration = 60 * 1000;
@@ -13,21 +14,19 @@ export default function useTimerCore(durationMins = 25) {
     }
     function handleStart() {
         setPaused(false);
-        setElapsed(0);
+        setElapsed(-1000);
         setStarted(true);
         setFinished(false);
     }
     const handleStop = useCallback(() => {
-        setDuration(minDuration);
         setStarted(false);
         setPaused(false);
         setFinished(false);
-    }, [minDuration]);
+    }, []);
     function togglePause() {
         setPaused(!isPaused);
     }
     const handleFinish = useCallback(() => {
-        setElapsed(prev => decodeDuration(prev));
         handleStop();
         setFinished(true);
     }, [handleStop]);
@@ -35,12 +34,14 @@ export default function useTimerCore(durationMins = 25) {
         setDuration(prev => {
             if (prev < 1000) {
                 handleFinish();
-                return prev;
+                return minDuration;
             }
             return Math.max(prev - 1000, 0)
         });
+        // Note: prev < 1000 allows the user to see the 00 seconds timing but will increase elapsed time
+        // by 1 second, that's why we start with -1000.
         setElapsed(prev => prev + 1000);
-    }, [handleFinish]);
+    }, [handleFinish, minDuration]);
 
     return {
         isStarted,

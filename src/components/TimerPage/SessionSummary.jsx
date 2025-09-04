@@ -1,9 +1,10 @@
 import Typography from "@mui/material/Typography";
-// TODO: find a way to get task title
+
 export default function SessionSummary({ elapsed, taskTitle }) {
+    const totalMinutes = Math.round(((elapsed / 1000) / 60));
     return (
         <Typography variant="h5">
-            Well done! You have spent {(elapsed.hours * 60 || 0) + (elapsed.minutes || 0)} minutes focusing on <strong>{taskTitle}</strong>.
+            Well done! You have spent {totalMinutes ?? 'error'} {totalMinutes === 1 ? 'minute' : 'minutes'} focusing on <strong>{taskTitle}</strong>.
         </Typography>
     );
 }
