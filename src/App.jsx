@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react";
+import { uid } from 'uid';
 import dayjs from "dayjs";
 import Navbar from "./components/Navbar"
 import TimerMenu from "./components/TimerMenu";
 import Dashboard from "./components/Dashboard"
 import { TasksContext } from "./components/context";
 import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
+import useLogger from "./components/hooks/useLogger";
 
 const theme = createTheme({
   components: {
@@ -82,7 +84,7 @@ function App() {
   const taskTitleRef = useRef(null);
   const [tasks, setTasks] = useState([
     {
-      id: 1,
+      id: uid(),
       title: "Write Introduction & Methodology",
       priority: 0,
       weeklyGoalId: 1,
@@ -90,7 +92,7 @@ function App() {
       status: true
     },
     {
-      id: 2,
+      id: uid(),
       title: "Analyze Results & Create Charts",
       priority: 1,
       weeklyGoalId: 1,
@@ -98,7 +100,7 @@ function App() {
       status: false
     },
     {
-      id: 3,
+      id: uid(),
       title: "Run 10km",
       priority: 0,
       weeklyGoalId: 2,
@@ -106,7 +108,7 @@ function App() {
       status: false
     },
     {
-      id: 4,
+      id: uid(),
       title: "Do strength training (upper body)",
       priority: 2,
       weeklyGoalId: 2,
@@ -114,7 +116,7 @@ function App() {
       status: true
     },
     {
-      id: 5,
+      id: uid(),
       title: "Solve 5 coding challenges",
       priority: 0,
       weeklyGoalId: 3,
@@ -142,6 +144,7 @@ function App() {
   function TabPanel({ children, value, index }) {
     return value === index ? <Box sx={{ p: 2, flexGrow: 1 }}>{children}</Box> : null;
   }
+  useLogger("Tasks array:", tasks);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

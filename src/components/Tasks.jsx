@@ -1,4 +1,5 @@
 import React from "react";
+import { uid } from "uid";
 import { useTasksContext } from "./context";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -10,7 +11,7 @@ export default function TaskSection(props) {
     const { tasks, setTasks } = useTasksContext();
     function addTask(title, goalId, priority, dueDate) {
         setTasks(prevValue => [...prevValue, {
-            id: prevValue.length + 1, // to be fixed led
+            id: uid(),
             title: title,
             priority: priority,
             weeklyGoalId: goalId,
