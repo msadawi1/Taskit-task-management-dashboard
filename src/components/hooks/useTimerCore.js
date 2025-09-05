@@ -22,14 +22,16 @@ export default function useTimerCore(durationMins = 25) {
         setStarted(false);
         setPaused(false);
         setFinished(false);
-    }, []);
+        setDuration(minDuration);
+    }, [minDuration]);
     function togglePause() {
         setPaused(!isPaused);
     }
     const handleFinish = useCallback(() => {
-        handleStop();
+        setStarted(false);
+        setPaused(false);
         setFinished(true);
-    }, [handleStop]);
+    }, []);
     const decrementCounter = useCallback(() => {
         setDuration(prev => {
             if (prev < 1000) {
