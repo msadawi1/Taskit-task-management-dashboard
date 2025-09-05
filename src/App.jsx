@@ -1,11 +1,10 @@
 import React, { useState, useRef } from "react";
-import { uid } from 'uid';
-import dayjs from "dayjs";
 import Navbar from "./components/Navbar"
 import TimerMenu from "./components/TimerMenu";
 import Dashboard from "./components/Dashboard"
 import { TasksContext } from "./components/context";
 import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
+import useGoalTasks from "./components/hooks/useGoalTasks";
 import useLogger from "./components/hooks/useLogger";
 
 const theme = createTheme({
@@ -74,72 +73,14 @@ const navbarIndex = {
 
 function App() {
   const [tab, setTab] = useState(navbarIndex.dashboard);
-  const [weeklyGoals, setWeeklyGoals] = useState([
-    { id: 1, title: "Complete Project Report", status: "in-progress" },
-    { id: 2, title: "Improve Fitness", status: "in-progress" },
-    { id: 3, title: "Develop Coding Skills", status: "completed" }
-  ]);
-
+  const {weeklyGoals, tasks, removeGoalAndTasks, addGoal, setTasks} = useGoalTasks();
   const formRef = useRef(null);
   const taskTitleRef = useRef(null);
-  const [tasks, setTasks] = useState([
-    {
-      id: uid(),
-      title: "Write Introduction & Methodology",
-      priority: 0,
-      weeklyGoalId: 1,
-      dueDate: dayjs("2025-08-19T10:00:00"),
-      status: true
-    },
-    {
-      id: uid(),
-      title: "Analyze Results & Create Charts",
-      priority: 1,
-      weeklyGoalId: 1,
-      dueDate: dayjs("2025-08-20T14:00:00"),
-      status: false
-    },
-    {
-      id: uid(),
-      title: "Run 10km",
-      priority: 0,
-      weeklyGoalId: 2,
-      dueDate: dayjs("2025-08-21T07:30:00"),
-      status: false
-    },
-    {
-      id: uid(),
-      title: "Do strength training (upper body)",
-      priority: 2,
-      weeklyGoalId: 2,
-      dueDate: dayjs("2025-08-19T18:30:00"),
-      status: true
-    },
-    {
-      id: uid(),
-      title: "Solve 5 coding challenges",
-      priority: 0,
-      weeklyGoalId: 3,
-      dueDate: dayjs("2025-08-17T20:00:00"),
-      status: true
-    }
-  ]);
   function scrollToForm() {
     formRef.current?.scrollIntoView({ behavior: 'smooth' });
     setTimeout(() => {
       taskTitleRef.current?.focus();
     }, 300);
-  }
-  function removeGoal(id) {
-    setWeeklyGoals(prevGoals => prevGoals.filter(goal => goal.id !== id));
-    setTasks(prevValue => prevValue.filter(task => task.weeklyGoalId !== id));
-  }
-  function addGoal(input) {
-    setWeeklyGoals(prevValue => [...prevValue, {
-      id: prevValue.length > 0 ? prevValue[prevValue.length - 1].id + 1 : 1,
-      title: input,
-      status: 'in-progress'
-    }]);
   }
   function TabPanel({ children, value, index }) {
     return value === index ? <Box sx={{ p: 2, flexGrow: 1 }}>{children}</Box> : null;
@@ -155,7 +96,7 @@ function App() {
         <Box sx={{ flexGrow: 1, p: 3 }}>
           <TabPanel value={tab} index={navbarIndex.dashboard}>
             <TasksContext.Provider value={{ tasks, setTasks }}>
-              <Dashboard scrollToForm={scrollToForm} goals={weeklyGoals} onRemove={removeGoal} onAdd={addGoal} formRef={formRef} inputRef={taskTitleRef} />
+              <Dashboard scrollToForm={scrollToForm} goals={weeklyGoals} onRemove={removeGoalAndTasks} onAdd={addGoal} formRef={formRef} inputRef={taskTitleRef} />
             </TasksContext.Provider>
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.timer}>

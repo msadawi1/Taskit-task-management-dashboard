@@ -16,7 +16,6 @@ export default function GoalSection(props) {
     const addGoal = (event) => {
         props.onAdd(input)
         event.preventDefault();
-        console.log(event);
         setInput('');
     }
     return (
