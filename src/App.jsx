@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
 import Navbar from "./components/Navbar"
 import TimerMenu from "./components/TimerMenu";
-import Dashboard from "./components/Dashboard"
+import Dashboard from "./components/Dashboard";
+import Calendar from "./components/Calendar"
 import { TasksContext } from "./components/context";
 import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
-import useGoalTasks from "./components/hooks/useGoalTasks";
+import useManager from "./components/hooks/useManager";
 import useLogger from "./components/hooks/useLogger";
 
 const theme = createTheme({
@@ -73,7 +74,7 @@ const navbarIndex = {
 
 function App() {
   const [tab, setTab] = useState(navbarIndex.dashboard);
-  const {weeklyGoals, tasks, removeGoalAndTasks, addGoal, setTasks} = useGoalTasks();
+  const { weeklyGoals, tasks, removeGoalAndTasks, addGoal, setTasks } = useManager();
   const formRef = useRef(null);
   const taskTitleRef = useRef(null);
   function scrollToForm() {
@@ -105,6 +106,7 @@ function App() {
             </TasksContext.Provider>
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.calendar}>
+            <Calendar />
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.summaries}>
           </TabPanel>
