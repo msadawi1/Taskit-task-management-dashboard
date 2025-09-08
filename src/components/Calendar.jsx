@@ -1,34 +1,35 @@
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import useLocalStorage from './hooks/useLocalStorage';
+import useManager from './hooks/useManager';
 import dayjs from 'dayjs';
 import { uid } from 'uid';
 
 export default function Calendar() {
-    const [currentEvents, setCurrentEvents] = useLocalStorage("events", []);
+    const {tasks, setTasks} = useManager();
 
     function handleDateSelect(selectInfo) {
+        console.log(selectInfo);
         let title = prompt('Please enter a new title for your event')
         let calendarApi = selectInfo.view.calendar
-
         calendarApi.unselect() // clear date selection
 
         if (title) {
-            const newEvent = {
+            const newTask = {
                 id: uid(),
-                title,
-                start: dayjs(selectInfo.startStr),
-                end: dayjs(selectInfo.endStr),
-                allDay: selectInfo.allDay
+                dueDate: dayjs(),
+                priority: 2,
+                status: false,
+                title: title, 
+                weeklyGoalId: "b4fcc22e66e",
             };
-            setCurrentEvents([...currentEvents, newEvent]);
+            setTasks(prev => [...prev, newTask]);
         }
     }
     function handleEventClick(clickInfo) {
         if (window.confirm(`Delete event '${clickInfo.event.title}'?`)) {
-            setCurrentEvents(
-                currentEvents.filter(event => event.id !== clickInfo.event.id)
+            setTasks( 
+                prev => prev.filter(event => event.id !== clickInfo.event.id)
             );
         }
     }
@@ -55,11 +56,12 @@ export default function Calendar() {
             select={handleDateSelect}
             eventClick={handleEventClick}
             eventContent={renderEventContent}
-            events={currentEvents.map(event => ({ // performance issue here: to be fixed
-                ...event,
-                start: event.start.toDate(),
-                end: event.end?.toDate(),
-            }))}
+            events={tasks}
         />
     );
+    // currentEvents.map(event => ({ // performance issue here: to be fixed
+    //     ...event,
+    //     start: event.start.toDate(),
+    //     end: event.end?.toDate(),
+    // }))
 }

@@ -38,7 +38,7 @@ export default function Task(props) {
         }
     }
     return (
-        <Paper elevation={0} sx={{ p: 1 }}>
+        <Paper elevation={0} sx={{ p: 2 }}>
             <Grid container rowSpacing={1} columnSpacing={0.8} sx={{ width: "100%" }} alignItems='flex-start'>
                 <Grid size="auto">
                     <Checkbox onChange={toggleCheck} checked={isChecked} size="small" variant='contained' color='primary' disableelevation="true" sx={{ fontWeight: "400", borderRadius: 4, p: 0 }} />

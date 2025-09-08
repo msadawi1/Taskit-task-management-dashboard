@@ -41,7 +41,7 @@ export default function GoalSection(props) {
                             },
                         }} autoComplete="false" required={true} inputRef={inputRef} value={input} onChange={updateInput} label="Goal title" variant="standard" InputLabelProps={{ style: { fontSize: 18 } }} />
                         <Box sx={{ display: 'flex' }}>
-                            <Button variant="contained" size="medium" disableElevation color="primary" type="submit" sx={{ borderRadius: 0, flexGrow: 1 }}>Add Goal</Button>
+                            <Button variant="contained" disableElevation color="primary" type="submit" sx={{ borderRadius: 0, flexGrow: 1 }}>Add Goal</Button>
                         </Box>
                     </Box>
                 </form>
