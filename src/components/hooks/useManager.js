@@ -28,7 +28,7 @@ export default function useManager() {
 * @param {string} goalId - id of the goal to be removed.
 */
     function removeGoalTasks(goalId) {
-        setTasks(prevValue => prevValue.filter(task => task.weeklyGoalId !== goalId));
+        setTasks(prevValue => prevValue.filter(task => task.goalId !== goalId));
     }
     /**
 * remove a goal and all of its tasks.

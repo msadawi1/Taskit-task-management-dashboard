@@ -8,8 +8,8 @@ export default function Duedate({ value, onChange, error }) {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker minDate={dayjs()} label="Due Date" value={value} slotProps={{
                 textField: {
-                    error: error,
-                    helperText: error ? 'Please choose a vlid date' : '',
+                    error: error === "date" ? true : false,
+                    helperText: error === "date" ? 'Please choose a valid date' : '',
                     fullWidth: true,
                 },
             }} onChange={onChange} />

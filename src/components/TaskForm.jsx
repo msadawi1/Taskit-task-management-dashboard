@@ -1,9 +1,12 @@
 import React, { useState, useImperativeHandle, forwardRef } from "react";
+import diffInMinutes from "./utils/TaskFormUtils";
 import dayjs from 'dayjs';
 import TextField from "@mui/material/TextField";
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import Goal from "./TaskForm/Goal";
 import Priority from "./TaskForm/Priority";
 import Duedate from "./TaskForm/Duedate";
@@ -20,35 +23,37 @@ const TaskForm = forwardRef((props, ref) => {
         { id: 3, title: 'Relationships' },
         { id: 4, title: 'Health' }
     ];
-    const [taskFormInput, setTaskFormInput] = useState({
+    const initialValue = {
         title: "",
         goalId: '',
         category: '',
         priority: '',
         dueDate: null,
-        start: null,
-        end: null,
+        allDay: false,
+        start: '',
+        end: '',
         location: '',
-        duration: '',
-        error: false
-    });
+        duration: 0,
+        error: null,
+    };
+    const [taskFormInput, setTaskFormInput] = useState(initialValue);
     useImperativeHandle(ref, () => ({
         setGoal: (goalId) => setTaskFormInput(prevValue => ({ ...prevValue, goalId: goalId }))
     }));
     function handleDateChange(newValue) {
         const yesterday = dayjs().subtract(1, "day");
         if (!newValue) {
-            setTaskFormInput(prev => ({ ...prev, dueDate: null, error: true }));
+            setTaskFormInput(prev => ({ ...prev, dueDate: null, error: "date" }));
             return;
         }
         if (!newValue.isAfter(yesterday)) {
             setTaskFormInput(prev => ({
                 ...prev,
                 dueDate: null,
-                error: true,
+                error: "date",
             }));
         } else {
-            setTaskFormInput(prev => ({ ...prev, dueDate: newValue, error: false }));
+            setTaskFormInput(prev => ({ ...prev, dueDate: newValue, error: null }));
         }
     }
     function addTask(event) {
@@ -56,28 +61,44 @@ const TaskForm = forwardRef((props, ref) => {
         if (!taskFormInput.dueDate) {
             setTaskFormInput(prevValue => ({
                 ...prevValue,
-                error: true,
+                error: "date",
             }));
             return;
         };
-        props.onAdd(taskFormInput.title, taskFormInput.goalId, taskFormInput.priority, taskFormInput.dueDate);
-        setTaskFormInput({
-            title: "",
-            goalId: '',
-            dueDate: null,
-            priority: '',
-            error: false
-        });
+        const { error, ...data } = taskFormInput
+        props.onAdd(data);
+        setTaskFormInput(initialValue);
     }
     function handleChange(event) {
-        const { name, value } = event.target;
-        console.log(name, value);
-        
-        setTaskFormInput(prevValue => ({
-            ...prevValue,
-            [name]: value,
-        }));
+        let { name, value } = event.target;
+        if (name === 'allDay') {
+            value = event.target.checked;
+        }
+        setTaskFormInput(prevValue => {
+            let updated = {
+                ...prevValue,
+                [name]: value,
+            }
+            if (name === 'start' || 'end') {
+                if (updated.start && updated.end) {
+                    let diff = diffInMinutes(updated.start, updated.end);
+                    if (diff <= 0) {
+                        updated.error = "duration";
+                    }
+                    else {
+                        updated.duration = diff;
+                        updated.error = null;
+                    }
+                }
+            }
+            else {
+                updated.duration = 0;
+            }
+            return updated;
+        });
+
     }
+
     return (<form onSubmit={addTask} autoComplete="off" ref={props.formRef}>
         <Grid container columnSpacing={1} rowSpacing={2} sx={{ width: '100%' }}>
             <Grid size={6}>
@@ -85,9 +106,9 @@ const TaskForm = forwardRef((props, ref) => {
             </Grid>
             <Grid display='flex' size={6} justifyContent='flex-end'>
                 <IconButton variant="h5" fontWeight={500} onClick={props.onClose}>
-                    <CloseIcon color="primary"/>
+                    <CloseIcon color="primary" />
                 </IconButton>
-            </Grid> 
+            </Grid>
             <Grid size={12}>
                 <TextField name="title" required={true} id="standard-outlined" sx={{ width: '100%' }} size="medium" value={taskFormInput.title} onChange={handleChange} label="Task Title" inputRef={props.inputRef} />
             </Grid>
@@ -101,14 +122,22 @@ const TaskForm = forwardRef((props, ref) => {
                 <Priority onChange={handleChange} value={taskFormInput.priority} />
             </Grid>
             <Grid size={12}>
-                <Duedate onChange={handleDateChange} value={taskFormInput.dueDate} error={taskFormInput.error}/>
+                <TextField name="location" required={false} id="standard-outlined" sx={{ width: '100%' }} size="medium" value={taskFormInput.location} onChange={handleChange} label="Location (optional)" />
             </Grid>
-            <Grid size={6}>
-                <StartTime onChange={handleDateChange} value={taskFormInput.start} />
+            <Grid size={9}>
+                <Duedate onChange={handleDateChange} value={taskFormInput.dueDate} error={taskFormInput.error} />
             </Grid>
-            <Grid size={6}>
-                <EndTime onChange={handleDateChange} value={taskFormInput.start} />
+            <Grid size={3}>
+                <FormControlLabel control={<Switch checked={taskFormInput.allDay} name="allDay" onChange={handleChange} />} label="All Day" color="primary" labelPlacement="top" />
             </Grid>
+            {!taskFormInput.allDay && <>
+                <Grid size={6} sx={{ mt: -0.5 }}>
+                    <StartTime onChange={handleChange} value={taskFormInput.start} duration={taskFormInput.duration} error={taskFormInput.error} />
+                </Grid>
+                <Grid size={6} sx={{ mt: -0.5 }} >
+                    <EndTime onChange={handleChange} value={taskFormInput.end} />
+                </Grid>
+            </>}
             <Grid size={12}>
                 <Button fullWidth variant='contained' type="submit" color='primary' disableElevation sx={{ borderRadius: 0 }}>Add</Button>
             </Grid>

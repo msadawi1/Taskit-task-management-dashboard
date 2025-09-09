@@ -21,7 +21,7 @@ export default function Calendar() {
                 priority: 2,
                 status: false,
                 title: title, 
-                weeklyGoalId: "b4fcc22e66e",
+                goalId: "b4fcc22e66e",
             };
             setTasks(prev => [...prev, newTask]);
         }

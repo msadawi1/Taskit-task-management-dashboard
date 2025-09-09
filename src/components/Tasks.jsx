@@ -10,18 +10,17 @@ import TaskForm from "./TaskForm";
 import Button from "@mui/material/Button";
 import { motion, AnimatePresence } from "framer-motion";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 export default function TaskSection(props) {
     const { tasks, setTasks } = useTasksContext();
     const [showForm, setShowForm] = useState(false);
-    function addTask(title, goalId, priority, dueDate) {
+    // addTask arguments should be exactly as the form state inside TaskForm.jsx
+    function addTask(task) {
         setTasks(prevValue => [...prevValue, {
             id: uid(),
-            title: title,
-            priority: priority,
-            weeklyGoalId: goalId,
-            dueDate: dueDate,
+            ...task,
+            status: false,
         }]);
     }
     function completeTask(id) {
@@ -50,12 +49,12 @@ export default function TaskSection(props) {
             <Grid container size={12} sx={{ m: 0, pt: 2 }}>
                 {ongoingTasks.map(task =>
                     <Grid key={task.id} size={12}>
-                        <Task onCheck={completeTask} {...task} goal={props.goals.find(goal => goal.id === task.weeklyGoalId)} onHide={removeTask} />
+                        <Task onCheck={completeTask} {...task} goal={props.goals.find(goal => goal.id === task.goalId)} onHide={removeTask} />
                     </Grid>
                 )}
                 {completedTasks.map(task =>
                     <Grid key={task.id} size={12}>
-                        <Task onCheck={completeTask} {...task} goal={props.goals.find(goal => goal.id === task.weeklyGoalId)} onHide={removeTask} />
+                        <Task onCheck={completeTask} {...task} goal={props.goals.find(goal => goal.id === task.goalId)} onHide={removeTask} />
                     </Grid>
                 )}
             </Grid>

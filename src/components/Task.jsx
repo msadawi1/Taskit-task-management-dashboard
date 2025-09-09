@@ -7,6 +7,9 @@ import Checkbox from '@mui/material/Checkbox';
 import Chip from '@mui/material/Chip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from "@mui/material/IconButton";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 const priorityColors = {
     0: 'warning',
@@ -21,9 +24,9 @@ const priortyText = {
 };
 
 export default function Task(props) {
-    const [isChecked, setChecked] = useState(props.status);
+    const [checked, setChecked] = useState(props.status);
     function toggleCheck() {
-        setChecked(!isChecked);
+        setChecked(!checked);
         props.onCheck(props.id);
     }
     function formatDate(d) {
@@ -39,38 +42,46 @@ export default function Task(props) {
     }
     return (
         <Paper elevation={0} sx={{ p: 2 }}>
-            <Grid container rowSpacing={1} columnSpacing={0.8} sx={{ width: "100%" }} alignItems='flex-start'>
+            <Grid container rowSpacing={1} columnSpacing={0.8} sx={{ width: "100%" }} alignItems='center'>
                 <Grid size="auto">
-                    <Checkbox onChange={toggleCheck} checked={isChecked} size="small" variant='contained' color='primary' disableelevation="true" sx={{ fontWeight: "400", borderRadius: 4, p: 0 }} />
+                    <Checkbox icon={<RadioButtonUncheckedIcon />} checkedIcon={<CheckCircleIcon />} onChange={toggleCheck} checked={checked} size="medium" variant='contained' color='primary' disableelevation="true" sx={{ fontWeight: "400", borderRadius: '50%', p: 0 }} />
                 </Grid>
-                <Grid size="grow" container spacing={0} direction='row' sx={{ p: 0, m: 0 }}>
-                    <Grid size='auto'>
-                        <Typography variant='subtitle1' fontWeight={400} sx={{ lineHeight: 1.2, textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'secondary.dark' : 'primary.main' }}>
-                            {props.title}
-                        </Typography>
+                <Grid size="grow" container direction='column' spacing={0} sx={{ p: 0, m: 0 }}>
+                    <Grid container display='flex' alignItems='center'>
+                        <Grid size='auto'>
+                            <Typography variant='subtitle1' fontWeight={400} sx={{ lineHeight: 1.2, textDecoration: checked ? 'line-through' : 'none', color: checked ? 'secondary.dark' : 'primary.main' }}>
+                                {props.title}
+                            </Typography>
+                        </Grid>
+                        <Grid size='auto'>
+                            <Chip label={priortyText[props.priority]} color={!props.status ? priorityColors[props.priority] : 'secondary'} size="small" sx={{ ml: 1, }} />
+                        </Grid>
                     </Grid>
-                    <Grid size='auto'>
-                        <Chip label={priortyText[props.priority]} color={!props.status ? priorityColors[props.priority] : 'secondary'} size="small" sx={{ ml: 1, }} />
+                    <Grid size={12} container columnSpacing={1.5} sx={{ mt: 0.5 }}>
+                        {!props.allDay && <Grid size="auto" display='flex' gap={0.2}>
+                            <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
+                                <AccessTimeIcon sx={{ fontSize: 14 }} />
+                            </Typography>
+                            <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
+                                {props.duration / 60}h
+                            </Typography>
+                        </Grid>}
+                        <Grid size="auto">
+                            <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
+                                {props.goal.title}
+                            </Typography>
+                        </Grid>
+                        {props.location && <Grid size="auto">
+                            <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
+                                {props.location}
+                            </Typography>
+                        </Grid>}
+                        <Grid size="auto">
+                            <Typography variant='caption' sx={{ display: "block", lineHeight: 1.2, m: 0 }} color={props.status ? "secondary.dark" : props.dueDate.isBefore(dayjs().add(1, "day")) ? "secondary.dark" : "warning"}>
+                                {formatDate(props.dueDate)}
+                            </Typography>
+                        </Grid>
                     </Grid>
-                    <Grid size={12}>
-                        <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
-                            <strong style={{ fontWeight: 500 }}>Weekly Goal:</strong> {props.goal.title}
-                        </Typography>
-                    </Grid>
-                </Grid>
-                <Grid
-                    size="auto"
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "flex-end",
-                        justifyContent: "center",
-                        mr: 1
-                    }}>
-                    <Typography variant="body2" color={props.status ? "secondary.dark" : props.dueDate.isAfter(dayjs()) ? "primary" : "warning"}>{formatDate(props.dueDate)}</Typography>
-                    <Typography variant="body2" color={props.status ? "secondary.dark" : props.dueDate.isAfter(dayjs()) ? "primary" : "warning"}>
-                        {props.dueDate.format("h:mm A")}
-                    </Typography>
                 </Grid>
                 <Grid size="auto" >
                     <IconButton onClick={() => props.onHide(props.id)}>
