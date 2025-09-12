@@ -1,16 +1,13 @@
-import React from "react";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useTaskFormRefContext } from "./context";
 
 export default function WeeklyGoal(props) {
-    const taskFormRef = useTaskFormRefContext();
     function handleClick() {
-        taskFormRef.current?.setGoal(props.id);
         props.onClick();
+
     }
     return (
         <Grid container columnSpacing={1} sx={{ width: "100%" }} alignItems='center'>

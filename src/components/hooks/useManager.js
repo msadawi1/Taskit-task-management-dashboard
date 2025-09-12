@@ -38,14 +38,42 @@ export default function useManager() {
         removeGoal(id);
         removeGoalTasks(id);
     }
+    /**
+* remove a goal and all of its tasks.
+* @param {task} task task object 
+*/
+    function addTask(task) {
+        setTasks(prevValue => [...prevValue, {
+            id: uid(),
+            ...task,
+            status: false,
+        }]);
+    }
+    /**
+* remove a goal and all of its tasks.
+* @param {string} id - id of the task to be completed
+*/
+    function completeTask(id) {
+        setTasks(prevValue => prevValue.map(task => task.id === id ? { ...task, status: !task.status } : task));
+    }
+    /**
+* remove a goal and all of its tasks.
+* @param {string} id - id of the task to be removed
+*/
+    function removeTask(id) {
+        setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
+    }
     return {
         tasks,
         setTasks,
+        addTask,
+        completeTask,
+        removeTask,
         removeGoalTasks,
         weeklyGoals,
         setWeeklyGoals,
         removeGoal,
         addGoal,
-        removeGoalAndTasks
+        removeGoalAndTasks,
     }
 }

@@ -1,21 +1,20 @@
-import React, { useRef } from "react";
+import { useState } from "react";
 import Divider from "@mui/material/Divider";
 import Box from '@mui/material/Box'
 import Header from "./Header";
 import Footer from "./Footer";
 import GoalSection from "./Goals";
 import Tasks from "./Tasks";
-import { TaskFormRefContext } from "./context";
 
-export default function Dahsboard({ scrollToForm, goals, onRemove, onAdd, formRef, inputRef }) {
-    const taskFormRef = useRef(null);
+export default function Dahsboard({ goals, onRemove, onAdd, inputRef }) {
+    const [isFormVisible, setFormVisible] = useState(false);
+    // default form goal input (set by goal section buttons)
+    const [goal, setGoal] = useState('');
     return (<Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
         <Header />
-        <TaskFormRefContext.Provider value={taskFormRef}>
-            <GoalSection scrollToForm={scrollToForm} goals={goals} onRemove={onRemove} onAdd={onAdd} />
-            <Divider />
-            <Tasks taskFormRef={taskFormRef} formRef={formRef} inputRef={inputRef} goals={goals} />
-        </TaskFormRefContext.Provider>
+        <GoalSection onClick={setGoal} setFormVisible={setFormVisible} goals={goals} onRemove={onRemove} onAdd={onAdd} />
+        <Divider />
+        <Tasks goal={goal} onClose={() => setGoal('')} isFormVisible={isFormVisible} setFormVisible={setFormVisible} inputRef={inputRef} goals={goals} />
         <Footer />
     </Box>);
 }

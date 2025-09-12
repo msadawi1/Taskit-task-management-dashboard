@@ -1,6 +1,3 @@
-import React, { useState } from "react";
-import { uid } from "uid";
-import { useTasksContext } from "./context";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -9,26 +6,12 @@ import Task from "./Task";
 import TaskForm from "./TaskForm";
 import Button from "@mui/material/Button";
 import { motion, AnimatePresence } from "framer-motion";
+import useManager from "./hooks/useManager";
 
 const MotionBox = motion.create(Box);
 
 export default function TaskSection(props) {
-    const { tasks, setTasks } = useTasksContext();
-    const [showForm, setShowForm] = useState(false);
-    // addTask arguments should be exactly as the form state inside TaskForm.jsx
-    function addTask(task) {
-        setTasks(prevValue => [...prevValue, {
-            id: uid(),
-            ...task,
-            status: false,
-        }]);
-    }
-    function completeTask(id) {
-        setTasks(prevValue => prevValue.map(task => task.id === id ? { ...task, status: !task.status } : task));
-    }
-    function removeTask(id) {
-        setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
-    }
+    const { tasks, addTask, removeTask, completeTask } = useManager();
     const completedTasks = [];
     const ongoingTasks = [];
     tasks.forEach(task => {
@@ -44,7 +27,7 @@ export default function TaskSection(props) {
                 <Typography variant='h5' fontWeight={500} color="primary">Daily Tasks</Typography>
             </Grid>
             <Grid display="flex" size={6} justifyContent='flex-end'>
-                <Button variant="contained" onClick={() => setShowForm(true)}>New Task</Button>
+                <Button variant="contained" onClick={() => props.setFormVisible(true)}>New Task</Button>
             </Grid>
             <Grid container size={12} sx={{ m: 0, pt: 2 }}>
                 {ongoingTasks.map(task =>
@@ -60,7 +43,7 @@ export default function TaskSection(props) {
             </Grid>
         </Grid>
         <AnimatePresence>
-            {showForm && <MotionBox
+            {props.isFormVisible && <MotionBox
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -86,12 +69,22 @@ export default function TaskSection(props) {
                     transition={{ duration: 0.1, ease: "easeOut" }} sx={{ maxWidth: '30vw' }}>
                     <Paper elevation={10} sx={{ p: 3, borderRadius: 3 }}>
                         <TaskForm
-                            ref={props.taskFormRef}
-                            formRef={props.formRef}
-                            inputRef={props.inputRef}
                             onAdd={addTask}
                             weeklyGoals={props.goals}
-                            onClose={() => { setShowForm(false) }}
+                            onClose={() => { props.setFormVisible(false); props.onClose() }}
+                            data={{
+                                title: "",
+                                goalId: props.goal,
+                                category: '',
+                                priority: '',
+                                dueDate: null,
+                                allDay: false,
+                                start: '',
+                                end: '',
+                                location: '',
+                                duration: 0,
+                                error: null,
+                            }}
                         />
                     </Paper>
                 </MotionBox>

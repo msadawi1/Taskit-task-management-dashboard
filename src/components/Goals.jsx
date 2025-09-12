@@ -28,7 +28,10 @@ export default function GoalSection(props) {
                     <WeeklyGoal
                         {...goal}
                         onRemove={props.onRemove}
-                        onClick={props.scrollToForm}
+                        onClick={() => { 
+                            props.setFormVisible(true) 
+                            props.onClick(goal.id) 
+                        }}
                     />
                 </Grid>
             )}

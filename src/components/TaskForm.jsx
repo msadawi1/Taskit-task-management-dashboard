@@ -1,4 +1,4 @@
-import React, { useState, useImperativeHandle, forwardRef } from "react";
+import { useState } from "react";
 import diffInMinutes from "./utils/TaskFormUtils";
 import dayjs from 'dayjs';
 import TextField from "@mui/material/TextField";
@@ -15,31 +15,17 @@ import StartTime from "./TaskForm/StartTime";
 import EndTime from "./TaskForm/EndTime";
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close';
+import useManager from "./hooks/useManager";
 
-const TaskForm = forwardRef((props, ref) => {
+export default function TaskForm({ data, onAdd, onClose }) {
+    const { weeklyGoals } = useManager();
     const categories = [
         { id: 1, title: 'Ibadah' },
         { id: 2, title: 'Career' },
         { id: 3, title: 'Relationships' },
         { id: 4, title: 'Health' }
     ];
-    const initialValue = {
-        title: "",
-        goalId: '',
-        category: '',
-        priority: '',
-        dueDate: null,
-        allDay: false,
-        start: '',
-        end: '',
-        location: '',
-        duration: 0,
-        error: null,
-    };
-    const [taskFormInput, setTaskFormInput] = useState(initialValue);
-    useImperativeHandle(ref, () => ({
-        setGoal: (goalId) => setTaskFormInput(prevValue => ({ ...prevValue, goalId: goalId }))
-    }));
+    const [taskFormInput, setTaskFormInput] = useState(data);
     function handleDateChange(newValue) {
         const yesterday = dayjs().subtract(1, "day");
         if (!newValue) {
@@ -65,9 +51,9 @@ const TaskForm = forwardRef((props, ref) => {
             }));
             return;
         };
-        const { error, ...data } = taskFormInput
-        props.onAdd(data);
-        setTaskFormInput(initialValue);
+        const { error, ...formData } = taskFormInput
+        onAdd(formData);
+        onClose();
     }
     function handleChange(event) {
         let { name, value } = event.target;
@@ -79,7 +65,7 @@ const TaskForm = forwardRef((props, ref) => {
                 ...prevValue,
                 [name]: value,
             }
-            if (name === 'start' || 'end') {
+            if (name === 'start' || name === 'end') {
                 if (updated.start && updated.end) {
                     let diff = diffInMinutes(updated.start, updated.end);
                     if (diff <= 0) {
@@ -92,28 +78,28 @@ const TaskForm = forwardRef((props, ref) => {
                 }
             }
             else {
-                updated.duration = 0;
+                updated.duration = prevValue.duration;
             }
             return updated;
         });
 
     }
 
-    return (<form onSubmit={addTask} autoComplete="off" ref={props.formRef}>
+    return (<form onSubmit={addTask} autoComplete="off">
         <Grid container columnSpacing={1} rowSpacing={2} sx={{ width: '100%' }}>
             <Grid size={6}>
                 <Typography variant="h5" fontWeight={500}>Add New Task</Typography>
             </Grid>
             <Grid display='flex' size={6} justifyContent='flex-end'>
-                <IconButton variant="h5" fontWeight={500} onClick={props.onClose}>
+                <IconButton variant="h5" fontWeight={500} onClick={onClose}>
                     <CloseIcon color="primary" />
                 </IconButton>
             </Grid>
             <Grid size={12}>
-                <TextField name="title" required={true} id="standard-outlined" sx={{ width: '100%' }} size="medium" value={taskFormInput.title} onChange={handleChange} label="Task Title" inputRef={props.inputRef} />
+                <TextField name="title" required={true} id="standard-outlined" sx={{ width: '100%' }} size="medium" value={taskFormInput.title} onChange={handleChange} label="Task Title" />
             </Grid>
             <Grid size={12}>
-                <Goal goals={props.weeklyGoals} onChange={handleChange} value={taskFormInput.goalId} />
+                <Goal goals={weeklyGoals} onChange={handleChange} value={taskFormInput.goalId} />
             </Grid>
             <Grid size={6}>
                 <Category categories={categories} onChange={handleChange} value={taskFormInput.category} />
@@ -143,6 +129,4 @@ const TaskForm = forwardRef((props, ref) => {
             </Grid>
         </Grid>
     </form>);
-});
-
-export default TaskForm;
+}

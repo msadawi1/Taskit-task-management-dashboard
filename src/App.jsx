@@ -75,14 +75,7 @@ const navbarIndex = {
 function App() {
   const [tab, setTab] = useState(navbarIndex.dashboard);
   const { weeklyGoals, tasks, removeGoalAndTasks, addGoal, setTasks } = useManager();
-  const formRef = useRef(null);
   const taskTitleRef = useRef(null);
-  function scrollToForm() {
-    formRef.current?.scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => {
-      taskTitleRef.current?.focus();
-    }, 300);
-  }
   function TabPanel({ children, value, index }) {
     return value === index ? <Box sx={{ p: 2, flexGrow: 1 }}>{children}</Box> : null;
   }
@@ -97,7 +90,7 @@ function App() {
         <Box sx={{ flexGrow: 1, p: 3, mr: 10 }}>
           <TabPanel value={tab} index={navbarIndex.dashboard}>
             <TasksContext.Provider value={{ tasks, setTasks }}>
-              <Dashboard scrollToForm={scrollToForm} goals={weeklyGoals} onRemove={removeGoalAndTasks} onAdd={addGoal} formRef={formRef} inputRef={taskTitleRef} />
+              <Dashboard goals={weeklyGoals} onRemove={removeGoalAndTasks} onAdd={addGoal} inputRef={taskTitleRef} />
             </TasksContext.Provider>
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.timer}>
