@@ -29,15 +29,20 @@ export default function Task(props) {
         setChecked(!checked);
         props.onCheck(props.id);
     }
-    function formatDate(d) {
+    function formatDate(dueDate, end, allDay) {
         const today = dayjs();
         const tomorrow = dayjs().add(1, "day");
-        if (d.isSame(today, "day")) {
-            return "Today";
-        } else if (d.isSame(tomorrow, "day")) {
-            return "Tomorrow";
+        const dateDayjs = dayjs(dueDate);
+        const endDayjs = dayjs(end);
+
+        const timeStr = endDayjs.format("h:mmA"); // e.g., 5:00 PM
+
+        if (dateDayjs.isSame(today, "day")) {
+            return `Today ${!allDay ? timeStr: ''}`;
+        } else if (dateDayjs.isSame(tomorrow, "day")) {
+            return `Tomorrow ${!allDay ? timeStr: ''}`;
         } else {
-            return d.format("ddd, MMM D, YYYY");
+            return dateDayjs.format(`ddd, MMM D, YYYY`) + ` ${!allDay ? timeStr: ''}`;
         }
     }
     return (
@@ -77,8 +82,15 @@ export default function Task(props) {
                             </Typography>
                         </Grid>}
                         <Grid size="auto">
-                            <Typography variant='caption' sx={{ display: "block", lineHeight: 1.2, m: 0 }} color={props.status ? "secondary.dark" : props.dueDate.isBefore(dayjs().add(1, "day")) ? "secondary.dark" : "warning"}>
-                                {formatDate(props.dueDate)}
+                            <Typography variant='caption' sx={{ display: "block", lineHeight: 1.2, m: 0 }} color={
+                                props.status
+                                    ? "secondary.dark"
+                                    : dayjs(props.end).isBefore(dayjs())
+                                        ? "warning"
+                                        : "secondary.dark"
+                            }
+                            >
+                                {formatDate(props.dueDate, props.end, props.allDay)}
                             </Typography>
                         </Grid>
                     </Grid>

@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import diffInMinutes from "./utils/TaskFormUtils";
+import { diffInMinutes, parseTimeToDate } from "./utils/TaskFormUtils";
 import dayjs from 'dayjs';
 import TextField from "@mui/material/TextField";
 import Grid from '@mui/material/Grid';
@@ -45,7 +45,11 @@ export default function TaskForm({ data, onAdd, onClose }) {
             }));
             return;
         };
-        const { error, ...formData } = taskFormInput;
+        let { error, ...formData } = taskFormInput;
+        // convert Dayjs (used in MUI) to native Date
+        formData.dueDate = formData.dueDate.toDate();
+        formData.start = parseTimeToDate(formData.start, formData.dueDate);
+        formData.end = parseTimeToDate(formData.end, formData.dueDate);
         onAdd(formData);
         onClose();
     }

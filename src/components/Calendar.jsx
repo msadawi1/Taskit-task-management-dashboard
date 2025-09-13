@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { motion, AnimatePresence } from "framer-motion";
 import dayjs from 'dayjs';
-import diffInMinutes from './utils/TaskFormUtils';
+import { diffInMinutes } from './utils/TaskFormUtils';
 
 const MotionBox = motion.create(Box);
 
@@ -32,6 +32,7 @@ export default function Calendar() {
         let calendarApi = selectInfo.view.calendar
         calendarApi.unselect() // clear date selection
         setData(prevValue => {
+            // store as HH:MM string to display in the form
             const start = selectInfo.start.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
             const end = selectInfo.end.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
             return {
