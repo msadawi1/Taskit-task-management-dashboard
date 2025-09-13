@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import diffInMinutes from "./utils/TaskFormUtils";
 import dayjs from 'dayjs';
 import TextField from "@mui/material/TextField";
@@ -19,14 +19,8 @@ import useManager from "./hooks/useManager";
 
 export default function TaskForm({ data, onAdd, onClose }) {
     const { weeklyGoals } = useManager();
-    const categories = [
-        { id: 1, title: 'Ibadah' },
-        { id: 2, title: 'Career' },
-        { id: 3, title: 'Relationships' },
-        { id: 4, title: 'Health' }
-    ];
     const [taskFormInput, setTaskFormInput] = useState(data);
-    function handleDateChange(newValue) {
+    const handleDateChange = useCallback((newValue) => {
         const yesterday = dayjs().subtract(1, "day");
         if (!newValue) {
             setTaskFormInput(prev => ({ ...prev, dueDate: null, error: "date" }));
@@ -41,7 +35,7 @@ export default function TaskForm({ data, onAdd, onClose }) {
         } else {
             setTaskFormInput(prev => ({ ...prev, dueDate: newValue, error: null }));
         }
-    }
+    }, []);
     function addTask(event) {
         event.preventDefault();
         if (!taskFormInput.dueDate) {
@@ -51,11 +45,11 @@ export default function TaskForm({ data, onAdd, onClose }) {
             }));
             return;
         };
-        const { error, ...formData } = taskFormInput
+        const { error, ...formData } = taskFormInput;
         onAdd(formData);
         onClose();
     }
-    function handleChange(event) {
+    const handleChange = useCallback((event) => {
         let { name, value } = event.target;
         if (name === 'allDay') {
             value = event.target.checked;
@@ -77,13 +71,9 @@ export default function TaskForm({ data, onAdd, onClose }) {
                     }
                 }
             }
-            else {
-                updated.duration = prevValue.duration;
-            }
             return updated;
         });
-
-    }
+    }, []);
 
     return (<form onSubmit={addTask} autoComplete="off">
         <Grid container columnSpacing={1} rowSpacing={2} sx={{ width: '100%' }}>
@@ -102,7 +92,7 @@ export default function TaskForm({ data, onAdd, onClose }) {
                 <Goal goals={weeklyGoals} onChange={handleChange} value={taskFormInput.goalId} />
             </Grid>
             <Grid size={6}>
-                <Category categories={categories} onChange={handleChange} value={taskFormInput.category} />
+                <Category onChange={handleChange} value={taskFormInput.category} />
             </Grid>
             <Grid size={6}>
                 <Priority onChange={handleChange} value={taskFormInput.priority} />

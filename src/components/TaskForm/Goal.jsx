@@ -1,9 +1,12 @@
+import React from "react";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 
-export default function GoalSelect({ goals, value, onChange }) {
+function GoalSelect({ goals, value, onChange }) {
+    console.log("GoalSelect render");
+    
     return (
         <FormControl fullWidth required={true} size='medium'>
             <InputLabel id="goal-select-label">Goal</InputLabel>
@@ -22,3 +25,5 @@ export default function GoalSelect({ goals, value, onChange }) {
         </FormControl>
     );
 }
+
+export default React.memo(GoalSelect);

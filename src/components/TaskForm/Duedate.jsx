@@ -2,8 +2,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import React from 'react';
 
-export default function Duedate({ value, onChange, error }) {
+function Duedate({ value, onChange, error }) {
+    console.log("Due date render.");
+    
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker minDate={dayjs()} label="Due Date" value={value} slotProps={{
@@ -16,3 +19,5 @@ export default function Duedate({ value, onChange, error }) {
         </LocalizationProvider>
     );
 }
+
+export default React.memo(Duedate);

@@ -1,9 +1,13 @@
+import React from "react";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 
-export default function Category({ categories, value, onChange }) {
+function Category({ value, onChange }) {
+    console.log("Category renderd");
+    
+    const categories = [{ id: 1, title: 'Ibadah' }, { id: 2, title: 'Career' }, { id: 3, title: 'Relationships' }, { id: 4, title: 'Health' }];
     return (
         <FormControl fullWidth required={true} size='medium'>
             <InputLabel id="category-select-label">Category</InputLabel>
@@ -22,3 +26,5 @@ export default function Category({ categories, value, onChange }) {
         </FormControl>
     );
 }
+
+export default React.memo(Category);

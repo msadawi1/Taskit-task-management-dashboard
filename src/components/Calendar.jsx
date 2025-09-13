@@ -39,7 +39,8 @@ export default function Calendar() {
                 start,
                 end,
                 dueDate: dayjs(selectInfo.start).startOf('day'),
-                duration: diffInMinutes(start, end),
+                allDay: selectInfo.allDay,
+                duration: !selectInfo.allDay ? diffInMinutes(start, end) : 0,
             };
         });
         setShowForm(true);

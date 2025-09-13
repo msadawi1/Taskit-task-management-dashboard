@@ -1,13 +1,16 @@
+import React from "react";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import dayjs from "dayjs";
 
-export default function EndTime({ value, onChange }) {
+function EndTime({ value, onChange }) {
     const times = Array.from({ length: 24 * 2 }, (_, i) =>
         dayjs().startOf("day").add(i * 30, "minute").format("HH:mm")
     );
+    console.log("EndTime rendered.");
+    
     return (
         <FormControl fullWidth required={true} size='medium'>
             <InputLabel id="end-select-label">End Time</InputLabel>
@@ -33,3 +36,5 @@ export default function EndTime({ value, onChange }) {
         </FormControl>
     );
 }
+
+export default React.memo(EndTime);

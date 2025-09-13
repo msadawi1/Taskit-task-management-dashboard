@@ -1,9 +1,12 @@
+import React from "react";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 
-export default function Priority({ value, onChange }) {
+function Priority({ value, onChange }) {
+    console.log("Priority rendered");
+    
     return (
         <FormControl fullWidth required={true} size='medium'>
             <InputLabel id="priority-select-label">Priority</InputLabel>
@@ -27,3 +30,5 @@ export default function Priority({ value, onChange }) {
         </FormControl>
     );
 }
+
+export default React.memo(Priority);
