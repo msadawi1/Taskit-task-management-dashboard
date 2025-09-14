@@ -30,6 +30,8 @@ export default function Calendar() {
     });
     function handleDateSelect(selectInfo) {
         let calendarApi = selectInfo.view.calendar
+        console.log(selectInfo);
+        
         calendarApi.unselect() // clear date selection
         setData(prevValue => {
             // store as HH:MM string to display in the form
@@ -71,6 +73,16 @@ export default function Calendar() {
                     right: 'timeGridWeek,timeGridDay',
                 }}
                 selectable={true}
+                selectAllow={(selectInfo) => {
+                    let start = selectInfo.start;
+                    let end = selectInfo.end;
+
+                    // For all-day events, end is exclusive → subtract 1ms
+                    if (selectInfo.allDay) end = new Date(end.getTime() - 1);
+
+                    // Allow selection only if start and end are on the same day
+                    return start.toDateString() === end.toDateString();
+                }}
                 selectMirror={true}
                 select={handleDateSelect}
                 eventClick={handleEventClick}
