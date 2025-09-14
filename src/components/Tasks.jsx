@@ -23,10 +23,10 @@ export default function TaskSection(props) {
     })
     return (<>
         <Grid container spacing={1} sx={{ width: '100%' }}>
-            <Grid size={6}>
+            <Grid size='grow'>
                 <Typography variant='h5' fontWeight={500} color="primary">Daily Tasks</Typography>
             </Grid>
-            <Grid display="flex" size={6} justifyContent='flex-end'>
+            <Grid display="flex" size='auto' justifyContent='flex-end'>
                 <Button variant="contained" onClick={() => props.setFormVisible(true)}>New Task</Button>
             </Grid>
             <Grid container size={12} sx={{ m: 0, pt: 2 }}>

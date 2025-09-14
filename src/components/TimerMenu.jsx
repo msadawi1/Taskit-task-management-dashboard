@@ -1,5 +1,6 @@
 import Timer from "./Timer";
 import Header from "./Header";
+import TabTitle from "./mini_components/TabTitle.jsx";
 import Box from "@mui/material/Box";
 import SessionSummary from "./TimerPage/SessionSummary.jsx";
 import TaskSelector from "./TimerPage/TaskSelector.jsx";
@@ -29,6 +30,7 @@ export default function TimerMenu() {
     return (
         <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
             <Header />
+            <TabTitle title="Focus Timer"/>
             <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 2 }}>
                 <Box sx={{ height: 70 }}>
                     {!isStarted && <TaskSelector tasks={tasks} error={error} onChange={handleChange} taskId={input} />}

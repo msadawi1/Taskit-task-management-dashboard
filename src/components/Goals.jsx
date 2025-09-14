@@ -2,7 +2,7 @@ import React, { useState, useRef  } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import TabTitle from "./mini_components/TabTitle";
 import WeeklyGoal from "./WeeklyGoal";
 import TextField from "@mui/material/TextField";
 
@@ -21,7 +21,7 @@ export default function GoalSection(props) {
     return (
         <Grid container spacing={2}>
             <Grid size={12} sx={{ mb: 1 }}>
-                <Typography variant='h4' fontSize={30} fontWeight={600} color="primary">Weekly Goals</Typography>
+                <TabTitle title="Weekly Goals" />
             </Grid>
             {props.goals.map(goal =>
                 <Grid key={goal.id} size={12}>

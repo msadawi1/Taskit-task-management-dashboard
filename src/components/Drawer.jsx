@@ -5,12 +5,12 @@ import Divider from '@mui/material/Divider'
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SettingsIcon from '@mui/icons-material/Settings';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import FlagIcon from '@mui/icons-material/Flag';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import Box from '@mui/material/Box';
 import Logo from './Logo';
 
-export default function Navbar({ value, onChange, index }) {
+export default function Drawer({ value, onChange, index }) {
     return (
         <Box>
             <Box sx={{px: 0, py: 2}}>
@@ -47,7 +47,7 @@ export default function Navbar({ value, onChange, index }) {
                 <Tab label="Dashboard" icon={<DashboardIcon />} iconPosition="start" value={index.dashboard} />
                 <Tab label="Timer" icon={<AccessAlarmIcon />} iconPosition="start" value={index.timer} />
                 <Tab label="Calendar" icon={<CalendarTodayIcon />} iconPosition="start" value={index.calendar} />
-                <Tab label="Summaries" icon={<LibraryBooksIcon />} iconPosition="start" value={index.summaries} />
+                <Tab label="Progress" icon={<FlagIcon />} iconPosition="start" value={index.summaries} />
                 <Divider />
                 <Tab label="Settings" icon={<SettingsIcon />} iconPosition="start" value={index.settings} />
             </Tabs>

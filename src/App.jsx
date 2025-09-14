@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
-import Navbar from "./components/Navbar"
+import Drawer from "./components/Drawer"
 import TimerMenu from "./components/TimerMenu";
 import Dashboard from "./components/Dashboard";
 import Calendar from "./components/Calendar"
+import Progress from "./components/Progress";
 import { TasksContext } from "./components/context";
 import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
 import useManager from "./components/hooks/useManager";
@@ -68,7 +69,7 @@ const navbarIndex = {
   dashboard: 0,
   timer: 1,
   calendar: 2,
-  summaries: 3,
+  progress: 3,
   settings: 4,
 }
 
@@ -85,7 +86,7 @@ function App() {
       <CssBaseline />
       <Box sx={{ display: "flex", minHeight: "100vh" }}>
         <Box sx={{ width: 300, flexShrink: 0, borderRight: 1, borderColor: "divider", position: 'sticky', top: 0, height: '100vh' }}>
-          <Navbar value={tab} onChange={setTab} index={navbarIndex} />
+          <Drawer value={tab} onChange={setTab} index={navbarIndex} />
         </Box>
         <Box sx={{ flexGrow: 1, p: 3, mr: 10 }}>
           <TabPanel value={tab} index={navbarIndex.dashboard}>
@@ -101,7 +102,8 @@ function App() {
           <TabPanel value={tab} index={navbarIndex.calendar}>
             <Calendar />
           </TabPanel>
-          <TabPanel value={tab} index={navbarIndex.summaries}>
+          <TabPanel value={tab} index={navbarIndex.progress}>
+            <Progress />
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.settings}>
           </TabPanel>
