@@ -88,7 +88,7 @@ function App() {
         <Box sx={{ width: 300, flexShrink: 0, borderRight: 1, borderColor: "divider", position: 'sticky', top: 0, height: '100vh' }}>
           <Drawer value={tab} onChange={setTab} index={navbarIndex} />
         </Box>
-        <Box sx={{ flexGrow: 1, p: 3, mr: 10 }}>
+        <Box sx={{ flexGrow: 1, p: 3, mr: 15 }}>
           <TabPanel value={tab} index={navbarIndex.dashboard}>
             <TasksContext.Provider value={{ tasks, setTasks }}>
               <Dashboard goals={weeklyGoals} onRemove={removeGoalAndTasks} onAdd={addGoal} inputRef={taskTitleRef} />

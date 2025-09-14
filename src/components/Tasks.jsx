@@ -1,12 +1,12 @@
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Task from "./Task";
 import TaskForm from "./TaskForm";
 import Button from "@mui/material/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import useManager from "./hooks/useManager";
+import SubTitle from "./mini_components/SubTitle";
 
 const MotionBox = motion.create(Box);
 
@@ -24,7 +24,7 @@ export default function TaskSection(props) {
     return (<>
         <Grid container spacing={1} sx={{ width: '100%' }}>
             <Grid size='grow'>
-                <Typography variant='h5' fontWeight={500} color="primary">Daily Tasks</Typography>
+                <SubTitle title="Daily Tasks"/>
             </Grid>
             <Grid display="flex" size='auto' justifyContent='flex-end'>
                 <Button variant="contained" onClick={() => props.setFormVisible(true)}>New Task</Button>
