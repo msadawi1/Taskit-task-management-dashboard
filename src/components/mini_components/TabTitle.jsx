@@ -1,5 +1,14 @@
 import Typography from "@mui/material/Typography";
 
 export default function TabTitle({ title }) {
-    return <Typography variant='h4' fontSize={30} fontWeight={600} color="primary">{title}</Typography>
+    return <Typography
+        variant="h4"
+        fontWeight={600}
+        color="primary"
+        sx={{
+            fontSize: "clamp(1.5rem, 2vw, 2.25rem)", // min, preferred, max
+        }}
+    >
+        {title}
+    </Typography>
 }

@@ -11,7 +11,7 @@ export default function Timer({ duration, onChange, onDecrement, isStarted, isPa
     return (
         <Grid container columnSpacing={3}>
             <Grid size={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-                <Paper sx={{ alignSelf: 'stretch' }} elevation={0}>
+                <Paper sx={{ alignSelf: 'stretch' }} elevation={1}>
                     <TextField variant="standard" fullWidth={true} size="large" name="hours" slotProps={{
                         htmlInput: {
                             'type': 'number', 'min': '0', 'max': '23', 'style': {
@@ -28,7 +28,7 @@ export default function Timer({ duration, onChange, onDecrement, isStarted, isPa
                 <InputLabel id="hours" sx={{ fontSize: 18 }}>Hours</InputLabel>
             </Grid>
             <Grid size={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-                <Paper sx={{ alignSelf: 'stretch' }} elevation={0}>
+                <Paper sx={{ alignSelf: 'stretch' }} elevation={1}>
                     <TextField variant="standard" fullWidth={true} size="large" name="minutes" slotProps={{
                         htmlInput: {
                             'type': 'number', 'min': '5', 'max': '59', 'style': {
@@ -46,7 +46,7 @@ export default function Timer({ duration, onChange, onDecrement, isStarted, isPa
                 <InputLabel id="minutes" sx={{ fontSize: 18 }}>Minutes</InputLabel>
             </Grid>
             <Grid size={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-                <Paper sx={{ alignSelf: 'stretch' }} elevation={0}>
+                <Paper sx={{ alignSelf: 'stretch' }} elevation={1}>
                     <TextField variant="standard" fullWidth={true} size="large" name="seconds" slotProps={{
                         htmlInput: {
                             'type': 'number', 'min': '0', 'max': '59', 'style': {

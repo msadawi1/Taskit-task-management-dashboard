@@ -9,7 +9,7 @@ export default function TaskSelector({ tasks, taskId, onChange, error }) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
     return (
-        <FormControl fullWidth size='medium'>
+        <FormControl fullWidth size='medium' sx={{backgroundColor: "background.paper"}}>
             <InputLabel id="task-select-label">Choose a task to focus on</InputLabel>
             <Select
                 name="task"

@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 
 export default function Reflection({ id, date, content }) {
     return (
-        <Paper elevation={0} sx={{ p: 2 }}>
+        <Paper elevation={1} sx={{ p: 2 }}>
             <Grid container columnSpacing={5} display='flex' alignItems='center'>
                 <Grid size="grow" container>
                     <Grid size={12}>
