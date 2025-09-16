@@ -1,10 +1,11 @@
-import React from "react";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from '@mui/icons-material/Menu';
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box"
+import Grid from "@mui/material/Grid"
 import Divider from "@mui/material/Divider"
 
 
-export default function Header() {
+export default function Header({onMenuClick}) {
     const date = new Date();
 
     const formattedDate = date.toLocaleDateString("en-GB", {
@@ -15,9 +16,16 @@ export default function Header() {
     });
     return (
         <>
-            <Box component='section' sx={{ display: 'flex', justifyContent: 'flex-start', mr: 2 }}>
-                <Typography variant='h6' fontWeight={400} textAlign='left' color="primary">{formattedDate.split(' ')[0] + ', ' + formattedDate.split(' ').splice(1, 3).join(' ')}</Typography>
-            </Box>
+            <Grid container component='section' sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+                <Grid size="grow">
+                    <Typography variant='h6' fontWeight={400} textAlign='left' color="primary">{formattedDate.split(' ')[0] + ', ' + formattedDate.split(' ').splice(1, 3).join(' ')}</Typography>
+                </Grid>
+                <Grid size="auto" sx={{display: { md: 'none' }}}>
+                    <IconButton onClick={onMenuClick}>
+                        <MenuIcon />
+                    </IconButton>
+                </Grid>
+            </Grid>
             <Divider />
         </>
     );

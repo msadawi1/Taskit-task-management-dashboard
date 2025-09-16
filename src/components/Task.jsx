@@ -42,7 +42,7 @@ export default function Task(props) {
         } else if (dateDayjs.isSame(tomorrow, "day")) {
             return `Tomorrow ${!allDay ? timeStr: ''}`;
         } else {
-            return dateDayjs.format(`ddd, MMM D, YYYY`) + ` ${!allDay ? timeStr: ''}`;
+            return dateDayjs.format(`ddd, MMM D, YYYY`) + ` ${!allDay ? ('at ' + timeStr): ''}`;
         }
     }
     return (
