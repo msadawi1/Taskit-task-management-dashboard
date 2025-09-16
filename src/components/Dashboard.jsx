@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Divider from "@mui/material/Divider";
 import Box from '@mui/material/Box'
-import Footer from "./Footer";
 import GoalSection from "./Goals";
 import Tasks from "./Tasks";
 
@@ -13,6 +12,5 @@ export default function Dahsboard({ goals, onRemove, onAdd, inputRef }) {
         <GoalSection onClick={setGoal} setFormVisible={setFormVisible} goals={goals} onRemove={onRemove} onAdd={onAdd} />
         <Divider />
         <Tasks goal={goal} onClose={() => setGoal('')} isFormVisible={isFormVisible} setFormVisible={setFormVisible} inputRef={inputRef} goals={goals} />
-        <Footer />
     </Box>);
 }

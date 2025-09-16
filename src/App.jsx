@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
 import useManager from "./components/hooks/useManager";
 import useLogger from "./components/hooks/useLogger";
+import Footer from "./components/Footer"
 
 const theme = createTheme({
   components: {
@@ -113,6 +114,7 @@ function App() {
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.settings}>
           </TabPanel>
+          <Footer />
         </Box>
       </Box>
     </ThemeProvider>

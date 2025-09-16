@@ -7,7 +7,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export default function WeeklyGoal(props) {
     function handleClick() {
         props.onClick();
-
     }
     return (
         <Grid container columnSpacing={1} sx={{ width: "100%" }} alignItems='center'>
