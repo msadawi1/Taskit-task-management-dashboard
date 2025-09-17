@@ -1,18 +1,21 @@
-import dayjs from "dayjs";
+function shiftWeek(week, direction = "next") {
+    const delta = direction === "next" ? 1 : -1;
 
-function getWeeksInMonth(date) {
-    const startOfMonth = dayjs(date).startOf("month").startOf("week");
-    const endOfMonth = dayjs(date).endOf("month").endOf("week");
+    const newStart = week.start.add(delta, "week");
+    const newEnd = week.end.add(delta, "week");
 
-    let current = startOfMonth;
-    const weeks = [];
-
-    while (current.isBefore(endOfMonth)) {
-        const start = current;
-        const end = current.endOf("week");
-        weeks.push({ start, end });
-        current = current.add(1, "week");
-    }
-
-    return weeks;
+    return { start: newStart, end: newEnd };
 }
+
+function getFormattedDate(dayjsObj) {
+    return dayjsObj.format("DD/MM/YYYY");
+}
+
+function getWeekOffset(date, week) {
+    const weekStart = date.startOf("week");
+    const diff = week.start.startOf("week").diff(weekStart, "week");
+    return diff;
+}
+
+
+export { shiftWeek, getFormattedDate, getWeekOffset };

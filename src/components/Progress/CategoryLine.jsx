@@ -10,10 +10,10 @@ export default function CategoryLine({ label, mins, percentage, color }) {
                     {label}
                 </Typography>
             </Grid>
-            <Grid size="grow">
+            <Grid size='grow'>
                 <LinearProgress sx={{ p: 0.7, borderRadius: 1 }} variant="determinate" color={color} value={percentage} />
             </Grid>
-            <Grid size="auto">
+            <Grid size='auto' sx={{ minWidth: 40 }}>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     {mins}m
                 </Typography>

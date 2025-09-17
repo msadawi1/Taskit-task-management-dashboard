@@ -2,13 +2,13 @@ import IconButton from '@mui/material/IconButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-export default function WeekControls() {
+export default function WeekControls({onPrev, onNext}) {
     return (
         <>
-            <IconButton>
+            <IconButton onClick={onPrev}>
                 <ArrowBackIosIcon />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={onNext}>
                 <ArrowForwardIosIcon />
             </IconButton>
         </>
