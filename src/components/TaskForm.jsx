@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import TextField from "@mui/material/TextField";
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import Typography from "@mui/material/Typography";
+import SubTitle from "./mini_components/SubTitle";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Goal from "./TaskForm/Goal";
@@ -82,7 +82,7 @@ export default function TaskForm({ data, onAdd, onClose }) {
     return (<form onSubmit={addTask} autoComplete="off">
         <Grid container columnSpacing={1} rowSpacing={2} sx={{ width: '100%' }}>
             <Grid size={6}>
-                <Typography variant="h5" fontWeight={500}>Add New Task</Typography>
+                <SubTitle title="Add New Task" />
             </Grid>
             <Grid display='flex' size={6} justifyContent='flex-end'>
                 <IconButton variant="h5" fontWeight={500} onClick={onClose}>
@@ -104,11 +104,13 @@ export default function TaskForm({ data, onAdd, onClose }) {
             <Grid size={12}>
                 <TextField name="location" required={false} id="standard-outlined" sx={{ width: '100%' }} size="medium" value={taskFormInput.location} onChange={handleChange} label="Location (optional)" />
             </Grid>
-            <Grid size={9}>
-                <Duedate onChange={handleDateChange} value={taskFormInput.dueDate} error={taskFormInput.error} />
-            </Grid>
-            <Grid size={3}>
-                <FormControlLabel control={<Switch checked={taskFormInput.allDay} name="allDay" onChange={handleChange} />} label="All Day" color="primary" labelPlacement="top" />
+            <Grid size={12} container>
+                <Grid size='grow'>
+                    <Duedate onChange={handleDateChange} value={taskFormInput.dueDate} error={taskFormInput.error} />
+                </Grid>
+                <Grid size='auto'>
+                    <FormControlLabel control={<Switch checked={taskFormInput.allDay} name="allDay" onChange={handleChange} />} label="All Day" color="primary" labelPlacement="top" />
+                </Grid>
             </Grid>
             {!taskFormInput.allDay && <>
                 <Grid size={6} sx={{ mt: -0.5 }}>

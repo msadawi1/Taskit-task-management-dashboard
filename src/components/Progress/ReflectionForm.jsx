@@ -1,11 +1,11 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import SubTitle from "../mini_components/SubTitle";
 
 export default function ReflectionForm({ onSubmit, onClose }) {
     const [text, setText] = useState("");
@@ -23,11 +23,8 @@ export default function ReflectionForm({ onSubmit, onClose }) {
         <form onSubmit={handleSubmit} autoComplete="off">
             <Grid container columnSpacing={1} rowSpacing={2} sx={{ width: "100%" }}>
                 <Grid size='grow'>
-                    <Typography variant="h5" fontWeight={500}>
-                        Add New Reflection
-                    </Typography>
+                    <SubTitle title="Add New Reflection" />
                 </Grid>
-
                 <Grid size='auto' display="flex" justifyContent="flex-end">
                     <IconButton onClick={onClose} aria-label="close">
                         <CloseIcon color="primary" />

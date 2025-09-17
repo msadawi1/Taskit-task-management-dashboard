@@ -103,7 +103,7 @@ export default function Progress() {
                         initial={{ opacity: 0, scale: 0.9, y: -30 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: -30 }}
-                        transition={{ duration: 0.1, ease: "easeOut" }} sx={{ maxWidth: '30vw' }}>
+                        transition={{ duration: 0.1, ease: "easeOut" }} sx={{ width: 'clamp(250px, 80vw, 500px)' }}>
                         <Paper elevation={10} sx={{ p: 3, borderRadius: 3 }}>
                             <ReflectionForm
                                 onSubmit={() => {
