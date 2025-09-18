@@ -21,6 +21,7 @@
     "@testing-library/user-event": "^13.5.0",
     "dayjs": "^1.11.13",
     "framer-motion": "^12.23.12",
+    "motion": "^12.23.15",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-scripts": "5.0.1",

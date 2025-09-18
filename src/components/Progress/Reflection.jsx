@@ -4,11 +4,11 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 
-export default function Reflection({ id, date, content }) {
+export default function Reflection({ id, date, content, onDelete }) {
     return (
         <Paper elevation={1} sx={{ p: 2 }}>
             <Grid container columnSpacing={5} display='flex' alignItems='center'>
-                <Grid size="grow" container>
+                <Grid size="grow" container rowSpacing={0.5}>
                     <Grid size={12}>
                         <Typography variant='subtitle1' fontWeight={500} sx={{ lineHeight: 1.2 }}>
                             {date}
@@ -21,7 +21,7 @@ export default function Reflection({ id, date, content }) {
                     </Grid>
                 </Grid>
                 <Grid size="auto">
-                    <IconButton color='primary.light'>
+                    <IconButton onClick={() => onDelete(id)} color='primary.light'>
                         <DeleteIcon />
                     </IconButton >
                 </Grid>

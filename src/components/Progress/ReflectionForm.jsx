@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import SubTitle from "../mini_components/SubTitle";
+import dayjs from "dayjs";
 
 export default function ReflectionForm({ onSubmit, onClose }) {
     const [text, setText] = useState("");
@@ -14,7 +15,7 @@ export default function ReflectionForm({ onSubmit, onClose }) {
         e.preventDefault();
         const value = text.trim();
         if (!value) return;
-        if (onSubmit) onSubmit({ text: value, createdAt: new Date().toISOString() });
+        if (onSubmit) onSubmit(value, dayjs().format("YYYY-MM-DD"));
         setText("");
         if (onClose) onClose();
     };
@@ -35,7 +36,7 @@ export default function ReflectionForm({ onSubmit, onClose }) {
                     <TextField
                         id="reflection"
                         name="reflection"
-                        label="What have you achieved today"
+                        label="What have you achieved today?"
                         placeholder="Write about your day"
                         multiline
                         rows={6}

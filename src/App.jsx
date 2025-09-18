@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import Fade from '@mui/material/Fade';
 import Drawer from "./components/Drawer"
 import TimerMenu from "./components/TimerMenu";
 import Dashboard from "./components/Dashboard";
@@ -91,28 +92,49 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ display: "flex", minHeight: "100vh" }}>
-        <Box sx={{ display: {xs: drawer ? 'block' : 'none', md: "block" }, width: "clamp(50px, 20%, 300px)", flexShrink: 0, borderRight: 1, borderColor: "divider", position: 'sticky', top: 0, height: '100vh' }}>
+        <Box sx={{ display: { xs: drawer ? 'block' : 'none', md: "block" }, width: "clamp(50px, 20%, 300px)", flexShrink: 0, borderRight: 1, borderColor: "divider", position: 'sticky', top: 0, height: '100vh' }}>
           <Drawer value={tab} onChange={setTab} index={navbarIndex} />
         </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flexGrow: 1, mt: 3, px: {xs: 2.5, sm: 3, md: 3.5, lg: 4.5, xl: 5} }}>
-          <Header onMenuClick={toggleDrawer}/>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flexGrow: 1, mt: 3, px: { xs: 2.5, sm: 3, md: 3.5, lg: 4.5, xl: 5 } }}>
+          <Header onMenuClick={toggleDrawer} />
           <TabPanel value={tab} index={navbarIndex.dashboard}>
-            <TasksContext.Provider value={{ tasks, setTasks }}>
-              <Dashboard goals={weeklyGoals} onRemove={removeGoalAndTasks} onAdd={addGoal} inputRef={taskTitleRef} />
-            </TasksContext.Provider>
+            <Fade in={tab === navbarIndex.dashboard} timeout={200} mountOnEnter unmountOnExit>
+              <div>
+                <TasksContext.Provider value={{ tasks, setTasks }}>
+                  <Dashboard goals={weeklyGoals} onRemove={removeGoalAndTasks} onAdd={addGoal} inputRef={taskTitleRef} />
+                </TasksContext.Provider>
+              </div>
+            </Fade>
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.timer}>
-            <TasksContext.Provider value={{ tasks, setTasks }}>
-              <TimerMenu />
-            </TasksContext.Provider>
+            <Fade in={tab === navbarIndex.timer} timeout={200} mountOnEnter unmountOnExit>
+              <div>
+                <TasksContext.Provider value={{ tasks, setTasks }}>
+                  <TimerMenu />
+                </TasksContext.Provider>
+              </div>
+            </Fade>
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.calendar}>
-            <Calendar />
+            <Fade in={tab === navbarIndex.calendar} timeout={200} mountOnEnter unmountOnExit>
+              <div>
+                <Calendar />
+              </div>
+            </Fade>
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.progress}>
-            <Progress />
+            <Fade in={tab === navbarIndex.progress} timeout={200} mountOnEnter unmountOnExit>
+              <div>
+                <Progress />
+              </div>
+            </Fade>
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.settings}>
+            <Fade in={tab === navbarIndex.settings} timeout={200} mountOnEnter unmountOnExit>
+              <div>
+                {/* Settings content goes here */}
+              </div>
+            </Fade>
           </TabPanel>
           <Footer />
         </Box>

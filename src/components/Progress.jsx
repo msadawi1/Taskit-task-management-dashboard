@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button"
 import SubTitle from "./mini_components/SubTitle";
 import Paper from '@mui/material/Paper';
+import AddIcon from '@mui/icons-material/Add';
 import ProgressCaption from "./Progress/ProgressCaption";
 import ReportsList from "./Progress/ReflectionList";
 import StatsCard from "./Progress/StatsCard";
@@ -19,6 +20,7 @@ import useProgress from './hooks/useProgress';
 import { shiftWeek, getFormattedDate, getWeekOffset } from './utils/ProgressUtils';
 import { motion, AnimatePresence } from "framer-motion";
 import ReflectionForm from './Progress/ReflectionForm';
+import Feedback from './mini_components/Feedback';
 
 const MotionBox = motion.create(Box);
 
@@ -28,14 +30,14 @@ export default function Progress() {
         end: dayjs().endOf('week'),
     });
     const [showForm, setShowForm] = useState(false);
-    const { getStats } = useProgress(week);
+    const { getStats, reflections, addReflection, removeReflection } = useProgress(week);
     const stats = getStats();
     const totalHours = Math.floor(stats.totalTime / 60);
     const totalMins = stats.totalTime % 60;
     const totalTimeString = stats.totalTime === 0 ? '0' : `${totalHours === 0 ? '' : totalHours + 'h'} ${totalMins === 0 ? '' : totalMins + 'm'}`
     return (
         <>
-            <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
+            <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 2 }}>
                 <Grid container rowSpacing={3}>
                     <Grid container size={12} rowSpacing={0}>
                         <Grid size={12}>
@@ -69,15 +71,16 @@ export default function Progress() {
                         <TimeByCategory timeByCategory={stats.timeByCategory} totalTime={stats.totalTime} />
                     </Grid>
                     <Grid container size={12}>
-                        <Grid size={{ xs: 12, sm: "grow" }}>
+                        <Grid size="grow">
                             <SubTitle title="Daily Reflections" />
                         </Grid>
-                        <Grid size={{ xs: 12, sm: "auto" }}>
-                            <Button variant="contained" size="medium" onClick={() => setShowForm(true)}>Add New Reflection</Button>
+                        <Grid size="auto">
+                            <Button variant="contained" size="medium" onClick={() => setShowForm(true)} startIcon={<AddIcon />}>Create</Button>
                         </Grid>
                     </Grid>
                 </Grid>
-                <ReportsList />
+                { reflections.length > 0 ? <ReportsList reflections={reflections} onDelete={removeReflection} /> : 
+                    <Feedback text="No reflections at the moment." /> }
             </Box>
             <AnimatePresence>
                 {showForm && <MotionBox
@@ -106,9 +109,7 @@ export default function Progress() {
                         transition={{ duration: 0.1, ease: "easeOut" }} sx={{ width: 'clamp(250px, 80vw, 500px)' }}>
                         <Paper elevation={10} sx={{ p: 3, borderRadius: 3 }}>
                             <ReflectionForm
-                                onSubmit={() => {
-                                    console.log("submitted");
-                                }}
+                                onSubmit={addReflection}
                                 onClose={() => { setShowForm(false) }}
                             />
                         </Paper>

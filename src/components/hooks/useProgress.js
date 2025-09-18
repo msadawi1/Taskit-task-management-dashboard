@@ -4,7 +4,6 @@ import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { uid } from 'uid';
 import useLocalStorage from './useLocalStorage';
 import useManager from './useManager';
-import { getFormattedDate } from "../utils/ProgressUtils";
 
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
@@ -48,10 +47,10 @@ export default function useProgress(week) {
 * add a reflection.
 * @param {string} content - string of content
 */
-    function addReflection(content) {
+    function addReflection(content, date) {
         setReflections(prev => [...prev, {
             id: uid(),
-            date: getFormattedDate(),
+            date: date,
             content: content,
         }]);
     }
