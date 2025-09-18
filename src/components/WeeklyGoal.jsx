@@ -19,7 +19,7 @@ export default function WeeklyGoal(props) {
                 </IconButton >
             </Grid>
             <Grid size={12}>
-                <Button variant='contained' onClick={handleClick} type="button" color='secondary' size="small" disableElevation sx={{ fontWeight: "400", borderRadius: 4 }}>Add Daily Task</Button>
+                <Button variant='contained' onClick={handleClick} type="button" color='secondary' size="small" disableElevation sx={{ fontWeight: "400", borderRadius: 4 }}>Add Task</Button>
             </Grid>
         </Grid>
     );
