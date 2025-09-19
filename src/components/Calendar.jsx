@@ -126,9 +126,4 @@ export default function Calendar() {
             </AnimatePresence>
         </>
     );
-    // currentEvents.map(event => ({ // performance issue here: to be fixed
-    //     ...event,
-    //     start: event.start.toDate(),
-    //     end: event.end?.toDate(),
-    // }))
 }
