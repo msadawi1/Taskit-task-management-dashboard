@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Fade from '@mui/material/Fade';
 import Drawer from "./components/Drawer"
 import TimerMenu from "./components/TimerMenu";
@@ -7,7 +7,7 @@ import Calendar from "./components/Calendar"
 import Progress from "./components/Progress";
 import { TasksContext } from "./components/context";
 import Header from "./components/Header";
-import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
+import { createTheme, ThemeProvider, CssBaseline, Box, useTheme } from '@mui/material';
 import useManager from "./components/hooks/useManager";
 import useLogger from "./components/hooks/useLogger";
 import Footer from "./components/Footer"
@@ -59,6 +59,7 @@ const theme = createTheme({
     background: {
       default: '#f7f7f7',
       paper: '#fefefe',
+      dark: '#aaaaaa'
     },
     text: {
       primary: '#2c2c2cff',
@@ -67,6 +68,21 @@ const theme = createTheme({
   },
 });
 
+function ThemeVariables() {
+  const theme = useTheme();
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--fc-primary', theme.palette.primary.main);
+    root.style.setProperty('--fc-primary-contrast', theme.palette.primary.contrastText);
+    root.style.setProperty('--fc-secondary', theme.palette.secondary.main);
+    root.style.setProperty('--fc-bg', theme.palette.background.paper);
+    root.style.setProperty('--fc-bg-hover', theme.palette.background.dark);
+    root.style.setProperty('--fc-text', theme.palette.text.primary);
+    root.style.setProperty('--fc-text-secondary', theme.palette.text.secondary);
+    root.style.setProperty('--fc-grid-border', theme.palette.secondary.main);
+  }, [theme]);
+  return null;
+}
 
 const navbarIndex = {
   dashboard: 0,
@@ -90,6 +106,7 @@ function App() {
   useLogger("Tasks array:", tasks);
   return (
     <ThemeProvider theme={theme}>
+      <ThemeVariables />
       <CssBaseline />
       <Box sx={{ display: "flex", minHeight: "100vh" }}>
         <Box sx={{ display: { xs: drawer ? 'block' : 'none', md: "block" }, width: "clamp(50px, 20%, 300px)", flexShrink: 0, borderRight: 1, borderColor: "divider", position: 'sticky', top: 0, height: '100vh' }}>

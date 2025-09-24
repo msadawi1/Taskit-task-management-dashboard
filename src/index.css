@@ -16,3 +16,149 @@ body {
 ul {
   list-style: none;
 }
+
+.fc {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  background: var(--fc-bg);
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 10px;
+  color: var(--fc-text);
+}
+
+/* Header Toolbar */
+.fc .fc-toolbar {
+  background: transparent;
+  border: none;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--fc-text);
+}
+
+.fc .fc-button {
+  background: var(--fc-secondary);
+  border: none;
+  color: var(--fc-text);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.fc .fc-button:hover {
+  background: var(--fc-bg-hover);
+}
+
+.fc .fc-button-primary {
+  background: var(--fc-primary);
+  color: var(--fc-primary-contrast);
+}
+
+.fc .fc-button-primary:hover {
+  background-color: var(--fc-bg-hover);
+}
+
+
+.fc .fc-daygrid-day,
+.fc .fc-timegrid-slot,
+.fc .fc-scrollgrid {
+  border-color: var(--fc-grid-border) !important;
+}
+
+.fc .fc-daygrid-day:hover {
+  background: var(--fc-bg-hover);
+}
+.fc .fc-daygrid-day-number {
+  font-weight: 500;
+  color: var(--fc-text);
+  padding: 6px;
+}
+
+/* Today Highlight */
+.fc .fc-day-today {
+  background: color-mix(in srgb, var(--fc-secondary) 25%, white) !important;
+}
+
+.fc .fc-day-today .fc-daygrid-day-number {
+  color: var(--fc-primary);
+  font-weight: 600;
+}
+
+/* Events */
+.fc .fc-event {
+  background: var(--fc-primary);
+  border: none;
+  color: var(--fc-primary-contrast);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.15s ease;
+}
+
+.fc .fc-event:hover {
+  transform: translateY(-1px);
+  filter: brightness(0.9);
+}
+
+.fc .fc-timegrid-axis {
+  color: var(--fc-text-secondary);
+  font-size: 0.8rem;
+}
+
+/* Scrollbar */
+.fc-scroller::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.fc-scroller::-webkit-scrollbar-thumb {
+  background: var(--fc-secondary);
+  border-radius: 3px;
+}
+
+.fc-scroller::-webkit-scrollbar-track {
+  background: var(--fc-bg-hover);
+}
+
+/* === Global Font & Uppercase === */
+.fc {
+  font-family: 'Roboto', 'Segoe UI', Helvetica, Arial, sans-serif !important;
+  text-transform: uppercase;
+}
+
+/* Header Layout */
+.fc-col-header-cell .fc-day-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 0;
+}
+
+.fc-col-header-cell .fc-day-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--fc-text);
+  letter-spacing: 0.5px;
+}
+
+.fc-col-header-cell .fc-day-number {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--fc-primary);
+}
+
+/* Optional: reduce default padding */
+.fc .fc-col-header-cell {
+  padding: 0 !important;
+}

@@ -1,26 +1,23 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import dayjs from 'dayjs';
 import TabTitle from "./mini_components/TabTitle";
 import WeekControls from "./Progress/WeekControls";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button"
-import SubTitle from "./mini_components/SubTitle";
 import Paper from '@mui/material/Paper';
-import AddIcon from '@mui/icons-material/Add';
 import ProgressCaption from "./Progress/ProgressCaption";
-import ReportsList from "./Progress/ReflectionList";
 import StatsCard from "./Progress/StatsCard";
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import TodayIcon from '@mui/icons-material/Today';
 import CheckIcon from '@mui/icons-material/Check';
 import TimeByCategory from "./Progress/TimeByCategoryCard";
-import useProgress from './hooks/useProgress';
+import useStats from './hooks/useStats';
+import useReflections from './hooks/useReflections';
 import { shiftWeek, getFormattedDate, getWeekOffset } from './utils/ProgressUtils';
 import { motion, AnimatePresence } from "framer-motion";
 import ReflectionForm from './Progress/ReflectionForm';
-import Feedback from './mini_components/Feedback';
+import ReflectionSection from './Progress/ReflectionSection';
 
 const MotionBox = motion.create(Box);
 
@@ -30,7 +27,8 @@ export default function Progress() {
         end: dayjs().endOf('week'),
     });
     const [showForm, setShowForm] = useState(false);
-    const { getStats, reflections, addReflection, removeReflection } = useProgress(week);
+    const { getStats } = useStats(week);
+    const { reflections, addReflection, removeReflection } = useReflections();
     const stats = getStats();
     const totalHours = Math.floor(stats.totalTime / 60);
     const totalMins = stats.totalTime % 60;
@@ -70,17 +68,10 @@ export default function Progress() {
                     <Grid size={12}>
                         <TimeByCategory timeByCategory={stats.timeByCategory} totalTime={stats.totalTime} />
                     </Grid>
-                    <Grid container size={12}>
-                        <Grid size="grow">
-                            <SubTitle title="Daily Reflections" />
-                        </Grid>
-                        <Grid size="auto">
-                            <Button variant="contained" size="medium" onClick={() => setShowForm(true)} startIcon={<AddIcon />}>Create</Button>
-                        </Grid>
+                    <Grid size={12}>
+                        <ReflectionSection reflections={reflections} onDelete={removeReflection} onClick={useCallback(() => setShowForm(true), [])}/>
                     </Grid>
                 </Grid>
-                { reflections.length > 0 ? <ReportsList reflections={reflections} onDelete={removeReflection} /> : 
-                    <Feedback text="No reflections at the moment." /> }
             </Box>
             <AnimatePresence>
                 {showForm && <MotionBox

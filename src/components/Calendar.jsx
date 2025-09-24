@@ -31,7 +31,7 @@ export default function Calendar() {
     function handleDateSelect(selectInfo) {
         let calendarApi = selectInfo.view.calendar
         console.log(selectInfo);
-        
+
         calendarApi.unselect() // clear date selection
         setData(prevValue => {
             // store as HH:MM string to display in the form
@@ -88,6 +88,18 @@ export default function Calendar() {
                 eventClick={handleEventClick}
                 eventContent={renderEventContent}
                 events={tasks}
+                dayHeaderContent={(args) => {
+                    const dayName = args.date.toLocaleDateString('en-US', { weekday: 'short' });
+                    const dayNumber = args.date.getDate();
+                    return {
+                        html: `
+        <div class="fc-day-header">
+          <div class="fc-day-name">${dayName}</div>
+          <div class="fc-day-number">${dayNumber}</div>
+        </div>
+      `
+                    };
+                }}
             />
             <AnimatePresence>
                 {showForm && <MotionBox
@@ -113,7 +125,7 @@ export default function Calendar() {
                         initial={{ opacity: 0, scale: 0.9, y: -30 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: -30 }}
-                        transition={{ duration: 0.1, ease: "easeOut" }} sx={{ maxWidth: 'clamp(250px, 80vw, 500px)'}}>
+                        transition={{ duration: 0.1, ease: "easeOut" }} sx={{ maxWidth: 'clamp(250px, 80vw, 500px)' }}>
                         <Paper elevation={10} sx={{ p: 3, borderRadius: 3 }}>
                             <TaskForm
                                 data={data}
