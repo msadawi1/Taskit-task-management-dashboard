@@ -1,10 +1,11 @@
+import React from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function WeeklyGoal(props) {
+function WeeklyGoal(props) {
     function handleClick() {
         props.onClick();
     }
@@ -24,3 +25,5 @@ export default function WeeklyGoal(props) {
         </Grid>
     );
 }
+
+export default React.memo(WeeklyGoal);

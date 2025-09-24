@@ -5,6 +5,7 @@ import TimerMenu from "./components/TimerMenu";
 import Dashboard from "./components/Dashboard";
 import Calendar from "./components/Calendar"
 import Progress from "./components/Progress";
+import Settings from "./components/Settings";
 import { TasksContext } from "./components/context";
 import Header from "./components/Header";
 import { createTheme, ThemeProvider, CssBaseline, Box, useTheme } from '@mui/material';
@@ -149,7 +150,7 @@ function App() {
           <TabPanel value={tab} index={navbarIndex.settings}>
             <Fade in={tab === navbarIndex.settings} timeout={200} mountOnEnter unmountOnExit>
               <div>
-                {/* Settings content goes here */}
+                <Settings />
               </div>
             </Fade>
           </TabPanel>

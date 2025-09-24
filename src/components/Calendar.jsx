@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import { motion, AnimatePresence } from "framer-motion";
 import dayjs from 'dayjs';
 import { diffInMinutes } from './utils/TaskFormUtils';
+import TabTitle from './mini_components/TabTitle';
 
 const MotionBox = motion.create(Box);
 
@@ -63,7 +64,8 @@ export default function Calendar() {
         )
     }
     return (
-        <>
+        <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
+            <TabTitle title="Calendar View"/>
             <FullCalendar
                 plugins={[timeGridPlugin, interactionPlugin]}
                 initialView="timeGridWeek"
@@ -136,6 +138,6 @@ export default function Calendar() {
                     </MotionBox>
                 </MotionBox>}
             </AnimatePresence>
-        </>
+        </Box>
     );
 }

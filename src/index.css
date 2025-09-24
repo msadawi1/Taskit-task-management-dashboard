@@ -19,6 +19,7 @@ ul {
 
 .fc {
   font-family: Roboto, Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
   background: var(--fc-bg);
   border: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -130,12 +131,6 @@ ul {
   background: var(--fc-bg-hover);
 }
 
-/* === Global Font & Uppercase === */
-.fc {
-  font-family: 'Roboto', 'Segoe UI', Helvetica, Arial, sans-serif !important;
-  text-transform: uppercase;
-}
-
 /* Header Layout */
 .fc-col-header-cell .fc-day-header {
   display: flex;
@@ -153,7 +148,7 @@ ul {
 }
 
 .fc-col-header-cell .fc-day-number {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: var(--fc-primary);
 }

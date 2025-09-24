@@ -1,10 +1,10 @@
-import React, { useState, useRef  } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TabTitle from "./mini_components/TabTitle";
-import WeeklyGoal from "./WeeklyGoal";
 import TextField from "@mui/material/TextField";
+import GoalList from "./GoalList";
 
 export default function GoalSection(props) {
     const [input, setInput] = useState('');
@@ -18,34 +18,25 @@ export default function GoalSection(props) {
         event.preventDefault();
         setInput('');
     }
+    const handleClick = useCallback((goalId) => {
+        props.setFormVisible(true);
+        props.onClick(goalId);
+    }, [props]);
     return (
         <Grid container spacing={2}>
             <Grid size={12} sx={{ mb: 1 }}>
                 <TabTitle title="Weekly Goals" />
             </Grid>
-            {props.goals.map(goal =>
-                <Grid key={goal.id} size={12}>
-                    <WeeklyGoal
-                        {...goal}
-                        onRemove={props.onRemove}
-                        onClick={() => { 
-                            props.setFormVisible(true) 
-                            props.onClick(goal.id) 
-                        }}
-                    />
-                </Grid>
-            )}
-            <Grid size={12}>
+            <GoalList goals={props.goals} onRemove={props.onRemove} onClick={handleClick} />
+            <Grid size={{ xs: 12, md: 6 }}>
                 <form onSubmit={addGoal}>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', width: '55%', gap: 1 }}>
+                    <Box display='flex' rowGap={1} flexDirection='column'>
                         <TextField id="standard-outlined" sx={{
                             "& .MuiInputBase-input": {
                                 fontSize: 20
                             },
                         }} autoComplete="false" required={true} inputRef={inputRef} value={input} onChange={updateInput} label="Goal title" variant="standard" InputLabelProps={{ style: { fontSize: 18 } }} />
-                        <Box sx={{ display: 'flex' }}>
-                            <Button variant="contained" disableElevation color="primary" type="submit" sx={{ borderRadius: 0, flexGrow: 1 }}>Add Goal</Button>
-                        </Box>
+                        <Button fullWidth variant="contained" disableElevation color="primary" type="submit" sx={{ borderRadius: 0, flexGrow: 1 }}>Add Goal</Button>
                     </Box>
                 </form>
             </Grid>
