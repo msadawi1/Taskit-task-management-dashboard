@@ -8,7 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-export default function Appearance() {
+export default function Appearance({ theme, onChange }) {
     return (
         <Paper elevation={1} sx={{ width: '100%', p: 3, backgroundColor: "background.paper" }}>
             <Grid container rowSpacing={2}>
@@ -28,14 +28,14 @@ export default function Appearance() {
                         <FormControl>
                             <Select
                                 id="mode-select"
-                                value={0}
-                                onChange={() => console.log("Changed")}
+                                value={theme}
+                                onChange={onChange}
                             >
-                                <MenuItem value={0}>
-                                        <LightModeIcon color="primary" />
+                                <MenuItem value='light'>
+                                    <LightModeIcon color="primary" />
                                 </MenuItem>
-                                <MenuItem value={1}>
-                                        <DarkModeIcon color="primary" />
+                                <MenuItem value='dark'>
+                                    <DarkModeIcon color="primary" />
                                 </MenuItem>
                             </Select>
                         </FormControl>

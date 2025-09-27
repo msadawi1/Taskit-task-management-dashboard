@@ -1,8 +1,10 @@
 import useTimerCore from './useTimerCore';
 import useTaskSelection from './useTaskSelection';
+import useSettings from './useSettings';
 
-export default function useTimerSession(durationMins = 25) {
-    const timer = useTimerCore(durationMins);
+export default function useTimerSession() {
+    const { settings } = useSettings();
+    const timer = useTimerCore(settings.defaultDuration);
     const selector = useTaskSelection();
     function startSession() {
         if (selector.input === '') {

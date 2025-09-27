@@ -1,7 +1,7 @@
 import { encodeDuration } from '../utils/TimerUtils';
 import { useState, useCallback } from 'react';
 
-export default function useTimerCore(durationMins = 25) {
+export default function useTimerCore(durationMins) {
     const [isStarted, setStarted] = useState(false);
     const [isPaused, setPaused] = useState(false);
     // initial elapsed time as -1000 explained below

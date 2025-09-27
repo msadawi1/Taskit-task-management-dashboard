@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-export default function TimerSettings() {
+export default function TimerSettings({ defaultDuration, onChange }) {
     return (
         <Paper elevation={1} sx={{ width: '100%', p: 3, backgroundColor: "background.paper" }}>
             <Grid container rowSpacing={2}>
@@ -26,19 +26,19 @@ export default function TimerSettings() {
                         <FormControl>
                             <Select
                                 id="mode-select"
-                                value={0}
-                                onChange={() => console.log("Changed")}
+                                value={defaultDuration}
+                                onChange={(event) => onChange(event.target.value)}
                             >
-                                <MenuItem value={0}>
+                                <MenuItem value={25}>
                                     25m
                                 </MenuItem>
-                                <MenuItem value={1}>
+                                <MenuItem value={30}>
                                     30m
                                 </MenuItem>
-                                <MenuItem value={2}>
+                                <MenuItem value={45}>
                                     45m
                                 </MenuItem>
-                                <MenuItem value={3}>
+                                <MenuItem value={60}>
                                     60m
                                 </MenuItem>
                             </Select>

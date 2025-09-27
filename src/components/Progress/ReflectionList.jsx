@@ -4,7 +4,7 @@ import Reflection from "./Reflection";
 export default function ReportsList({ reflections, onDelete }) {
     return (
         <Grid container rowSpacing={1}>
-            {reflections.map(reflection =>
+            {reflections.reverse().map(reflection =>
                 <Grid key={reflection.id} size={12}>
                     <Reflection {...reflection} onDelete={onDelete}/>
                 </Grid>

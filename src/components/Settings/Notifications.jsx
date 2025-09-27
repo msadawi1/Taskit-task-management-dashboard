@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Switch from "@mui/material/Switch";
 import Alert from '@mui/material/Alert';
 
-export default function Notifications() {
+export default function Notifications({ enabled, onChange }) {
     return (
         <Paper elevation={1} sx={{ width: '100%', p: 3, backgroundColor: "background.paper" }}>
             <Grid container rowSpacing={2}>
@@ -22,7 +22,7 @@ export default function Notifications() {
                         </Typography>
                     </Grid>
                     <Grid size="auto">
-                        <Switch checked={true} size="large" name="notifications" onChange={() => console.log("Enabled")} />
+                        <Switch checked={enabled} size="large" name="notifications" onChange={onChange} />
                     </Grid>
                     <Grid size={12}>
                         <Alert severity="success">
