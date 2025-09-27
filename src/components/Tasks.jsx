@@ -5,45 +5,45 @@ import Task from "./Task";
 import TaskForm from "./TaskForm";
 import Button from "@mui/material/Button";
 import { motion, AnimatePresence } from "framer-motion";
-import useManager from "./hooks/useManager";
 import SubTitle from "./mini_components/SubTitle";
 
 const MotionBox = motion.create(Box);
 
-export default function TaskSection(props) {
-    const { tasks, addTask, removeTask, completeTask } = useManager();
+export default function TaskSection({ goals, onClose, isFormVisible, setFormVisible, selectedGoal, tasks, onAdd, onRemove, onComplete }) {
     const completedTasks = [];
     const ongoingTasks = [];
     tasks.forEach(task => {
+        console.log(task);
+        
         if (task.status) {
             completedTasks.push(task);
         } else {
             ongoingTasks.push(task);
         }
-    })
+    });
     return (<>
         <Grid container spacing={1} sx={{ width: '100%' }}>
             <Grid size='grow'>
                 <SubTitle title="Daily Tasks"/>
             </Grid>
             <Grid display="flex" size='auto' justifyContent='flex-end'>
-                <Button variant="contained" onClick={() => props.setFormVisible(true)}>New Task</Button>
+                <Button variant="contained" onClick={() => setFormVisible(true)}>New Task</Button>
             </Grid>
             <Grid container size={12} sx={{ m: 0, pt: 2 }}>
                 {ongoingTasks.map(task =>
                     <Grid key={task.id} size={12}>
-                        <Task onCheck={completeTask} {...task} goal={props.goals.find(goal => goal.id === task.goalId)} onHide={removeTask} />
+                        <Task onCheck={onComplete} {...task} goal={goals.find(goal => goal.id === task.goalId)} onHide={onRemove} />
                     </Grid>
                 )}
                 {completedTasks.map(task =>
                     <Grid key={task.id} size={12}>
-                        <Task onCheck={completeTask} {...task} goal={props.goals.find(goal => goal.id === task.goalId)} onHide={removeTask} />
+                        <Task onCheck={onComplete} {...task} goal={goals.find(goal => goal.id === task.goalId)} onHide={onRemove} />
                     </Grid>
                 )}
             </Grid>
         </Grid>
         <AnimatePresence>
-            {props.isFormVisible && <MotionBox
+            {isFormVisible && <MotionBox
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -69,12 +69,12 @@ export default function TaskSection(props) {
                     transition={{ duration: 0.1, ease: "easeOut" }} sx={{ maxWidth: 'clamp(250px, 80vw, 500px)' }}>
                     <Paper elevation={10} sx={{ p: 3, borderRadius: 3 }}>
                         <TaskForm
-                            onAdd={addTask}
-                            weeklyGoals={props.goals}
-                            onClose={() => { props.setFormVisible(false); props.onClose() }}
+                            onAdd={onAdd}
+                            weeklyGoals={goals}
+                            onClose={() => { setFormVisible(false); onClose() }}
                             data={{
                                 title: "",
-                                goalId: props.goal,
+                                goalId: selectedGoal,
                                 category: '',
                                 priority: '',
                                 dueDate: null,

@@ -73,7 +73,7 @@ export default function Task(props) {
                         </Grid>}
                         <Grid size="auto">
                             <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
-                                {props.goal.title}
+                                {"goal is deleted"}
                             </Typography>
                         </Grid>
                         {props.location && <Grid size="auto">

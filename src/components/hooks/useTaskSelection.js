@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useTasksContext } from '../context';
+import useManager from './useManager';
 
 export default function useTaskSelection() {
     const [input, setInput] = useState('');
     const [error, setError] = useState(false);
-    const { tasks } = useTasksContext();
+    const { tasks } = useManager();
     const [selectedTaskId, setSelectedTaskId] = useState('');
     function handleChange(event) {
         const value = event.target.value;

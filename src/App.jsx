@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Fade from '@mui/material/Fade';
 import Drawer from "./components/Drawer"
 import TimerMenu from "./components/TimerMenu";
@@ -6,11 +6,8 @@ import Dashboard from "./components/Dashboard";
 import Calendar from "./components/Calendar"
 import Progress from "./components/Progress";
 import Settings from "./components/Settings";
-import { TasksContext } from "./components/context";
 import Header from "./components/Header";
 import { createTheme, ThemeProvider, CssBaseline, Box, useTheme } from '@mui/material';
-import useManager from "./components/hooks/useManager";
-import useLogger from "./components/hooks/useLogger";
 import Footer from "./components/Footer"
 
 const theme = createTheme({
@@ -96,15 +93,12 @@ const navbarIndex = {
 function App() {
   const [tab, setTab] = useState(navbarIndex.dashboard);
   const [drawer, setDrawer] = useState(false);
-  const { weeklyGoals, tasks, removeGoalAndTasks, addGoal, setTasks } = useManager();
-  const taskTitleRef = useRef(null);
   function TabPanel({ children, value, index }) {
     return value === index ? <Box sx={{ flexGrow: 1 }}>{children}</Box> : null;
   }
   function toggleDrawer() {
     setDrawer(prev => !prev);
   }
-  useLogger("Tasks array:", tasks);
   return (
     <ThemeProvider theme={theme}>
       <ThemeVariables />
@@ -118,18 +112,14 @@ function App() {
           <TabPanel value={tab} index={navbarIndex.dashboard}>
             <Fade in={tab === navbarIndex.dashboard} timeout={200} mountOnEnter unmountOnExit>
               <div>
-                <TasksContext.Provider value={{ tasks, setTasks }}>
-                  <Dashboard goals={weeklyGoals} onRemove={removeGoalAndTasks} onAdd={addGoal} inputRef={taskTitleRef} />
-                </TasksContext.Provider>
+                  <Dashboard />
               </div>
             </Fade>
           </TabPanel>
           <TabPanel value={tab} index={navbarIndex.timer}>
             <Fade in={tab === navbarIndex.timer} timeout={200} mountOnEnter unmountOnExit>
               <div>
-                <TasksContext.Provider value={{ tasks, setTasks }}>
                   <TimerMenu />
-                </TasksContext.Provider>
               </div>
             </Fade>
           </TabPanel>

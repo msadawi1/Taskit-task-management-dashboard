@@ -65,14 +65,10 @@ export default function useManager() {
     }
     return {
         tasks,
-        setTasks,
         addTask,
         completeTask,
         removeTask,
-        removeGoalTasks,
         weeklyGoals,
-        setWeeklyGoals,
-        removeGoal,
         addGoal,
         removeGoalAndTasks,
     }
