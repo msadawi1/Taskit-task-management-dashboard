@@ -27,7 +27,8 @@ export default function Calendar() {
         end: '',
         location: '',
         duration: 0,
-        error: null,
+        durationError: null,
+        dateError: null,
     });
     function handleDateSelect(selectInfo) {
         let calendarApi = selectInfo.view.calendar

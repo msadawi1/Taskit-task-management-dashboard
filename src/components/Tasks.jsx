@@ -83,7 +83,8 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
                                 end: '',
                                 location: '',
                                 duration: 0,
-                                error: null,
+                                durationError: null,
+                                dateError: null
                             }}
                         />
                     </Paper>
