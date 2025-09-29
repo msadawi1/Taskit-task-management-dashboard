@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -7,7 +8,7 @@ import Button from "@mui/material/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import SubTitle from "./mini_components/SubTitle";
 import Feedback from "./mini_components/Feedback";
-import SearchBar from "./Tasks/SearchBar";
+import TaskControls from "./Tasks/TaskControls";
 import Caption from "./mini_components/Caption";
 
 const MotionBox = motion.create(Box);
@@ -15,9 +16,11 @@ const MotionBox = motion.create(Box);
 export default function TaskSection({ goals, onClose, isFormVisible, setFormVisible, selectedGoal, tasks, onAdd, onRemove, onCheck }) {
     const completedTasks = [];
     const ongoingTasks = [];
-    tasks.forEach(task => {
-        console.log(task);
-
+    const [search, setSearch] = useState('');
+    const filteredTasks = tasks.filter(task =>
+        task.title.toLowerCase().includes(search.toLowerCase())
+    );
+    filteredTasks.forEach(task => {
         if (task.status) {
             completedTasks.push(task);
         } else {
@@ -32,11 +35,11 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
             <Grid display="flex" size='auto' justifyContent='flex-end'>
                 <Button variant="contained" onClick={() => setFormVisible(true)}>New Task</Button>
             </Grid>
-            <Grid size={12} sx={{ mt: -2, mb: 2 }}>
+            <Grid size={12} sx={{ mt: -3, mb: 2 }}>
                 <Caption text="Manage your tasks and stay productive" />
             </Grid>
-            <Grid size={12}>
-                <SearchBar />
+            <Grid size={12} sx={{mt: -1}}>
+                <TaskControls search={search} setSearch={setSearch}/>
             </Grid>
             {tasks.length > 0 ? <Grid container size={12} sx={{ m: 0 }}>
                 {ongoingTasks.map(task =>
