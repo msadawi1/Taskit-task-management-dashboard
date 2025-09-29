@@ -11,7 +11,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Goal from "./TaskForm/Goal";
 import Priority from "./TaskForm/Priority";
 import Duedate from "./TaskForm/Duedate";
-import Category from "./TaskForm/Category";
+import List from "./TaskForm/List";
 import StartTime from "./TaskForm/StartTime";
 import EndTime from "./TaskForm/EndTime";
 import IconButton from '@mui/material/IconButton'
@@ -105,7 +105,7 @@ export default function TaskForm({ data, onAdd, onClose }) {
                 <Goal goals={weeklyGoals} onChange={handleChange} value={taskFormInput.goalId} />
             </Grid>
             <Grid size={6}>
-                <Category onChange={handleChange} value={taskFormInput.category} />
+                <List onChange={handleChange} value={taskFormInput.list} />
             </Grid>
             <Grid size={6}>
                 <Priority onChange={handleChange} value={taskFormInput.priority} />

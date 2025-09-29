@@ -19,7 +19,7 @@ export default function Calendar() {
     const [data, setData] = useState({
         title: "",
         goalId: '',
-        category: '',
+        list: '',
         priority: '',
         dueDate: null,
         allDay: false,

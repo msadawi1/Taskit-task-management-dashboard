@@ -21,7 +21,7 @@ export default function useStats(week) {
         let completed = 0;
         let allDayCount = 0;
         // NOTE: categories are hardcoded here, to be fixed later.
-        let timeByCategory = Object.fromEntries(
+        let timeByList = Object.fromEntries(
             categories.map(c => [c.id, 0])
         );
         const filterdTasks = filterTasksByWeek(tasks);
@@ -34,11 +34,11 @@ export default function useStats(week) {
             if (task.allDay) {
                 allDayCount += 1;
             }
-            if (timeByCategory.hasOwnProperty(task.category)) {
-                timeByCategory[task.category] += duration;
+            if (timeByList.hasOwnProperty(task.list)) {
+                timeByList[task.list] += duration;
             }
         });
-        return { totalTasks: filterdTasks.length, totalTime, completed, timeByCategory, allDayCount };
+        return { totalTasks: filterdTasks.length, totalTime, completed, timeByList, allDayCount };
     }
     return {
         getStats

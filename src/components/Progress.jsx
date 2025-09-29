@@ -11,7 +11,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import TodayIcon from '@mui/icons-material/Today';
 import CheckIcon from '@mui/icons-material/Check';
-import TimeByCategory from "./Progress/TimeByCategoryCard";
+import TimeByList from "./Progress/TimeByList";
 import useStats from './hooks/useStats';
 import useReflections from './hooks/useReflections';
 import { shiftWeek, getFormattedDate, getWeekOffset } from './utils/ProgressUtils';
@@ -66,7 +66,7 @@ export default function Progress() {
                         </Grid>
                     </Grid>
                     <Grid size={12}>
-                        <TimeByCategory timeByCategory={stats.timeByCategory} totalTime={stats.totalTime} />
+                        <TimeByList timeByList={stats.timeByList} totalTime={stats.totalTime} />
                     </Grid>
                     <Grid size={12}>
                         <ReflectionSection reflections={reflections} onDelete={removeReflection} onClick={useCallback(() => setShowForm(true), [])}/>

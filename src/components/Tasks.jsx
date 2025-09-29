@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import SubTitle from "./mini_components/SubTitle";
 import Feedback from "./mini_components/Feedback";
+import SearchBar from "./Tasks/SearchBar";
+import Caption from "./mini_components/Caption";
 
 const MotionBox = motion.create(Box);
 
@@ -23,14 +25,20 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
         }
     });
     return (<>
-        <Grid container spacing={1} sx={{ width: '100%' }}>
+        <Grid container spacing={2} sx={{ width: '100%' }}>
             <Grid size='grow'>
-                <SubTitle title="Daily Tasks" />
+                <SubTitle title="Tasks" />
             </Grid>
             <Grid display="flex" size='auto' justifyContent='flex-end'>
                 <Button variant="contained" onClick={() => setFormVisible(true)}>New Task</Button>
             </Grid>
-            {tasks.length > 0 ? <Grid container size={12} sx={{ m: 0, pt: 2 }}>
+            <Grid size={12} sx={{ mt: -2, mb: 2 }}>
+                <Caption text="Manage your tasks and stay productive" />
+            </Grid>
+            <Grid size={12}>
+                <SearchBar />
+            </Grid>
+            {tasks.length > 0 ? <Grid container size={12} sx={{ m: 0 }}>
                 {ongoingTasks.map(task =>
                     <Grid key={task.id} size={12}>
                         <Task onCheck={onCheck} {...task} goal={goals.find(goal => goal.id === task.goalId)} onHide={onRemove} />
@@ -41,8 +49,8 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
                         <Task onCheck={onCheck} {...task} goal={goals.find(goal => goal.id === task.goalId)} onHide={onRemove} />
                     </Grid>
                 )}
-            </Grid> : <Grid size={12} sx={{ mt: -2, pt: 2 }}>
-                <Feedback text="You have no tasks at the moment"/>
+            </Grid> : <Grid size={12}>
+                <Feedback text="You have no tasks at the moment" />
             </Grid>}
         </Grid>
         <AnimatePresence>
@@ -78,7 +86,7 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
                             data={{
                                 title: "",
                                 goalId: selectedGoal,
-                                category: '',
+                                list: '',
                                 priority: '',
                                 dueDate: null,
                                 allDay: false,

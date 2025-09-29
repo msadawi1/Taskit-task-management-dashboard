@@ -26,7 +26,7 @@ export default function GoalSection(props) {
     return (
         <Grid container spacing={2}>
             <Grid size={12} sx={{ mb: 1 }}>
-                <TabTitle title="Weekly Goals" />
+                <TabTitle title="Goals" />
             </Grid>
             {props.goals.length > 0 ?
                 <GoalList goals={props.goals} onRemove={props.onRemove} onClick={handleClick} />
