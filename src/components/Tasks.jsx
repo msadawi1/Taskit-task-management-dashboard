@@ -6,15 +6,16 @@ import TaskForm from "./TaskForm";
 import Button from "@mui/material/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import SubTitle from "./mini_components/SubTitle";
+import Feedback from "./mini_components/Feedback";
 
 const MotionBox = motion.create(Box);
 
-export default function TaskSection({ goals, onClose, isFormVisible, setFormVisible, selectedGoal, tasks, onAdd, onRemove, onComplete }) {
+export default function TaskSection({ goals, onClose, isFormVisible, setFormVisible, selectedGoal, tasks, onAdd, onRemove, onCheck }) {
     const completedTasks = [];
     const ongoingTasks = [];
     tasks.forEach(task => {
         console.log(task);
-        
+
         if (task.status) {
             completedTasks.push(task);
         } else {
@@ -24,23 +25,25 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
     return (<>
         <Grid container spacing={1} sx={{ width: '100%' }}>
             <Grid size='grow'>
-                <SubTitle title="Daily Tasks"/>
+                <SubTitle title="Daily Tasks" />
             </Grid>
             <Grid display="flex" size='auto' justifyContent='flex-end'>
                 <Button variant="contained" onClick={() => setFormVisible(true)}>New Task</Button>
             </Grid>
-            <Grid container size={12} sx={{ m: 0, pt: 2 }}>
+            {tasks.length > 0 ? <Grid container size={12} sx={{ m: 0, pt: 2 }}>
                 {ongoingTasks.map(task =>
                     <Grid key={task.id} size={12}>
-                        <Task onCheck={onComplete} {...task} goal={goals.find(goal => goal.id === task.goalId)} onHide={onRemove} />
+                        <Task onCheck={onCheck} {...task} goal={goals.find(goal => goal.id === task.goalId)} onHide={onRemove} />
                     </Grid>
                 )}
                 {completedTasks.map(task =>
                     <Grid key={task.id} size={12}>
-                        <Task onCheck={onComplete} {...task} goal={goals.find(goal => goal.id === task.goalId)} onHide={onRemove} />
+                        <Task onCheck={onCheck} {...task} goal={goals.find(goal => goal.id === task.goalId)} onHide={onRemove} />
                     </Grid>
                 )}
-            </Grid>
+            </Grid> : <Grid size={12} sx={{ mt: -2, pt: 2 }}>
+                <Feedback text="You have no tasks at the moment"/>
+            </Grid>}
         </Grid>
         <AnimatePresence>
             {isFormVisible && <MotionBox

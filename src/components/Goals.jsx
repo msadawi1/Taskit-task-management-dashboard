@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import TabTitle from "./mini_components/TabTitle";
 import TextField from "@mui/material/TextField";
 import GoalList from "./GoalList";
+import Feedback from "./mini_components/Feedback";
 
 export default function GoalSection(props) {
     const [input, setInput] = useState('');
@@ -27,7 +28,13 @@ export default function GoalSection(props) {
             <Grid size={12} sx={{ mb: 1 }}>
                 <TabTitle title="Weekly Goals" />
             </Grid>
-            <GoalList goals={props.goals} onRemove={props.onRemove} onClick={handleClick} />
+            {props.goals.length > 0 ?
+                <GoalList goals={props.goals} onRemove={props.onRemove} onClick={handleClick} />
+                :
+                <Grid size={12} sx={{mt: -2}}>
+                    <Feedback text="You have no goals at the moment" />
+                </Grid>
+            }
             <Grid size={{ xs: 12, md: 6 }}>
                 <form onSubmit={addGoal}>
                     <Box display='flex' rowGap={1} flexDirection='column'>
