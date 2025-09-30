@@ -17,9 +17,16 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
     const completedTasks = [];
     const ongoingTasks = [];
     const [search, setSearch] = useState('');
-    const filteredTasks = tasks.filter(task =>
-        task.title.toLowerCase().includes(search.toLowerCase())
-    );
+    // 0 to indicate 'All'
+    const [list, setList] = useState(0);
+    const filteredTasks = tasks.filter(task => {
+        const isValidSearch = task.title.toLowerCase().includes(search.toLowerCase());
+        if (list === 0) {
+            return isValidSearch;
+        } else {
+            return isValidSearch && task.list === list;
+        }
+    });
     filteredTasks.forEach(task => {
         if (task.status) {
             completedTasks.push(task);
@@ -35,11 +42,11 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
             <Grid display="flex" size='auto' justifyContent='flex-end'>
                 <Button variant="contained" onClick={() => setFormVisible(true)}>New Task</Button>
             </Grid>
-            <Grid size={12} sx={{ mt: -3, mb: 2 }}>
+            <Grid size={12} sx={{ mt: -2, mb: 2 }}>
                 <Caption text="Manage your tasks and stay productive" />
             </Grid>
-            <Grid size={12} sx={{mt: -1}}>
-                <TaskControls search={search} setSearch={setSearch} />
+            <Grid size={12} sx={{ mt: -1 }}>
+                <TaskControls search={search} setSearch={setSearch} list={list} setList={setList} />
             </Grid>
             {tasks.length > 0 ? <Grid container size={12} sx={{ m: 0 }}>
                 {ongoingTasks.map(task =>

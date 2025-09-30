@@ -9,12 +9,14 @@ import SubTitle from "../mini_components/SubTitle";
 
 export default function ListForm({ onSubmit, onClose }) {
     const [name, setName] = useState("");
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        // handle submit logic here
+        const value = name.trim();
+        if (!value) return;
+        if (onSubmit) onSubmit(value);
+        setName("");
+        if (onClose) onClose();
     };
-
     return (
         <form onSubmit={handleSubmit} autoComplete="off">
             <Grid container columnSpacing={1} rowSpacing={2} sx={{ width: "100%" }}>

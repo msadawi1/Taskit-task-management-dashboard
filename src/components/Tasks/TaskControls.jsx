@@ -9,12 +9,25 @@ import SearchIcon from '@mui/icons-material/Search';
 import ListFilter from "./ListFilter";
 import Button from "@mui/material/Button";
 import ListForm from "./ListForm";
+import useLists from "../hooks/useLists";
+import Confirmation from "../mini_components/Confirmation";
 
 const MotionBox = motion.create(Box);
 
 
-export default function TaskControls({ search, setSearch }) {
+export default function TaskControls({ search, setSearch, list, setList }) {
     const [listForm, setListForm] = useState(false);
+    const [deletePopup, setDeletePopup] = useState(false);
+    const { lists, insertList, deleteList } = useLists();
+    function handleClick() {
+        if (list !== 0)
+            setDeletePopup(true);
+    }
+    function handleConfirmation() {
+        deleteList(list);
+        setList(0);
+        setDeletePopup(false);
+    }
     return (
         <>
             <Paper elevation={1} sx={{ px: 2, py: 2.5 }}>
@@ -40,13 +53,13 @@ export default function TaskControls({ search, setSearch }) {
                         />
                     </Grid>
                     <Grid size={1.5}>
-                        <ListFilter />
+                        <ListFilter value={list} onChange={setList} lists={lists} />
                     </Grid>
                     <Grid size={1.5}>
                         <Button onClick={() => setListForm(true)} fullWidth color='success' variant="contained">New List</Button>
                     </Grid>
                     <Grid size={1.5}>
-                        <Button fullWidth color='warning' variant="contained">Delete List</Button>
+                        <Button onClick={handleClick} fullWidth color='warning' variant="contained">Delete List</Button>
                     </Grid>
                 </Grid>
             </Paper>
@@ -76,11 +89,15 @@ export default function TaskControls({ search, setSearch }) {
                         exit={{ opacity: 0, scale: 0.9, y: -30 }}
                         transition={{ duration: 0.1, ease: "easeOut" }} sx={{ maxWidth: 'clamp(250px, 80vw, 500px)' }}>
                         <Paper elevation={10} sx={{ p: 3, borderRadius: 3 }}>
-                            <ListForm onClose={() => setListForm(false)} />
+                            <ListForm onSubmit={insertList} onClose={() => setListForm(false)} />
                         </Paper>
                     </MotionBox>
                 </MotionBox>}
             </AnimatePresence>
+            <Confirmation onClose={() => setDeletePopup(false)} onConfirm={handleConfirmation} open={deletePopup}
+                title={`Delete   "${list}"?`} caption={"This will delete all tasks in that list."}
+                confirmText={"Ok"} cancelText={"Cancel"}
+            />
         </>
     );
 }
