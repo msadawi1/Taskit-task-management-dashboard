@@ -39,7 +39,7 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
                 <Caption text="Manage your tasks and stay productive" />
             </Grid>
             <Grid size={12} sx={{mt: -1}}>
-                <TaskControls search={search} setSearch={setSearch}/>
+                <TaskControls search={search} setSearch={setSearch} />
             </Grid>
             {tasks.length > 0 ? <Grid container size={12} sx={{ m: 0 }}>
                 {ongoingTasks.map(task =>
