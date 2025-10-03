@@ -68,7 +68,7 @@ export default function Task(props) {
                                 <AccessTimeIcon sx={{ fontSize: 14 }} />
                             </Typography>
                             <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
-                                {props.duration / 60}h
+                                {props.taskDuration / 60}h
                             </Typography>
                         </Grid>}
                         <Grid size="auto">

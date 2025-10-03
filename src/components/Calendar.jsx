@@ -10,12 +10,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import dayjs from 'dayjs';
 import { diffInMinutes } from './utils/TaskFormUtils';
 import TabTitle from './mini_components/TabTitle';
+import EventItem from './Calendar/EventItem';
+import EventDialog from './Calendar/EventDialog';
 
 const MotionBox = motion.create(Box);
 
 export default function Calendar() {
-    const { tasks, addTask } = useManager();
+    const { tasks, getGoalTitleById, addTask } = useManager();
     const [showForm, setShowForm] = useState(false);
+    const [dialogEvent, setDialogEvent] = useState(null);
+    const [dialogOpen, setDialogOpen] = useState(false);
     const [data, setData] = useState({
         title: "",
         goalId: '',
@@ -26,14 +30,12 @@ export default function Calendar() {
         start: '',
         end: '',
         location: '',
-        duration: 0,
+        taskDuration: 0,
         durationError: null,
         dateError: null,
     });
     function handleDateSelect(selectInfo) {
         let calendarApi = selectInfo.view.calendar
-        console.log(selectInfo);
-
         calendarApi.unselect() // clear date selection
         setData(prevValue => {
             // store as HH:MM string to display in the form
@@ -45,28 +47,19 @@ export default function Calendar() {
                 end,
                 dueDate: dayjs(selectInfo.start).startOf('day'),
                 allDay: selectInfo.allDay,
-                duration: !selectInfo.allDay ? diffInMinutes(start, end) : 0,
+                taskDuration: !selectInfo.allDay ? diffInMinutes(start, end) : 0,
             };
         });
         setShowForm(true);
     }
     function handleEventClick(clickInfo) {
-        if (window.confirm(`Delete event '${clickInfo.event.title}'?`)) {
-            console.log("Task deletd.");
-        }
-    }
-    function renderEventContent(eventInfo) {
-        return (
-            <>
-                <b>{eventInfo.timeText}</b>
-                <i>{eventInfo.event.title}</i><br />
-                <i>{eventInfo.event.id}</i>
-            </>
-        )
+        const event = tasks.find(task => task.id === clickInfo.event.id);     
+        setDialogEvent(event);
+        setDialogOpen(true);
     }
     return (
         <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
-            <TabTitle title="Calendar View"/>
+            <TabTitle title="Calendar View" />
             <FullCalendar
                 plugins={[timeGridPlugin, interactionPlugin]}
                 initialView="timeGridWeek"
@@ -89,7 +82,9 @@ export default function Calendar() {
                 selectMirror={true}
                 select={handleDateSelect}
                 eventClick={handleEventClick}
-                eventContent={renderEventContent}
+                eventContent={(eventInfo) => (
+                    <EventItem eventInfo={eventInfo} />
+                )}
                 events={tasks}
                 dayHeaderContent={(args) => {
                     const dayName = args.date.toLocaleDateString('en-US', { weekday: 'short' });
@@ -103,6 +98,12 @@ export default function Calendar() {
       `
                     };
                 }}
+            />
+            <EventDialog
+                open={dialogOpen}
+                onClose={() => setDialogOpen(false)}
+                event={dialogEvent}
+                goalTitle={getGoalTitleById(dialogEvent?.goalId)}
             />
             <AnimatePresence>
                 {showForm && <MotionBox

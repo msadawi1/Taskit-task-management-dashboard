@@ -74,7 +74,7 @@ export default function TaskForm({ data, onAdd, onClose }) {
                         updated.durationError = true;
                     }
                     else {
-                        updated.duration = diff;
+                        updated.taskDuration = diff;
                         updated.durationError = false;
                     }
                 }
@@ -123,7 +123,7 @@ export default function TaskForm({ data, onAdd, onClose }) {
             </Grid>
             {!taskFormInput.allDay && <>
                 <Grid size={6} sx={{ mt: -0.5 }}>
-                    <StartTime onChange={handleChange} value={taskFormInput.start} duration={taskFormInput.duration} error={taskFormInput.durationError} />
+                    <StartTime onChange={handleChange} value={taskFormInput.start} duration={taskFormInput.taskDuration} error={taskFormInput.durationError} />
                 </Grid>
                 <Grid size={6} sx={{ mt: -0.5 }} >
                     <EndTime onChange={handleChange} value={taskFormInput.end} />

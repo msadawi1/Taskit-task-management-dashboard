@@ -27,7 +27,7 @@ export default function useStats(week) {
         );
         const filterdTasks = filterTasksByWeek(tasks);
         filterdTasks.forEach(task => {
-            const duration = Number(task.duration) || 0;
+            const duration = Number(task.taskDuration) || 0;
             totalTime += duration;
             if (task.status) {
                 completed += 1;

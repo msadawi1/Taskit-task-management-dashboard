@@ -103,7 +103,7 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
                                 start: '',
                                 end: '',
                                 location: '',
-                                duration: 0,
+                                taskDuration: 0,
                                 durationError: null,
                                 dateError: null
                             }}

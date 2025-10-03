@@ -23,5 +23,16 @@ function parseTimeToDate(timeStr, dueDate) {
     return date; // native Date in local time
 }
 
+const priorityObj = {
+    0: "High",
+    1: "Medium",
+    2: "Low"
+}
 
-export { diffInMinutes, parseTimeToDate };
+const priorityColors = {
+    0: 'warning',
+    1: 'info',
+    2: 'success',
+};
+
+export { diffInMinutes, parseTimeToDate, priorityObj, priorityColors };
