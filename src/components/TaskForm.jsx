@@ -99,7 +99,7 @@ export default function TaskForm({ data, onAdd, onClose }) {
                 <Feedback color="warning" text="Please select a valid date" />
             </Grid> }
             <Grid size={12}>
-                <TextField name="title" required={true} id="standard-outlined" sx={{ width: '100%' }} size="medium" value={taskFormInput.title} onChange={handleChange} label="Task Title" />
+                <TextField autoFocus name="title" required={true} id="standard-outlined" sx={{ width: '100%' }} size="medium" value={taskFormInput.title} onChange={handleChange} label="Task Title" />
             </Grid>
             <Grid size={12}>
                 <Goal goals={weeklyGoals} onChange={handleChange} value={taskFormInput.goalId} />

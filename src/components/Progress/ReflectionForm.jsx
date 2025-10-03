@@ -41,6 +41,7 @@ export default function ReflectionForm({ onSubmit, onClose }) {
                         multiline
                         rows={6}
                         fullWidth
+                        autoFocus
                         variant="outlined"
                         value={text}
                         onChange={(e) => setText(e.target.value)}

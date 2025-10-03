@@ -35,7 +35,7 @@ function StartTime({ value, onChange, duration, error }) {
                     <MenuItem key={time} value={time}>{time}</MenuItem>
                 )}
             </Select>
-            { !(error === "duration") && <FormHelperText>Duration: {hours}{hours <= 1 ? 'hr' : 'hrs'}</FormHelperText> }
+            { !error && <FormHelperText>Duration: {hours}{hours <= 1 ? 'hr' : 'hrs'}</FormHelperText> }
         </FormControl>
     );
 }

@@ -36,6 +36,7 @@ export default function ListForm({ onSubmit, onClose }) {
                         label="List Name"
                         placeholder="Enter list name"
                         fullWidth
+                        autoFocus
                         variant="outlined"
                         value={name}
                         onChange={(e) => setName(e.target.value)}

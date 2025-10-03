@@ -3,9 +3,10 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
+import useLists from "../hooks/useLists";
 
 function List({ value, onChange }) {
-    const lists = [{ id: 1, title: 'Ibadah' }, { id: 2, title: 'Career' }, { id: 3, title: 'Relationships' }, { id: 4, title: 'Health' }];
+    const { lists } = useLists();
     return (
         <FormControl fullWidth required={true} size='medium'>
             <InputLabel id="list-select-label">List</InputLabel>
@@ -18,7 +19,7 @@ function List({ value, onChange }) {
                 onChange={onChange}
             >
                 {lists.map(list =>
-                    <MenuItem key={list.id} id={list.id} value={list.id}>{list.title[0].toUpperCase() + list.title.slice(1, list.title.length)}</MenuItem>
+                    <MenuItem key={list.name} id={list.name} value={list.name}>{list.name}</MenuItem>
                 )}
             </Select>
         </FormControl>

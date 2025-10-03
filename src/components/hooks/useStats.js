@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import useManager from './useManager';
+import useLists from "./useLists";
 
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
@@ -15,14 +16,14 @@ export default function useStats(week) {
                 taskDate.isSameOrBefore(week.end, "day");
         });
     }    
-    const categories = [{ id: 1, title: 'Ibadah' }, { id: 2, title: 'Career' }, { id: 3, title: 'Relationships' }, { id: 4, title: 'Health' }];
+    const { lists } = useLists();
     function getStats() {
         let totalTime = 0;
         let completed = 0;
         let allDayCount = 0;
         // NOTE: categories are hardcoded here, to be fixed later.
         let timeByList = Object.fromEntries(
-            categories.map(c => [c.id, 0])
+            lists.map(list => [list.name, 0])
         );
         const filterdTasks = filterTasksByWeek(tasks);
         filterdTasks.forEach(task => {

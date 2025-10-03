@@ -24,9 +24,12 @@ export default function TaskControls({ search, setSearch, list, setList }) {
             setDeletePopup(true);
     }
     function handleConfirmation() {
-        deleteList(list);
-        setList(0);
         setDeletePopup(false);
+        // add delay to remove the list after animation finishes
+        setTimeout(() => {
+            setList(0);
+            deleteList(list);
+        }, 100)
     }
     return (
         <>
