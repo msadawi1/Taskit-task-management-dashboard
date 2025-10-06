@@ -1,4 +1,5 @@
 import { useState } from "react";
+import dayjs from "dayjs";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -98,7 +99,7 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
                                 goalId: selectedGoal,
                                 list: '',
                                 priority: '',
-                                dueDate: null,
+                                dueDate: dayjs(),
                                 allDay: false,
                                 start: '',
                                 end: '',

@@ -5,8 +5,6 @@ import dayjs from 'dayjs';
 import React from 'react';
 
 function Duedate({ value, onChange, error }) {
-    console.log("Due date render.");
-    
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker minDate={dayjs()} label="Due Date" value={value} slotProps={{

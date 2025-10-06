@@ -7,15 +7,20 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import SubTitle from "../mini_components/SubTitle";
 
-export default function ListForm({ onSubmit, onClose }) {
+export default function ListForm({ onSubmit, onClose, error, resetError }) {
     const [name, setName] = useState("");
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const value = name.trim();
         if (!value) return;
-        if (onSubmit) onSubmit(value);
-        setName("");
-        if (onClose) onClose();
+        let success;
+        if (onSubmit) {
+            success = await onSubmit(value);
+        }
+        if (success) {
+            setName("");
+            if (onClose && !error) onClose();
+        }
     };
     return (
         <form onSubmit={handleSubmit} autoComplete="off">
@@ -39,7 +44,12 @@ export default function ListForm({ onSubmit, onClose }) {
                         autoFocus
                         variant="outlined"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => {
+                            setName(e.target.value);
+                            resetError();
+                        }}
+                        error={error}
+                        helperText={error}
                     />
                 </Grid>
 

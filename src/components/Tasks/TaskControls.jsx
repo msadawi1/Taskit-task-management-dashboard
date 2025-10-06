@@ -17,12 +17,15 @@ const MotionBox = motion.create(Box);
 export default function TaskControls({ search, setSearch, list, setList, onRemove }) {
     const [listForm, setListForm] = useState(false);
     const [deletePopup, setDeletePopup] = useState(false);
-    console.log(onRemove);
-    
+    const [formError, setFormError] = useState('');
     const { lists, insertList, deleteList } = useLists(onRemove);
-    function handleClick() {
+    function handleDeleteClick() {
         if (list !== 0)
             setDeletePopup(true);
+    }
+    function handleAddClick() {
+        setFormError('')
+        setListForm(true);
     }
     function handleConfirmation() {
         setDeletePopup(false);
@@ -31,6 +34,20 @@ export default function TaskControls({ search, setSearch, list, setList, onRemov
             setList(0);
             deleteList(list);
         }, 100)
+    }
+    function handleListSubmit(listName) {
+        if (listName === "All") {
+            setFormError("You can't use this name.");
+            return false;
+        }
+        const list = lists.find(list => list.name === listName);
+        if (list) {
+            setFormError("List already exists.");
+            return false;
+        } else {
+            insertList(listName);
+            return true;
+        }
     }
     return (
         <>
@@ -60,10 +77,10 @@ export default function TaskControls({ search, setSearch, list, setList, onRemov
                         <ListFilter value={list} onChange={setList} lists={lists} />
                     </Grid>
                     <Grid size={1.5}>
-                        <Button onClick={() => setListForm(true)} fullWidth color='success' variant="contained">New List</Button>
+                        <Button onClick={handleAddClick} fullWidth color='success' variant="contained">New List</Button>
                     </Grid>
                     <Grid size={1.5}>
-                        <Button onClick={handleClick} fullWidth color='warning' variant="contained">Delete List</Button>
+                        <Button onClick={handleDeleteClick} fullWidth color='warning' variant="contained">Delete List</Button>
                     </Grid>
                 </Grid>
             </Paper>
@@ -93,7 +110,8 @@ export default function TaskControls({ search, setSearch, list, setList, onRemov
                         exit={{ opacity: 0, scale: 0.9, y: -30 }}
                         transition={{ duration: 0.1, ease: "easeOut" }} sx={{ maxWidth: 'clamp(250px, 80vw, 500px)' }}>
                         <Paper elevation={10} sx={{ p: 3, borderRadius: 3 }}>
-                            <ListForm onSubmit={insertList} onClose={() => setListForm(false)} />
+                            <ListForm resetError={() => setFormError('')} error={formError}
+                                onSubmit={handleListSubmit} onClose={() => setListForm(false)} />
                         </Paper>
                     </MotionBox>
                 </MotionBox>}

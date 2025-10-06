@@ -38,11 +38,11 @@ export default function Task(props) {
         const timeStr = endDayjs.format("h:mmA"); // e.g., 5:00 PM
 
         if (dateDayjs.isSame(today, "day")) {
-            return `Today ${!allDay ? timeStr: ''}`;
+            return `Today ${!allDay ? timeStr : ''}`;
         } else if (dateDayjs.isSame(tomorrow, "day")) {
-            return `Tomorrow ${!allDay ? timeStr: ''}`;
+            return `Tomorrow ${!allDay ? timeStr : ''}`;
         } else {
-            return dateDayjs.format(`ddd, MMM D, YYYY`) + ` ${!allDay ? ('at ' + timeStr): ''}`;
+            return dateDayjs.format(`ddd, MMM D, YYYY`) + ` ${!allDay ? ('at ' + timeStr) : ''}`;
         }
     }
     return (
@@ -63,10 +63,8 @@ export default function Task(props) {
                         </Grid>
                     </Grid>
                     <Grid size={12} container columnSpacing={1.5} sx={{ mt: 0.5 }}>
-                        {!props.allDay && <Grid size="auto" display='flex' gap={0.2}>
-                            <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
-                                <AccessTimeIcon sx={{ fontSize: 14 }} />
-                            </Typography>
+                        {!props.allDay && <Grid size="auto" display='flex' gap={0.2} alignItems="center">
+                            <AccessTimeIcon sx={{ fontSize: 14, color: "secondary.dark" }}/>
                             <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
                                 {props.taskDuration / 60}h
                             </Typography>
@@ -74,6 +72,11 @@ export default function Task(props) {
                         <Grid size="auto">
                             <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
                                 {props.goal.title}
+                            </Typography>
+                        </Grid>
+                        <Grid size="auto">
+                            <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
+                                {props.list}
                             </Typography>
                         </Grid>
                         {props.location && <Grid size="auto">
