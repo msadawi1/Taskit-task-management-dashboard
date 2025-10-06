@@ -14,11 +14,12 @@ import Confirmation from "../mini_components/Confirmation";
 
 const MotionBox = motion.create(Box);
 
-
-export default function TaskControls({ search, setSearch, list, setList }) {
+export default function TaskControls({ search, setSearch, list, setList, onRemove }) {
     const [listForm, setListForm] = useState(false);
     const [deletePopup, setDeletePopup] = useState(false);
-    const { lists, insertList, deleteList } = useLists();
+    console.log(onRemove);
+    
+    const { lists, insertList, deleteList } = useLists(onRemove);
     function handleClick() {
         if (list !== 0)
             setDeletePopup(true);

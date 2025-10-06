@@ -64,6 +64,10 @@ export default function useManager() {
         setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
     }
 
+    function removeListTasks(listName) {
+        setTasks(prevTasks => prevTasks.filter(task => task.list !== listName));
+    }
+
     function getGoalTitleById(goalId) {
         const goal = weeklyGoals.find(goal => goal.id === goalId) 
         if (goal) return goal.title; else return null;;
@@ -73,6 +77,7 @@ export default function useManager() {
         addTask,
         completeTask,
         removeTask,
+        removeListTasks,
         weeklyGoals,
         addGoal,
         removeGoalAndTasks,

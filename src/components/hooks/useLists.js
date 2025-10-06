@@ -1,6 +1,7 @@
 import useLocalStorage from './useLocalStorage';
-
-export default function useLists() {
+// Note: removeListTasks is passed from Tasks instead  of using useManager to only have a single source of truth for useManager 
+// This will help in removing tasks from UI on list deletion without having to refresh the page
+export default function useLists(removeListTasks) {
     const [lists, setLists] = useLocalStorage("lists", []);
     function insertList(name) {
         setLists(prev => [...prev, {
@@ -8,6 +9,7 @@ export default function useLists() {
         }]);
     }
     function deleteList(name) {
+        removeListTasks(name);
         setLists(lists.filter(list => list.name !== name));
     }
     return {

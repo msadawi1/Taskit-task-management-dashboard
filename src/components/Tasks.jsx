@@ -13,7 +13,7 @@ import Caption from "./mini_components/Caption";
 
 const MotionBox = motion.create(Box);
 
-export default function TaskSection({ goals, onClose, isFormVisible, setFormVisible, selectedGoal, tasks, onAdd, onRemove, onCheck }) {
+export default function TaskSection({ goals, onClose, isFormVisible, setFormVisible, selectedGoal, tasks, onAdd, onRemove, onCheck, onListRemove }) {
     const completedTasks = [];
     const ongoingTasks = [];
     const [search, setSearch] = useState('');
@@ -21,10 +21,10 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
     const [list, setList] = useState(0);
     const filteredTasks = tasks.filter(task => {
         const isValidSearch = task.title.toLowerCase().includes(search.toLowerCase());
-        if (list === 0) {
+        if (list === 0) { // if all is selected then return only matching titles
             return isValidSearch;
         } else {
-            return isValidSearch && task.list === list;
+            return isValidSearch && task.list === list; // if a list is chosen return then return tasks with matching titles in that list
         }
     });
     filteredTasks.forEach(task => {
@@ -46,7 +46,7 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
                 <Caption text="Manage your tasks and stay productive" />
             </Grid>
             <Grid size={12} sx={{ mt: -1 }}>
-                <TaskControls search={search} setSearch={setSearch} list={list} setList={setList} />
+                <TaskControls search={search} setSearch={setSearch} list={list} setList={setList} onRemove={onListRemove}/>
             </Grid>
             {tasks.length > 0 ? <Grid container size={12} sx={{ m: 0 }}>
                 {ongoingTasks.map(task =>
