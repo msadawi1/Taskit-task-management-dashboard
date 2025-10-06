@@ -14,7 +14,7 @@ function StartTime({ value, onChange, duration, error }) {
     
     const hours = duration / 60;
     return (
-        <FormControl fullWidth required={true} size='medium' error={error === "duration"}>
+        <FormControl fullWidth required={true} size='medium' error={error}>
             <InputLabel id="start-select-label">Start Time</InputLabel>
             <Select
                 name="start"

@@ -5,14 +5,12 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import dayjs from "dayjs";
 
-function EndTime({ value, onChange }) {
+function EndTime({ value, onChange, error }) {
     const times = Array.from({ length: 24 * 2 }, (_, i) =>
         dayjs().startOf("day").add(i * 30, "minute").format("HH:mm")
     );
-    console.log("EndTime rendered.");
-    
     return (
-        <FormControl fullWidth required={true} size='medium'>
+        <FormControl fullWidth required={true} size='medium' error={error}>
             <InputLabel id="end-select-label">End Time</InputLabel>
             <Select
                 name="end"

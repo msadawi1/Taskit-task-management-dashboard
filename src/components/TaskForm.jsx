@@ -92,12 +92,12 @@ export default function TaskForm({ data, onAdd, onClose }) {
                     <CloseIcon color="primary" />
                 </IconButton>
             </Grid>
-            { taskFormInput.durationError && <Grid size={12} sx={{mt: -2, mb: 0}}>
+            {taskFormInput.durationError && <Grid size={12} sx={{ mt: -2, mb: 0 }}>
                 <Feedback color="warning" text="End time must be after start time" />
-            </Grid> }
-            { taskFormInput.dateError && <Grid size={12} sx={{mt: -2, mb: 0}}>
+            </Grid>}
+            {taskFormInput.dateError && <Grid size={12} sx={{ mt: -2, mb: 0 }}>
                 <Feedback color="warning" text="Please select a valid date" />
-            </Grid> }
+            </Grid>}
             <Grid size={12}>
                 <TextField autoFocus name="title" required={true} id="standard-outlined" sx={{ width: '100%' }} size="medium" value={taskFormInput.title} onChange={handleChange} label="Task Title" />
             </Grid>
@@ -126,7 +126,7 @@ export default function TaskForm({ data, onAdd, onClose }) {
                     <StartTime onChange={handleChange} value={taskFormInput.start} duration={taskFormInput.taskDuration} error={taskFormInput.durationError} />
                 </Grid>
                 <Grid size={6} sx={{ mt: -0.5 }} >
-                    <EndTime onChange={handleChange} value={taskFormInput.end} />
+                    <EndTime onChange={handleChange} value={taskFormInput.end} error={taskFormInput.durationError} />
                 </Grid>
             </>}
             <Grid size={12}>
