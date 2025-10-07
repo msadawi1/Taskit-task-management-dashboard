@@ -49,7 +49,7 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
             <Grid size={12} sx={{ mt: -1 }}>
                 <TaskControls search={search} setSearch={setSearch} list={list} setList={setList} onRemove={onListRemove}/>
             </Grid>
-            {tasks.length > 0 ? <Grid container size={12} sx={{ m: 0 }}>
+            {tasks.length > 0 ? <Grid container spacing={0.5} size={12} sx={{ m: 0 }}>
                 {ongoingTasks.map(task =>
                     <Grid key={task.id} size={12}>
                         <Task onCheck={onCheck} {...task} goal={goals.find(goal => goal.id === task.goalId)} onHide={onRemove} />

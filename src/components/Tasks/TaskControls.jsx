@@ -52,8 +52,8 @@ export default function TaskControls({ search, setSearch, list, setList, onRemov
     return (
         <>
             <Paper elevation={1} sx={{ px: 2, py: 2.5 }}>
-                <Grid container columnSpacing={1} rowSpacing={2}>
-                    <Grid size='grow'>
+                <Grid container columnSpacing={1} rowSpacing={1.5}>
+                    <Grid size={{xs: 12, sm: 10, lg: "grow"}}>
                         <TextField
                             id="search-field"
                             placeholder="Search tasks..."
@@ -73,14 +73,14 @@ export default function TaskControls({ search, setSearch, list, setList, onRemov
                             variant="outlined"
                         />
                     </Grid>
-                    <Grid size={1.5}>
+                    <Grid size={{ xs: 12, sm: 2, lg: 1.5 }}>
                         <ListFilter value={list} onChange={setList} lists={lists} />
                     </Grid>
-                    <Grid size={1.5}>
+                    <Grid size={{ xs: 6, lg: 1.5 }}>
                         <Button onClick={handleAddClick} fullWidth color='success' variant="contained">New List</Button>
                     </Grid>
-                    <Grid size={1.5}>
-                        <Button onClick={handleDeleteClick} fullWidth color='warning' variant="contained">Delete List</Button>
+                    <Grid size={{ xs: 6, lg: 1.5 }}>
+                        <Button onClick={handleDeleteClick} fullWidth color='warning' variant="contained">Delete</Button>
                     </Grid>
                 </Grid>
             </Paper>

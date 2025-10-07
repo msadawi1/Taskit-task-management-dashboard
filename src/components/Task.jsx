@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import dayjs from "dayjs";
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
 import Chip from '@mui/material/Chip';
@@ -46,25 +47,21 @@ export default function Task(props) {
         }
     }
     return (
-        <Paper elevation={1} sx={{ p: 2 }}>
-            <Grid container rowSpacing={1} columnSpacing={0.8} sx={{ width: "100%" }} alignItems='center'>
+        <Paper elevation={1} sx={{ p: 1.5 }}>
+            <Grid container rowSpacing={1} columnSpacing={0.8} alignItems='center'>
                 <Grid size="auto">
                     <Checkbox icon={<RadioButtonUncheckedIcon />} checkedIcon={<CheckCircleIcon />} onChange={toggleCheck} checked={checked} size="medium" variant='contained' color='primary' disableelevation="true" sx={{ fontWeight: "400", borderRadius: '50%', p: 0 }} />
                 </Grid>
                 <Grid size="grow" container direction='column' spacing={0} sx={{ p: 0, m: 0 }}>
-                    <Grid container display='flex' alignItems='center'>
-                        <Grid size='auto'>
-                            <Typography variant='subtitle1' fontWeight={400} sx={{ lineHeight: 1.2, textDecoration: checked ? 'line-through' : 'none', color: checked ? 'secondary.dark' : 'primary.main' }}>
-                                {props.title}
-                            </Typography>
-                        </Grid>
-                        <Grid size='auto'>
-                            <Chip label={priortyText[props.priority]} color={!props.status ? priorityColors[props.priority] : 'secondary'} size="small" sx={{ ml: 1, }} />
-                        </Grid>
-                    </Grid>
-                    <Grid size={12} container columnSpacing={1.5} sx={{ mt: 0.5 }}>
+                    <Box display='flex' alignItems='center' rowGap={0.5} columnGap={1} flexWrap="wrap">
+                        <Typography variant='subtitle1' fontWeight={400} sx={{ lineHeight: 1.2, textDecoration: checked ? 'line-through' : 'none', color: checked ? 'secondary.dark' : 'primary.main' }}>
+                            {props.title}
+                        </Typography>
+                        <Chip label={priortyText[props.priority]} color={!props.status ? priorityColors[props.priority] : 'secondary'} size="small" />
+                    </Box>
+                    <Grid size={12} display={{ xs: "none", sm: "flex" }} container columnSpacing={1.5} sx={{ mt: 0.5 }}>
                         {!props.allDay && <Grid size="auto" display='flex' gap={0.2} alignItems="center">
-                            <AccessTimeIcon sx={{ fontSize: 14, color: "secondary.dark" }}/>
+                            <AccessTimeIcon sx={{ fontSize: 14, color: "secondary.dark" }} />
                             <Typography variant='caption' color="secondary.dark" sx={{ display: "block", lineHeight: 1.2, m: 0 }}>
                                 {props.taskDuration / 60}h
                             </Typography>
