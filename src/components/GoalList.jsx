@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import WeeklyGoal from "./WeeklyGoal";
 
-function GoalList({ goals, onRemove, onClick }) {
+function GoalList({ goals, onRemove, onClick, onComplete, onError }) {
     return (
         <>
             {
@@ -11,6 +11,8 @@ function GoalList({ goals, onRemove, onClick }) {
                         <WeeklyGoal
                             {...goal}
                             onRemove={onRemove}
+                            onComplete={onComplete}
+                            onError={onError}
                             onClick={() => onClick(goal.id)}
                         />
                     </Grid>

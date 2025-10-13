@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -6,9 +6,15 @@ import TabTitle from "./mini_components/TabTitle";
 import TextField from "@mui/material/TextField";
 import GoalList from "./GoalList";
 import Feedback from "./mini_components/Feedback";
+import CompletedGoalsDialog from "./Goals/CompletedGoalsDialog";
+import FeedbackPopup from "./mini_components/FeedbackPopup";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 export default function GoalSection(props) {
     const [input, setInput] = useState('');
+    const [goalsPopup, setGoalsPopup] = useState(false);
+    const [feedbackPopup, setFeedbackPopup] = useState(false);
+
     const inputRef = useRef(null);
     function updateInput(event) {
         const newValue = event.target.value;
@@ -23,30 +29,55 @@ export default function GoalSection(props) {
         props.setFormVisible(true);
         props.onClick(goalId);
     }, [props]);
+
+    const completed = [];
+    const incomplete = [];
+
+    for (const goal of props.goals) {
+        if (goal.status) completed.push(goal);
+        else incomplete.push(goal);
+    }
+
     return (
-        <Grid container spacing={2}>
-            <Grid size={12} sx={{ mb: 1 }}>
-                <TabTitle title="Goals" />
-            </Grid>
-            {props.goals.length > 0 ?
-                <GoalList goals={props.goals} onRemove={props.onRemove} onClick={handleClick} />
-                :
-                <Grid size={12} sx={{mt: -2}}>
-                    <Feedback text="You have no goals at the moment" />
+        <>
+            <Grid container spacing={2}>
+                <Grid size={12}>
+                    <TabTitle title="Goals" />
                 </Grid>
-            }
-            <Grid size={{ xs: 12, md: 6 }}>
-                <form onSubmit={addGoal}>
-                    <Box display='flex' rowGap={1} flexDirection='column'>
-                        <TextField id="standard-outlined" sx={{
-                            "& .MuiInputBase-input": {
-                                fontSize: 20
-                            },
-                        }} autoComplete="false" required={true} inputRef={inputRef} value={input} onChange={updateInput} label="Goal title" variant="standard" InputLabelProps={{ style: { fontSize: 18 } }} />
-                        <Button fullWidth variant="contained" disableElevation color="primary" type="submit" sx={{ borderRadius: 0, flexGrow: 1 }}>Add Goal</Button>
-                    </Box>
-                </form>
+                <Grid size={12} sx={{ mt: -1 }}>
+                    <Button size='small' variant="contained" onClick={() => setGoalsPopup(true)}>
+                        Completed Goals
+                    </Button>
+                </Grid>
+                {props.goals.length > 0 ?
+                    <GoalList goals={incomplete} onError={() => setFeedbackPopup(true)} onRemove={props.onRemove} onComplete={props.onComplete} onClick={handleClick} />
+                    :
+                    <Grid size={12}>
+                        <Feedback text="You have no ongoing goals at the moment" />
+                    </Grid>
+                }
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <form onSubmit={addGoal}>
+                        <Box display='flex' rowGap={1} flexDirection='column'>
+                            <TextField id="standard-outlined" sx={{
+                                "& .MuiInputBase-input": {
+                                    fontSize: 20
+                                },
+                            }} autoComplete="false" required={true} inputRef={inputRef} value={input} onChange={updateInput} label="Goal title" variant="standard" InputLabelProps={{ style: { fontSize: 18 } }} />
+                            <Button fullWidth variant="contained" disableElevation color="primary" type="submit" sx={{ borderRadius: 0, flexGrow: 1 }}>Add Goal</Button>
+                        </Box>
+                    </form>
+                </Grid>
             </Grid>
-        </Grid>
+            <ClickAwayListener onClickAway={() => setGoalsPopup(false)}>
+                <CompletedGoalsDialog onGoalRemove={props.onRemove} open={goalsPopup} goals={completed} onClose={() => setGoalsPopup(false)} />
+            </ClickAwayListener>
+            <ClickAwayListener onClickAway={() => setFeedbackPopup(false)}>
+                <FeedbackPopup open={feedbackPopup} onClose={() => setFeedbackPopup(false)}
+                    title="Almost There!"
+                    text="Complete your remaining goal tasks to set this goal as complete."
+                    />
+            </ClickAwayListener>
+        </>
     );
 }

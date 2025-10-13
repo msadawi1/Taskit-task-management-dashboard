@@ -73,13 +73,11 @@ export default function useManager() {
         if (goal) return goal.title; else return null;;
     }
 
-    function completedGoal(goalId) {
+    function completeGoal(goalId) {
         const goalTasks = tasks.filter(task => task.goalId === goalId);
-        goalTasks.forEach(task => {
-            if (!task.status) {
-                return false;
-            }
-        });
+        for (let i = 0; i < goalTasks.length; i++) {
+            if(!goalTasks[i].status) return false;
+        }
         setWeeklyGoals(prevValue => prevValue.map(goal => goal.id === goalId ? { ...goal, status: true } : goal));
         return true;
     }
@@ -93,6 +91,6 @@ export default function useManager() {
         addGoal,
         removeGoalAndTasks,
         getGoalTitleById,
-        completedGoal
+        completeGoal
     }
 }
