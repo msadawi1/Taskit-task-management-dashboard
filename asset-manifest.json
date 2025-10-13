@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/msadawi1/Taskit-task-management-dashboard/static/css/main.c8679912.css",
+    "main.js": "/msadawi1/Taskit-task-management-dashboard/static/js/main.d0b14f92.js",
+    "index.html": "/msadawi1/Taskit-task-management-dashboard/index.html",
+    "main.c8679912.css.map": "/msadawi1/Taskit-task-management-dashboard/static/css/main.c8679912.css.map",
+    "main.d0b14f92.js.map": "/msadawi1/Taskit-task-management-dashboard/static/js/main.d0b14f92.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c8679912.css",
+    "static/js/main.d0b14f92.js"
+  ]
+}
