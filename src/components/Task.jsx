@@ -85,7 +85,7 @@ export default function Task(props) {
                             <Typography variant='caption' sx={{ display: "block", lineHeight: 1.2, m: 0 }} color={
                                 props.status
                                     ? "secondary.dark"
-                                    : dayjs(props.end).isBefore(dayjs())
+                                    : dayjs(props.allDay ? props.dueDate : props.end).isBefore(dayjs())
                                         ? "warning"
                                         : "secondary.dark"
                             }

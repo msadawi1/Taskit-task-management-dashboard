@@ -50,14 +50,14 @@ export default function useManager() {
         }]);
     }
     /**
-* remove a goal and all of its tasks.
+* complete a task
 * @param {string} id - id of the task to be completed
 */
     function completeTask(id) {
         setTasks(prevValue => prevValue.map(task => task.id === id ? { ...task, status: !task.status } : task));
     }
     /**
-* remove a goal and all of its tasks.
+* remove a task
 * @param {string} id - id of the task to be removed
 */
     function removeTask(id) {
@@ -72,6 +72,17 @@ export default function useManager() {
         const goal = weeklyGoals.find(goal => goal.id === goalId) 
         if (goal) return goal.title; else return null;;
     }
+
+    function completedGoal(goalId) {
+        const goalTasks = tasks.filter(task => task.goalId === goalId);
+        goalTasks.forEach(task => {
+            if (!task.status) {
+                return false;
+            }
+        });
+        setWeeklyGoals(prevValue => prevValue.map(goal => goal.id === goalId ? { ...goal, status: true } : goal));
+        return true;
+    }
     return {
         tasks,
         addTask,
@@ -81,6 +92,7 @@ export default function useManager() {
         weeklyGoals,
         addGoal,
         removeGoalAndTasks,
-        getGoalTitleById
+        getGoalTitleById,
+        completedGoal
     }
 }
