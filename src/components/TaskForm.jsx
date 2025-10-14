@@ -52,8 +52,13 @@ export default function TaskForm({ data, onAdd, onClose }) {
         }
         // convert Dayjs (used in MUI) to native Date
         formData.dueDate = formData.dueDate.toDate();
-        formData.start = parseTimeToDate(formData.start, formData.dueDate);
-        formData.end = parseTimeToDate(formData.end, formData.dueDate);
+        if (formData.allDay) { // if all day then set the start and end to be the start of the day (required to display all day tasks in FullCalendar)
+            formData.start = parseTimeToDate("00:00", formData.dueDate);
+            formData.end = parseTimeToDate("00:00", formData.dueDate);
+        } else {
+            formData.start = parseTimeToDate(formData.start, formData.dueDate);
+            formData.end = parseTimeToDate(formData.end, formData.dueDate);
+        }
         onAdd(formData);
         onClose();
     }

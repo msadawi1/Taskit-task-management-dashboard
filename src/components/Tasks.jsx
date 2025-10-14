@@ -99,7 +99,7 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
                                 goalId: selectedGoal,
                                 list: '',
                                 priority: '',
-                                dueDate: dayjs(),
+                                dueDate: dayjs().endOf('day'),
                                 allDay: false,
                                 start: '',
                                 end: '',

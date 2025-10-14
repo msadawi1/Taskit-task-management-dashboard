@@ -13,7 +13,7 @@ import FlagIcon from '@mui/icons-material/Flag';
 import ReportIcon from '@mui/icons-material/Report';
 import { priorityObj } from '../utils/TaskFormUtils';
 
-function formatEventDateRange(start, end) {
+function formatEventDateRange(start, end, allDay) {
     if (!start) return "";
 
     // Format date part
@@ -37,16 +37,18 @@ function formatEventDateRange(start, end) {
             minute: "2-digit",
             hour12: false,
         })
-        : "";
-
+        : "";    
+    if (allDay) {
+        return dateText;
+    }
     return `${dateText}, ${startText}${endText ? " - " + endText : ""}`;
 }
 
 
 export default function EventDialog({ open, onClose, event, goalTitle }) {
     if (!event) return null;
-    const { title, start, end, priority, location, taskDuration, list: listTitle } = event;
-    const timeText = formatEventDateRange(start, end)
+    const { title, start, end, priority, location, taskDuration, list: listTitle, allDay } = event;
+    const timeText = formatEventDateRange(start, end, allDay)
     return (
         <>
             {open && (
