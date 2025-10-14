@@ -26,11 +26,11 @@ export default function ListForm({ onSubmit, onClose, error, resetError }) {
         <form onSubmit={handleSubmit} autoComplete="off">
             <Grid container columnSpacing={1} rowSpacing={2} sx={{ width: "100%" }}>
                 <Grid size='grow'>
-                    <SubTitle title="Add New List" />
+                    <SubTitle color="text.primary" title="Add New List" />
                 </Grid>
                 <Grid size='auto' display="flex" justifyContent="flex-end">
                     <IconButton onClick={onClose} aria-label="close">
-                        <CloseIcon color="primary" />
+                        <CloseIcon color="text.primary" />
                     </IconButton>
                 </Grid>
 

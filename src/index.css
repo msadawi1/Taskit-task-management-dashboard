@@ -79,6 +79,11 @@ ul {
   background: var(--fc-bg-hover);
 }
 
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border: 1px solid var(--fc-grid-border)
+}
+
 .fc .fc-daygrid-day-number {
   font-weight: 500;
   color: var(--fc-text);
@@ -87,7 +92,7 @@ ul {
 
 /* Today Highlight */
 .fc .fc-day-today {
-  background: color-mix(in srgb, var(--fc-secondary) 25%, white) !important;
+  background: color-mix(in srgb, var(--fc-secondary) 25%, var(--fc-today-column-bg)) !important;
 }
 
 .fc .fc-day-today .fc-daygrid-day-number {
@@ -151,7 +156,7 @@ ul {
 .fc-col-header-cell .fc-day-number {
   font-size: 1.5rem;
   font-weight: 500;
-  color: var(--fc-primary);
+  color: var(--fc-text);
 }
 
 /* Optional: reduce default padding */

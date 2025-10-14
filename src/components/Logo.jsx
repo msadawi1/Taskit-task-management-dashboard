@@ -14,11 +14,8 @@ export default function Logo() {
                     opacity: 1,
                 },
             }}>
-                <ListItemIcon sx={{ color: 'primary.main', mr: '8px !important', minWidth: 0  }}>
-                    <TaskAltIcon />
-                </ListItemIcon>
-                <Typography variant='h5' fontWeight="600">
-                    Zikra
+                <Typography variant='h4' fontWeight="600">
+                    Taskit
                 </Typography>
             </ListItemButton>
         </ListItem>

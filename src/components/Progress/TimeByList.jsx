@@ -17,7 +17,7 @@ export default function TimeByListCard({ timeByList, totalTime }) {
                     <ListLine
                         key={list.name}
                         label={list.name}
-                        color="primary"   // you can later map colors by list if needed
+                        color={"secondary"}   // you can later map colors by list if needed
                         mins={timeByList[list.name]}
                         percentage={
                             totalTime > 0

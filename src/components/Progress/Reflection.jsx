@@ -15,7 +15,7 @@ export default function Reflection({ id, date, content, onDelete }) {
                         </Typography>
                     </Grid>
                     <Grid size={12}>
-                        <Typography variant='body1' color='primary.light'>
+                        <Typography variant='body1' color='secondary.dark'>
                             {content}
                         </Typography>
                     </Grid>

@@ -17,7 +17,7 @@ export default function Notifications({ enabled, onChange }) {
                         <Typography variant="body1" fontWeight={500}>
                             Browser Notifications
                         </Typography>
-                        <Typography variant="body1" color="primary.light" fontWeight={400} fontSize={14}>
+                        <Typography variant="body1" color="secondary.dark" fontWeight={400} fontSize={14}>
                             Get notified when focus sessions complete
                         </Typography>
                     </Grid>

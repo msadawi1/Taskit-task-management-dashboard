@@ -18,7 +18,7 @@ export default function TimerSettings({ defaultDuration, onChange }) {
                         <Typography variant="body1" fontWeight={500}>
                             Default Timer Duration
                         </Typography>
-                        <Typography variant="body1" color="primary.light" fontWeight={400} fontSize={14}>
+                        <Typography variant="body1" color="secondary.dark" fontWeight={400} fontSize={14}>
                             Set the default focus session length (minutes)
                         </Typography>
                     </Grid>

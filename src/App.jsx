@@ -17,12 +17,16 @@ function App() {
   const lightPalette = {
     mode: 'light',
     primary: {
-      main: '#424242ff',
-      contrastText: '#ffffff',
+      main: '#214587',
+      contrastText: '#dcedfd',
+      light: '#234eaa',
+      todayCol: '#f6f6f6'
     },
     secondary: {
-      main: '#e5e5e5ff',
-      contrastText: '#454545ff',
+      main: '#d1d1d1',
+      contrastText: '#4d4d4d',
+      dark: '#969696',
+      grid: '#cccccc'
     },
     warning: {
       main: '#c62828',
@@ -54,7 +58,7 @@ function App() {
       dark: '#aaaaaa'
     },
     text: {
-      primary: '#2c2c2cff',
+      primary: '#6d6d6d',
       secondary: '#555555',
     },
   };
@@ -62,12 +66,16 @@ function App() {
   const darkPalette = {
     mode: 'dark',
     primary: {
-      main: '#90caf9',
-      contrastText: '#0d1117',
+      main: '#4192f0',
+      contrastText: '#192b52',
+      light: '#e7f2fd',
+      todayCol: '#000000'
     },
     secondary: {
-      main: '#424242',
-      contrastText: '#ffffff',
+      main: '#bfbfbf',
+      contrastText: '#4d4d4d',
+      dark: '#bfbfbf',
+      grid: '#404040'
     },
     warning: {
       main: '#ef5350',
@@ -76,15 +84,15 @@ function App() {
       contrastText: '#ffffff',
     },
     info: {
-      main: '#29b6f6',
-      dark: '#0288d1',
-      light: '#81d4fa',
+      main: '#ff811a',
+      dark: '#b53d00',
+      light: '#ff9800',
       contrastText: '#ffffff',
     },
     success: {
       main: '#66bb6a',
       dark: '#388e3c',
-      light: '#b9f6ca',
+      light: '#66bb6a',
       contrastText: '#ffffff',
     },
     blue: {
@@ -128,7 +136,8 @@ function App() {
       root.style.setProperty('--fc-bg-hover', theme.palette.background.dark);
       root.style.setProperty('--fc-text', theme.palette.text.primary);
       root.style.setProperty('--fc-text-secondary', theme.palette.text.secondary);
-      root.style.setProperty('--fc-grid-border', theme.palette.secondary.main);
+      root.style.setProperty('--fc-grid-border', theme.palette.secondary.grid);
+      root.style.setProperty('--fc-today-column-bg', theme.palette.primary.todayCol);
     }, [theme]);
     return null;
   }

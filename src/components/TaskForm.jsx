@@ -90,11 +90,11 @@ export default function TaskForm({ data, onAdd, onClose }) {
     return (<form onSubmit={addTask} autoComplete="off">
         <Grid container columnSpacing={1} rowSpacing={2} sx={{ width: '100%' }} >
             <Grid size="grow">
-                <SubTitle title="Add New Task" />
+                <SubTitle color="text.primary" title="Add New Task" />
             </Grid>
             <Grid display='flex' size="auto">
                 <IconButton variant="h5" fontWeight={500} onClick={onClose}>
-                    <CloseIcon color="primary" />
+                    <CloseIcon color="text.primary" />
                 </IconButton>
             </Grid>
             {taskFormInput.durationError && <Grid size={12} sx={{ mt: -2, mb: 0 }}>

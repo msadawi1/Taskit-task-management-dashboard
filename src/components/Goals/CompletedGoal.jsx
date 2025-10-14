@@ -9,7 +9,7 @@ function CompletedGoal({ title, id, onRemove }) {
         <Grid container alignItems="center" sx={{ width: "100%" }}>
             <Grid size='grow'>
                 <Typography
-                    sx={{ fontSize: 18, color: 'primary.main', fontWeight: 400, lineHeight: 1.2 }}
+                    sx={{ fontSize: 18, color: 'secondary', fontWeight: 400, lineHeight: 1.2 }}
                 >
                     {title}
                 </Typography>

@@ -19,7 +19,7 @@ function ReflectionSection({ reflections, onDelete, onClick }) {
             {
                 reflections.length > 0 ? 
                 <ReportsList reflections={reflections} onDelete={onDelete} /> :
-                    <Feedback text="No reflections at the moment." />
+                    <Feedback color="secondary.dark" text="No reflections at the moment." />
             }
             </Grid>
         </Grid>

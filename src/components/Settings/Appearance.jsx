@@ -20,7 +20,7 @@ export default function Appearance({ theme, onChange }) {
                         <Typography variant="body1" fontWeight={500}>
                             Theme
                         </Typography>
-                        <Typography variant="body1" color="primary.light" fontWeight={400} fontSize={14}>
+                        <Typography variant="body1" color="secondary.dark" fontWeight={400} fontSize={14}>
                             Choose your preferred color scheme
                         </Typography>
                     </Grid>
@@ -32,10 +32,10 @@ export default function Appearance({ theme, onChange }) {
                                 onChange={onChange}
                             >
                                 <MenuItem value='light'>
-                                    <LightModeIcon color="primary" />
+                                    <LightModeIcon color="secondary.contrastText" />
                                 </MenuItem>
                                 <MenuItem value='dark'>
-                                    <DarkModeIcon color="primary" />
+                                    <DarkModeIcon color="secondary.contrastText" />
                                 </MenuItem>
                             </Select>
                         </FormControl>

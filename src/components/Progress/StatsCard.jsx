@@ -20,10 +20,10 @@ export default function StatsCard({ title, icon, color, value }) {
                 </Grid>
                 <Grid size='grow' container direction='column'>
                     <Grid>
-                        <Typography variant="body1" fontWeight={300} color="primary">{title}</Typography>
+                        <Typography variant="body1" fontWeight={300} color="primary.light">{title}</Typography>
                     </Grid>
                     <Grid>
-                        <Typography variant="h6" color="primary">{value}</Typography>
+                        <Typography variant="h6" color="primary.light">{value}</Typography>
                     </Grid>
                 </Grid>
             </Grid>

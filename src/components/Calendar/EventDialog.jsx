@@ -59,32 +59,42 @@ export default function EventDialog({ open, onClose, event, goalTitle }) {
                     fullWidth
                 >
                     <DialogTitle sx={{ pb: 0 }}>
-                        <SubTitle title={title} />
+                        <SubTitle color='primary' title={title} />
                     </DialogTitle>
                     <DialogContent>
                         <Box display="flex" flexDirection="column" gap={1}>
-                            {timeText && <Typography variant='h6' color='primary.light' fontWeight="normal">
+                            {timeText && <Typography variant='h6' color='text.secondary' fontWeight="normal">
                                 {timeText}
                             </Typography>}
                             {location && <Box display="flex" gap={2}>
-                                <LocationPinIcon sx={{ color: "primary.light" }} />
-                                {location}
+                                <LocationPinIcon sx={{ color: "text.secondary" }} />
+                                <Typography variant='h6' color='text.secondary' fontWeight="normal">
+                                    {location}
+                                </Typography>
                             </Box>}
                             {taskDuration > 0 && <Box display="flex" gap={2}>
-                                <HourglassTopIcon sx={{ color: "primary.light" }} />
-                                {taskDuration}m
+                                <HourglassTopIcon sx={{ color: "text.secondary" }} />
+                                <Typography variant='body1' color='text.secondary' fontWeight="normal">
+                                    {taskDuration}m
+                                </Typography>
                             </Box>}
                             <Box display="flex" gap={2}>
-                                <ReportIcon sx={{ color: "primary.light" }} />
-                                {priorityObj[priority]}
+                                <ReportIcon sx={{ color: "text.secondary" }} />
+                                <Typography variant='body1' color='text.secondary' fontWeight="normal">
+                                    {priorityObj[priority]}
+                                </Typography>
                             </Box>
                             {listTitle && <Box display="flex" gap={2}>
-                                <FormatListBulletedIcon sx={{ color: "primary.light" }} />
-                                {listTitle}
+                                <FormatListBulletedIcon sx={{ color: "text.secondary" }} />
+                                <Typography variant='body1' color='text.secondary' fontWeight="normal">
+                                    {listTitle}
+                                </Typography>
                             </Box>}
                             {goalTitle && <Box display="flex" gap={2}>
-                                <FlagIcon sx={{ color: "primary.light" }} />
-                                {goalTitle}
+                                <FlagIcon sx={{ color: "text.secondary" }} />
+                                <Typography variant='body1' color='text.secondary' fontWeight="normal">
+                                    {goalTitle}
+                                </Typography>
                             </Box>}
                         </Box>
                     </DialogContent>
