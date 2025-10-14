@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
@@ -77,6 +78,7 @@ ul {
 .fc .fc-daygrid-day:hover {
   background: var(--fc-bg-hover);
 }
+
 .fc .fc-daygrid-day-number {
   font-weight: 500;
   color: var(--fc-text);
@@ -155,4 +157,64 @@ ul {
 /* Optional: reduce default padding */
 .fc .fc-col-header-cell {
   padding: 0 !important;
+}
+
+/* Responsive Calendar Styles */
+@media (max-width: 900px) {
+  .fc {
+    font-size: 0.95rem;
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: 1.1rem;
+  }
+
+  .fc-col-header-cell .fc-day-number {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .fc {
+    font-size: 0.85rem;
+    padding: 4px;
+    /* Increase calendar height to fill most of the screen */
+    min-height: 80vh;
+    height: 80vh;
+  }
+
+  .fc-view-harness.fc-view-harness-active {
+    min-width: 100vw;
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: 1rem;
+  }
+
+  .fc .fc-button {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+
+  .fc-col-header-cell .fc-day-name {
+    font-size: 0.6rem;
+  }
+
+  .fc-col-header-cell .fc-day-number {
+    font-size: 0.85rem;
+  }
+
+  .fc .fc-col-header-cell {
+    font-size: 0.8rem;
+  }
+
+  .fc .fc-toolbar {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .fc-timegrid-slot-label-frame {
+    font-size: 0.8rem;
+  }
 }

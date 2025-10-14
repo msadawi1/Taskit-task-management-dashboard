@@ -7,8 +7,7 @@ import TimerSettings from "./Settings/TimerSettings";
 import Notifications from "./Settings/Notifications";
 import useSettings from "./hooks/useSettings";
 
-export default function Settings() {
-    const { settings, setDefaultDuration, switchLightMode, toggleNotifications } = useSettings();
+export default function Settings({ settings, setDefaultDuration, switchLightMode, toggleNotifications }) {
     return (
         <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
             <Grid container spacing={2} width={{ xs: "100%", md: '70%' }}>

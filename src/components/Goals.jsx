@@ -75,7 +75,7 @@ export default function GoalSection(props) {
             <ClickAwayListener onClickAway={() => setFeedbackPopup(false)}>
                 <FeedbackPopup open={feedbackPopup} onClose={() => setFeedbackPopup(false)}
                     title="Almost There!"
-                    text="Complete your remaining goal tasks to set this goal as complete."
+                    text="You have unfinished tasks for this goal. Complete your tasks to set this goal as complete."
                     />
             </ClickAwayListener>
         </>
