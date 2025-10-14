@@ -6,6 +6,10 @@ import Button from '@mui/material/Button';
 import CompletedGoalsList from './CompletedGoalsList';
 
 export default function CompletedGoalsDialog({ open, onClose, goals, onGoalRemove }) {
+    function handleRemove(goalId) {
+        onGoalRemove(goalId);
+        onClose();
+    }
     return (
         <>
             <Dialog
@@ -20,7 +24,7 @@ export default function CompletedGoalsDialog({ open, onClose, goals, onGoalRemov
                     Completed Goals
                 </DialogTitle>
                 <DialogContent>
-                    <CompletedGoalsList goals={goals} onRemove={onGoalRemove} />
+                    <CompletedGoalsList goals={goals} onRemove={handleRemove} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={onClose}>Close</Button>
