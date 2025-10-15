@@ -14,7 +14,7 @@ export default function Logo() {
                     opacity: 1,
                 },
             }}>
-                <Typography variant='h4' fontWeight="600">
+                <Typography color="primary" variant='h4' fontWeight="600">
                     Taskit
                 </Typography>
             </ListItemButton>

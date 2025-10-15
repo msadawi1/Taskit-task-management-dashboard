@@ -27,7 +27,7 @@ export default function TimeByListCard({ timeByList, totalTime }) {
                     />
                 )) :
                     <Grid size={12}>
-                        <Feedback text="There are no lists at the moment." />
+                        <Feedback color="secondary.dark" text="There are no lists at the moment." />
                     </Grid>}
             </Grid>
         </Paper>

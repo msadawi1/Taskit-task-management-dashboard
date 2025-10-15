@@ -18,7 +18,7 @@ export default function Header({onMenuClick}) {
         <>
             <Grid container component='section' sx={{ display: 'flex', justifyContent: 'flex-start' }}>
                 <Grid size="grow">
-                    <Typography variant='h6' fontWeight={400} textAlign='left' color="primary.light">{formattedDate.split(' ')[0] + ', ' + formattedDate.split(' ').splice(1, 3).join(' ')}</Typography>
+                    <Typography variant='h6' fontWeight={400} textAlign='left' color="secondary.dark">{formattedDate.split(' ')[0] + ', ' + formattedDate.split(' ').splice(1, 3).join(' ')}</Typography>
                 </Grid>
                 <Grid size="auto" sx={{display: { md: 'none' }}}>
                     <IconButton onClick={onMenuClick}>

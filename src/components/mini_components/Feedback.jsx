@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 
-export default function Feedback({ text, color = "primary" }) {
+export default function Feedback({ text, color = "secondary.dark" }) {
     return (
         <Typography
             variant="body1"
