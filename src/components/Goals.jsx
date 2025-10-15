@@ -62,7 +62,7 @@ export default function GoalSection(props) {
                                 "& .MuiInputBase-input": {
                                     fontSize: 20,
                                 },
-                            }} autoComplete="off" value={input} onChange={updateInput} label="Goal title" variant="standard" InputLabelProps={{ style: { fontSize: 18 } }} />
+                            }} autoComplete="off" required value={input} onChange={updateInput} label="Goal title" variant="standard" InputLabelProps={{ style: { fontSize: 18 } }} />
                             <Button fullWidth variant="contained" disableElevation color="primary" type="submit" sx={{ borderRadius: 0, flexGrow: 1 }}>Add Goal</Button>
                         </Box>
                     </form>

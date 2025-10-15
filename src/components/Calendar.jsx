@@ -60,7 +60,7 @@ function Calendar() {
     }
     return (
         <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
-            <Box component={'flex'} flexDirection={'column'}>
+            <Box display={'flex'} flexDirection={'column'}>
                 <TabTitle title="Calendar View" />
                 <Caption text={"Stay organized, manage every event in one place"} />
             </Box>
