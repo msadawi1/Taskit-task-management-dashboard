@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Fade from '@mui/material/Fade';
 import Drawer from "./components/Drawer"
+import useMediaQuery from '@mui/material/useMediaQuery';
 import TimerMenu from "./components/TimerMenu";
 import Dashboard from "./components/Dashboard";
 import Calendar from "./components/Calendar"
@@ -10,6 +11,7 @@ import Header from "./components/Header";
 import { createTheme, ThemeProvider, CssBaseline, Box, useTheme } from '@mui/material';
 import Footer from "./components/Footer"
 import useSettings from "./components/hooks/useSettings";
+
 
 function App() {
   const { settings, setDefaultDuration, switchLightMode, toggleNotifications } = useSettings();
@@ -142,72 +144,114 @@ function App() {
     return null;
   }
 
-  const navbarIndex = {
-    dashboard: 0,
-    timer: 1,
-    calendar: 2,
-    progress: 3,
-    settings: 4,
-  }
+  const navbarIndex = useMemo(() => {
+    return {
+      dashboard: 0,
+      timer: 1,
+      calendar: 2,
+      progress: 3,
+      settings: 4,
+    }
+  }, []);
 
   const [tab, setTab] = useState(navbarIndex.dashboard);
-  const [drawer, setDrawer] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   function TabPanel({ children, value, index }) {
     return value === index ? <Box sx={{ flexGrow: 1 }}>{children}</Box> : null;
   }
   function toggleDrawer() {
-    setDrawer(prev => !prev);
+    setDrawerOpen(prev => !prev);
   }
-  return (
-    <ThemeProvider theme={theme}>
-      <ThemeVariables />
-      <CssBaseline />
-      <Box sx={{ display: "flex", minHeight: "100vh" }}>
-        <Box sx={{ display: { xs: drawer ? 'block' : 'none', md: "block" }, width: "clamp(50px, 20%, 300px)", flexShrink: 0, borderRight: 1, borderColor: "divider", position: 'sticky', top: 0, height: '100vh' }}>
-          <Drawer value={tab} onChange={setTab} index={navbarIndex} />
-        </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flexGrow: 1, mt: 3, px: { xs: 2.5, sm: 3, md: 3.5, lg: 4.5, xl: 5 } }}>
-          <Header onMenuClick={toggleDrawer} />
-          <TabPanel value={tab} index={navbarIndex.dashboard}>
-            <Fade in={tab === navbarIndex.dashboard} timeout={200} mountOnEnter unmountOnExit>
-              <div>
-                <Dashboard />
-              </div>
-            </Fade>
-          </TabPanel>
-          <TabPanel value={tab} index={navbarIndex.timer}>
-            <Fade in={tab === navbarIndex.timer} timeout={200} mountOnEnter unmountOnExit>
-              <div>
-                <TimerMenu />
-              </div>
-            </Fade>
-          </TabPanel>
-          <TabPanel value={tab} index={navbarIndex.calendar}>
-            <Fade in={tab === navbarIndex.calendar} timeout={200} mountOnEnter unmountOnExit>
-              <div>
-                <Calendar />
-              </div>
-            </Fade>
-          </TabPanel>
-          <TabPanel value={tab} index={navbarIndex.progress}>
-            <Fade in={tab === navbarIndex.progress} timeout={200} mountOnEnter unmountOnExit>
-              <div>
-                <Progress />
-              </div>
-            </Fade>
-          </TabPanel>
-          <TabPanel value={tab} index={navbarIndex.settings}>
-            <Fade in={tab === navbarIndex.settings} timeout={200} mountOnEnter unmountOnExit>
-              <div>
-                <Settings settings={settings} setDefaultDuration={setDefaultDuration} switchLightMode={switchLightMode} toggleNotifications={toggleNotifications}/>
-              </div>
-            </Fade>
-          </TabPanel>
-          <Footer />
-        </Box>
+
+
+  // Memoized tab pages
+  const DashboardTab = useMemo(() => (
+    <TabPanel value={tab} index={navbarIndex.dashboard}>
+      <Fade in={tab === navbarIndex.dashboard} timeout={200} mountOnEnter unmountOnExit>
+        <div>
+          <Dashboard />
+        </div>
+      </Fade>
+    </TabPanel>
+  ), [tab, navbarIndex]);
+
+  const TimerMenuTab = useMemo(() => (
+    <TabPanel value={tab} index={navbarIndex.timer}>
+      <Fade in={tab === navbarIndex.timer} timeout={200} mountOnEnter unmountOnExit>
+        <div>
+          <TimerMenu />
+        </div>
+      </Fade>
+    </TabPanel>
+  ), [tab, navbarIndex]);
+
+  const CalendarTab = useMemo(() => (
+    <TabPanel value={tab} index={navbarIndex.calendar}>
+      <Fade in={tab === navbarIndex.calendar} timeout={200} mountOnEnter unmountOnExit>
+        <div>
+          <Calendar />
+        </div>
+      </Fade>
+    </TabPanel>
+  ), [tab, navbarIndex]);
+
+  const ProgressTab = useMemo(() => (
+    <TabPanel value={tab} index={navbarIndex.progress}>
+      <Fade in={tab === navbarIndex.progress} timeout={200} mountOnEnter unmountOnExit>
+        <div>
+          <Progress />
+        </div>
+      </Fade>
+    </TabPanel>
+  ), [tab, navbarIndex]);
+
+  const SettingsTab = useMemo(() => (
+    <TabPanel value={tab} index={navbarIndex.settings}>
+      <Fade in={tab === navbarIndex.settings} timeout={200} mountOnEnter unmountOnExit>
+        <div>
+          <Settings settings={settings} setDefaultDuration={setDefaultDuration} switchLightMode={switchLightMode} toggleNotifications={toggleNotifications} />
+        </div>
+      </Fade>
+    </TabPanel>
+  ), [tab, navbarIndex, settings, setDefaultDuration, switchLightMode, toggleNotifications]);
+
+return (
+  <ThemeProvider theme={theme}>
+    <ThemeVariables />
+    <CssBaseline />
+    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+      {/* Drawer for all screens: permanent on md+, temporary on xs/sm */}
+      {isMdUp ? (
+        <Drawer
+          value={tab}
+          onChange={setTab}
+          index={navbarIndex}
+          open={true}
+          variant="permanent"
+        />
+      ) : (
+        <Drawer
+          value={tab}
+          onChange={setTab}
+          index={navbarIndex}
+          open={drawerOpen}
+          onClose={toggleDrawer}
+          variant="temporary"
+        />
+      )}
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flexGrow: 1, mt: 3, px: { xs: 2.5, sm: 3, md: 3.5, lg: 4.5, xl: 5 } }}>
+        <Header onMenuClick={toggleDrawer} />
+        {DashboardTab}
+        {TimerMenuTab}
+        {CalendarTab}
+        {ProgressTab}
+        {SettingsTab}
+        <Footer />
       </Box>
-    </ThemeProvider>
-  );
+    </Box>
+  </ThemeProvider>
+);
 }
 
 export default App;

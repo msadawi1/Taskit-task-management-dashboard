@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import dayjs from 'dayjs';
 import TabTitle from "./mini_components/TabTitle";
 import WeekControls from "./Progress/WeekControls";
@@ -21,7 +21,7 @@ import ReflectionSection from './Progress/ReflectionSection';
 
 const MotionBox = motion.create(Box);
 
-export default function Progress() {
+function Progress() {
     const [week, setWeek] = useState({
         start: dayjs().startOf('week'),
         end: dayjs().endOf('week'),
@@ -110,3 +110,5 @@ export default function Progress() {
         </>
     );
 }
+
+export default React.memo(Progress);

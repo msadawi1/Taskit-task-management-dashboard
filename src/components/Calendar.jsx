@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -16,7 +16,7 @@ import Caption from './mini_components/Caption';
 
 const MotionBox = motion.create(Box);
 
-export default function Calendar() {
+function Calendar() {
     const { tasks, getGoalTitleById, addTask } = useManager();
     const [showForm, setShowForm] = useState(false);
     const [dialogEvent, setDialogEvent] = useState(null);
@@ -147,3 +147,5 @@ export default function Calendar() {
         </Box>
     );
 }
+
+export default React.memo(Calendar);

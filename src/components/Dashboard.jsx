@@ -1,11 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Divider from "@mui/material/Divider";
 import Box from '@mui/material/Box'
 import GoalSection from "./Goals";
 import Tasks from "./Tasks";
 import useManager from "./hooks/useManager";
 
-export default function Dahsboard() {
+const Dashboard = () => {
     const [isFormVisible, setFormVisible] = useState(false);
     // default form goal input (set by goal section buttons)
     const [goal, setGoal] = useState('');
@@ -19,3 +19,5 @@ export default function Dahsboard() {
             isFormVisible={isFormVisible} setFormVisible={setFormVisible} goals={weeklyGoals} onListRemove={removeListTasks}/>
     </Box>);
 }
+
+export default React.memo(Dashboard);

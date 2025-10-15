@@ -1,3 +1,4 @@
+import React from 'react';
 import Timer from "./Timer";
 import TabTitle from "./mini_components/TabTitle.jsx";
 import Box from "@mui/material/Box";
@@ -8,7 +9,7 @@ import SessionStatus from "./TimerPage/SessionStatus.jsx";
 import useTimerSession from "./hooks/useTimerSession.js";
 import Caption from "./mini_components/Caption.jsx";
 
-export default function TimerMenu() {
+function TimerMenu() {
     // default value 25 minutes
     const {
         isStarted,
@@ -45,3 +46,5 @@ export default function TimerMenu() {
         </Box>
     );
 }
+
+export default React.memo(TimerMenu);

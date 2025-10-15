@@ -1,9 +1,6 @@
-import React from "react";
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon'
 import Typography from '@mui/material/Typography';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 export default function Logo() {
     return (
@@ -14,7 +11,7 @@ export default function Logo() {
                     opacity: 1,
                 },
             }}>
-                <Typography color="primary" variant='h4' fontWeight="600">
+                <Typography color="primary" fontSize={{xs: 24, md: 30}} fontWeight="600">
                     Taskit
                 </Typography>
             </ListItemButton>

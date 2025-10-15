@@ -1,3 +1,4 @@
+import React from 'react';
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import TabTitle from "./mini_components/TabTitle";
@@ -5,9 +6,8 @@ import Caption from "./mini_components/Caption";
 import Appearance from "./Settings/Appearance";
 import TimerSettings from "./Settings/TimerSettings";
 import Notifications from "./Settings/Notifications";
-import useSettings from "./hooks/useSettings";
 
-export default function Settings({ settings, setDefaultDuration, switchLightMode, toggleNotifications }) {
+function Settings({ settings, setDefaultDuration, switchLightMode, toggleNotifications }) {
     return (
         <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
             <Grid container spacing={2} width={{ xs: "100%", md: '70%' }}>
@@ -28,3 +28,5 @@ export default function Settings({ settings, setDefaultDuration, switchLightMode
         </Box>
     );
 }
+
+export default React.memo(Settings);
