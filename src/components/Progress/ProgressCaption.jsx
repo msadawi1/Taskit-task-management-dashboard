@@ -1,5 +1,5 @@
-import Typography from "@mui/material/Typography";
 import Chip from '@mui/material/Chip';
+import Caption from "../mini_components/Caption";
 
 export default function ProgressCaption({ startDate, endDate, offset }) {
     let weekLabel;
@@ -13,7 +13,7 @@ export default function ProgressCaption({ startDate, endDate, offset }) {
     }
     return (
         <>
-            <Typography variant='subtitle1' color="secondary.dark">Track your productivity for {startDate} - {endDate}</Typography>
+            <Caption text={`Track your productivity for ${startDate} - ${endDate}`}/>
             <Chip label={weekLabel} color="secondary"/>
         </>
     );

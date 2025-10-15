@@ -10,9 +10,7 @@ export default function SidebarItem(props) {
             <ListItemIcon sx={{ color: 'primary.main' }}>
                 {props.icon}
             </ListItemIcon>
-            <ListItemText sx={{ color: 'primary.main' }} primary={props.title} primaryTypographyProps={{
-                fontWeight: 500,
-            }} />
+            <ListItemText sx={{ color: 'primary.main' }} primary={props.title} />
         </ListItemButton>
     </ListItem>);
 }

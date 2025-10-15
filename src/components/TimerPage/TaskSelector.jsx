@@ -9,7 +9,7 @@ export default function TaskSelector({ tasks, taskId, onChange, error }) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
     return (
-        <FormControl fullWidth size='medium' sx={{backgroundColor: "background.paper"}}>
+        <FormControl fullWidth size='medium' sx={{backgroundColor: "background.default"}}>
             <InputLabel id="task-select-label">Choose a task to focus on</InputLabel>
             <Select
                 name="task"
@@ -19,6 +19,7 @@ export default function TaskSelector({ tasks, taskId, onChange, error }) {
                 value={taskId}
                 onChange={onChange}
                 required
+                sx={{ backgroundColor: "background.paper" }}
             >
                 {tasks.filter(task => !task.status).map(task =>
                     <MenuItem key={task.id} id={task.id} value={task.id}>{capitalize(task.title)}</MenuItem>

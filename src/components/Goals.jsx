@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -15,7 +15,6 @@ export default function GoalSection(props) {
     const [goalsPopup, setGoalsPopup] = useState(false);
     const [feedbackPopup, setFeedbackPopup] = useState(false);
 
-    const inputRef = useRef(null);
     function updateInput(event) {
         const newValue = event.target.value;
         setInput(newValue);
@@ -49,11 +48,11 @@ export default function GoalSection(props) {
                         Completed Goals
                     </Button>
                 </Grid>
-                {props.goals.length > 0 ?
+                {incomplete.length > 0 ?
                     <GoalList goals={incomplete} onError={() => setFeedbackPopup(true)} onRemove={props.onRemove} onComplete={props.onComplete} onClick={handleClick} />
                     :
                     <Grid size={12}>
-                        <Feedback text="You have no ongoing goals at the moment" />
+                        <Feedback text="You have no ongoing goals at the moment." />
                     </Grid>
                 }
                 <Grid size={{ xs: 12, md: 6 }}>
@@ -61,9 +60,9 @@ export default function GoalSection(props) {
                         <Box display='flex' rowGap={1} flexDirection='column'>
                             <TextField id="standard-outlined" sx={{
                                 "& .MuiInputBase-input": {
-                                    fontSize: 20
+                                    fontSize: 20,
                                 },
-                            }} autoComplete="false" required={true} inputRef={inputRef} value={input} onChange={updateInput} label="Goal title" variant="standard" InputLabelProps={{ style: { fontSize: 18 } }} />
+                            }} autoComplete="off" value={input} onChange={updateInput} label="Goal title" variant="standard" InputLabelProps={{ style: { fontSize: 18 } }} />
                             <Button fullWidth variant="contained" disableElevation color="primary" type="submit" sx={{ borderRadius: 0, flexGrow: 1 }}>Add Goal</Button>
                         </Box>
                     </form>

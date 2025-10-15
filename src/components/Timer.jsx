@@ -9,7 +9,7 @@ export default function Timer({ duration, onChange, onDecrement, isStarted, isPa
     const { hours, minutes, seconds } = decodeDuration(duration);
     useInterval(onDecrement, 1000, isStarted && !isPaused);
     return (
-        <Grid container columnSpacing={3}>
+        <Grid container columnSpacing={{xs: 0.5, md: 1}}>
             <Grid size={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
                 <Paper sx={{ alignSelf: 'stretch' }} elevation={1}>
                     <TextField variant="standard" fullWidth={true} size="large" name="hours" slotProps={{
