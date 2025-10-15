@@ -6,6 +6,7 @@ import TaskSelector from "./TimerPage/TaskSelector.jsx";
 import TimerControls from "./TimerPage/TimerControls.jsx";
 import SessionStatus from "./TimerPage/SessionStatus.jsx";
 import useTimerSession from "./hooks/useTimerSession.js";
+import Caption from "./mini_components/Caption.jsx";
 
 export default function TimerMenu() {
     // default value 25 minutes
@@ -28,7 +29,10 @@ export default function TimerMenu() {
     } = useTimerSession();
     return (
         <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
-            <TabTitle title="Focus Timer"/>
+            <Box component='section' display='flex' flexDirection={'column'}>
+                <TabTitle title="Focus Timer" />
+                <Caption text="Boost your productivity with a timed session" />
+            </Box>
             <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 2 }}>
                 <Box sx={{ height: 70 }}>
                     {!isStarted && <TaskSelector tasks={tasks} error={error} onChange={handleChange} taskId={input} />}

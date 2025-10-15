@@ -12,6 +12,7 @@ import { diffInMinutes } from './utils/TaskFormUtils';
 import TabTitle from './mini_components/TabTitle';
 import EventItem from './Calendar/EventItem';
 import EventDialog from './Calendar/EventDialog';
+import Caption from './mini_components/Caption';
 
 const MotionBox = motion.create(Box);
 
@@ -53,13 +54,16 @@ export default function Calendar() {
         setShowForm(true);
     }
     function handleEventClick(clickInfo) {
-        const event = tasks.find(task => task.id === clickInfo.event.id);     
+        const event = tasks.find(task => task.id === clickInfo.event.id);
         setDialogEvent(event);
         setDialogOpen(true);
     }
     return (
         <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
-            <TabTitle title="Calendar View" />
+            <Box component={'flex'} flexDirection={'column'}>
+                <TabTitle title="Calendar View" />
+                <Caption text={"Stay organized, manage every event in one place"} />
+            </Box>
             <FullCalendar
                 plugins={[timeGridPlugin, interactionPlugin]}
                 initialView="timeGridWeek"
