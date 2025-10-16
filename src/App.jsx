@@ -11,10 +11,21 @@ import Header from "./components/Header";
 import { createTheme, ThemeProvider, CssBaseline, Box, useTheme } from '@mui/material';
 import Footer from "./components/Footer"
 import useSettings from "./components/hooks/useSettings";
+import useTimerSession from "./components/hooks/useTimerSession";
 
 
 function App() {
   const { settings, setDefaultDuration, switchLightMode, toggleNotifications } = useSettings();
+  const {
+    status,
+    start,
+    stop,
+    togglePause,
+    duration,
+    elapsed,
+    updateDuration
+  } = useTimerSession(settings.defaultDuration);
+
   const themeMode = settings.theme;
   const lightPalette = {
     mode: 'light',
@@ -178,13 +189,20 @@ function App() {
 
   const TimerMenuTab = useMemo(() => (
     <TabPanel value={tab} index={navbarIndex.timer}>
-      <Fade in={tab === navbarIndex.timer} timeout={200} mountOnEnter unmountOnExit>
+      <Fade in={tab === navbarIndex.timer} timeout={200} mountOnEnter>
         <div>
-          <TimerMenu />
+          <TimerMenu
+            status={status} togglePause={togglePause}
+            elapsed={elapsed} duration={duration} updateDuration={updateDuration}
+            startSession={start} stopSession={stop}
+          />
         </div>
       </Fade>
     </TabPanel>
-  ), [tab, navbarIndex]);
+  ), [
+    tab, navbarIndex, status, togglePause, duration, elapsed,
+    updateDuration, start, stop
+  ]);
 
   const CalendarTab = useMemo(() => (
     <TabPanel value={tab} index={navbarIndex.calendar}>
@@ -216,42 +234,42 @@ function App() {
     </TabPanel>
   ), [tab, navbarIndex, settings, setDefaultDuration, switchLightMode, toggleNotifications]);
 
-return (
-  <ThemeProvider theme={theme}>
-    <ThemeVariables />
-    <CssBaseline />
-    <Box sx={{ display: "flex", minHeight: "100vh" }}>
-      {/* Drawer for all screens: permanent on md+, temporary on xs/sm */}
-      {isMdUp ? (
-        <Drawer
-          value={tab}
-          onChange={setTab}
-          index={navbarIndex}
-          open={true}
-          variant="permanent"
-        />
-      ) : (
-        <Drawer
-          value={tab}
-          onChange={setTab}
-          index={navbarIndex}
-          open={drawerOpen}
-          onClose={toggleDrawer}
-          variant="temporary"
-        />
-      )}
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flexGrow: 1, mt: 3, px: { xs: 2.5, sm: 3, md: 3.5, lg: 4.5, xl: 5 } }}>
-        <Header onMenuClick={toggleDrawer} />
-        {DashboardTab}
-        {TimerMenuTab}
-        {CalendarTab}
-        {ProgressTab}
-        {SettingsTab}
-        <Footer />
+  return (
+    <ThemeProvider theme={theme}>
+      <ThemeVariables />
+      <CssBaseline />
+      <Box sx={{ display: "flex", minHeight: "100vh" }}>
+        {/* Drawer for all screens: permanent on md+, temporary on xs/sm */}
+        {isMdUp ? (
+          <Drawer
+            value={tab}
+            onChange={setTab}
+            index={navbarIndex}
+            open={true}
+            variant="permanent"
+          />
+        ) : (
+          <Drawer
+            value={tab}
+            onChange={setTab}
+            index={navbarIndex}
+            open={drawerOpen}
+            onClose={toggleDrawer}
+            variant="temporary"
+          />
+        )}
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flexGrow: 1, mt: 3, px: { xs: 2.5, sm: 3, md: 3.5, lg: 4.5, xl: 5 } }}>
+          <Header onMenuClick={toggleDrawer} />
+          {DashboardTab}
+          {TimerMenuTab}
+          {CalendarTab}
+          {ProgressTab}
+          {SettingsTab}
+          <Footer />
+        </Box>
       </Box>
-    </Box>
-  </ThemeProvider>
-);
+    </ThemeProvider>
+  );
 }
 
 export default App;

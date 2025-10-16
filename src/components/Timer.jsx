@@ -2,14 +2,20 @@ import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { decodeDuration } from "./utils/TimerUtils.js";
-import { useInterval } from "./hooks/useInterval.js";
+import { decodeSeconds } from "./utils/TimerUtils.js";
 
-export default function Timer({ duration, onChange, onDecrement, isStarted, isPaused }) {
-    const { hours, minutes, seconds } = decodeDuration(duration);
-    useInterval(onDecrement, 1000, isStarted && !isPaused);
+export default function Timer({ elapsed, duration, onChange, isRunning, isPaused }) {
+    const remaining = duration - elapsed;
+    let hours, minutes, seconds;
+    if (isRunning || isPaused) {
+        ({ hours, minutes, seconds } = decodeSeconds(remaining));
+    } else {
+        ({ hours, minutes, seconds } = decodeSeconds(duration));
+    }
+    console.log("H:M:S", seconds);
+
     return (
-        <Grid container columnSpacing={{xs: 0.5, md: 1}}>
+        <Grid container columnSpacing={{ xs: 0.5, md: 1 }}>
             <Grid size={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
                 <Paper sx={{ alignSelf: 'stretch' }} elevation={1}>
                     <TextField variant="standard" fullWidth={true} size="large" name="hours" slotProps={{
@@ -23,7 +29,7 @@ export default function Timer({ duration, onChange, onDecrement, isStarted, isPa
                         input: {
                             disableUnderline: true,
                         }
-                    }} disabled={isStarted} required={true} id="hours" onChange={(e) => onChange(+e.target.value, minutes, seconds)} value={String(hours).padStart(2, "0")} />
+                    }} disabled={isRunning || isPaused} required={true} id="hours" onChange={(e) => onChange(+e.target.value, minutes, seconds)} value={String(hours).padStart(2, "0")} />
                 </Paper>
                 <InputLabel id="hours" sx={{ fontSize: 18 }}>Hours</InputLabel>
             </Grid>
@@ -40,7 +46,7 @@ export default function Timer({ duration, onChange, onDecrement, isStarted, isPa
                         input: {
                             disableUnderline: true,
                         }
-                    }} disabled={isStarted} required={true} id="minutes" onChange={(e) => onChange(hours, +e.target.value, seconds)}
+                    }} disabled={isRunning || isPaused} required={true} id="minutes" onChange={(e) => onChange(hours, +e.target.value, seconds)}
                         value={String(minutes).padStart(2, "0")} />
                 </Paper>
                 <InputLabel id="minutes" sx={{ fontSize: 18 }}>Minutes</InputLabel>

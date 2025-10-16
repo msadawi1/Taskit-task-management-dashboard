@@ -1,7 +1,7 @@
 import Alert from "@mui/material/Alert";
 
-export default function SessionStatus({ isPaused }) {
+export default function SessionStatus({ isRunning }) {
     return (<Alert variant="outlined" icon={false} severity="primary">
-        {!isPaused ? "Timer started — time to make progress!" : "Break time — don’t lose your momentum!"}
+        {isRunning ? "Timer started — time to make progress!" : "Break time — don’t lose your momentum!"}
     </Alert>);
 }

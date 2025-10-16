@@ -5,23 +5,10 @@ import Box from "@mui/material/Box";
 import SessionSummary from "./TimerPage/SessionSummary.jsx";
 import TimerControls from "./TimerPage/TimerControls.jsx";
 import SessionStatus from "./TimerPage/SessionStatus.jsx";
-import useTimerSession from "./hooks/useTimerSession.js";
 import Caption from "./mini_components/Caption.jsx";
 
-function TimerMenu() {
-    // default value 25 minutes
-    const {
-        isStarted,
-        isPaused,
-        isFinished,
-        elapsed,
-        duration,
-        togglePause,
-        decrementCounter,
-        updateDuration,
-        startSession,
-        stopSession,
-    } = useTimerSession();
+function TimerMenu({
+    status, elapsed, duration, togglePause, updateDuration, startSession, stopSession }) {
     return (
         <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
             <Box component='section' display='flex' flexDirection={'column'}>
@@ -30,11 +17,11 @@ function TimerMenu() {
             </Box>
             <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 2 }}>
                 <Box>
-                    {isStarted && <SessionStatus isPaused={isPaused} />}
+                    {(status === "running" || status === "paused") && <SessionStatus isRunning={status === "running"} />}
                 </Box>
-                <Timer duration={duration} onChange={updateDuration} onDecrement={decrementCounter} isStarted={isStarted} isPaused={isPaused} />
-                <TimerControls isStarted={isStarted} isPaused={isPaused} onStart={startSession} onPause={togglePause} onStop={stopSession} />
-                {isFinished && <SessionSummary elapsed={elapsed} />}
+                <Timer elapsed={elapsed} duration={duration} onChange={updateDuration} isPaused={status === "paused"} isRunning={status === "running"} />
+                <TimerControls isRunning={status === "running"} isStoppedOrFinished={status === "stopped" || status === "finished"} isPaused={status === "paused"} onStart={startSession} onPause={togglePause} onStop={stopSession} />
+                {status === "finished" && <SessionSummary elapsed={elapsed} />}
             </Box>
         </Box>
     );
