@@ -25,7 +25,7 @@ function App() {
       todayCol: '#f6f6f6'
     },
     secondary: {
-      main: '#d9d9d9',
+      main: '#d1d1d1',
       contrastText: '#4d4d4d',
       dark: '#969696',
       grid: '#cccccc'
@@ -76,13 +76,13 @@ function App() {
     secondary: {
       main: '#bfbfbf',
       contrastText: '#4d4d4d',
-      dark: '#a6a6a6',
+      dark: '#bfbfbf',
       grid: '#404040'
     },
     warning: {
-      main: '#ff4d4d',
-      dark: '#ff3333',
-      light: '#ff6666',
+      main: '#ef5350',
+      dark: '#b71c1c',
+      light: '#ffcdd2',
       contrastText: '#ffffff',
     },
     info: {
@@ -92,9 +92,9 @@ function App() {
       contrastText: '#ffffff',
     },
     success: {
-      main: '#26734d',
-      dark: '#206040',
-      light: '#339966',
+      main: '#2d8659',
+      dark: '#388e3c',
+      light: '#66bb6a',
       contrastText: '#ffffff',
     },
     blue: {

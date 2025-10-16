@@ -1,9 +1,7 @@
 import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-// TODO: find a way to get task title
-export default function SessionStatus({taskTitle}) {
-    return ( <Alert variant="outlined" icon={false} severity="primary">
-        <AlertTitle>Session Started</AlertTitle>
-        <strong style={{ fontWeight: 500 }}>Task:</strong> {taskTitle}
-    </Alert> );
+
+export default function SessionStatus({ isPaused }) {
+    return (<Alert variant="outlined" icon={false} severity="primary">
+        {!isPaused ? "Timer started — time to make progress!" : "Break time — don’t lose your momentum!"}
+    </Alert>);
 }
