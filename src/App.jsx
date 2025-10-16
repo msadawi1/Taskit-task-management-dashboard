@@ -25,7 +25,7 @@ function App() {
       todayCol: '#f6f6f6'
     },
     secondary: {
-      main: '#d1d1d1',
+      main: '#d9d9d9',
       contrastText: '#4d4d4d',
       dark: '#969696',
       grid: '#cccccc'
@@ -76,7 +76,7 @@ function App() {
     secondary: {
       main: '#bfbfbf',
       contrastText: '#4d4d4d',
-      dark: '#bfbfbf',
+      dark: '#a6a6a6',
       grid: '#404040'
     },
     warning: {

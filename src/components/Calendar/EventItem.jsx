@@ -7,22 +7,62 @@ const EventItem = ({ eventInfo }) => {
     return (
         <Box
             sx={{
-                p: { xs: 0.1, sm: 0.5 },
+                p: { xs: 0.3, sm: 0.5 },
                 display: "flex",
                 flexDirection: "column",
                 overflow: "hidden",
+                minWidth: 0,
+                maxWidth: '100%',
+                height: '100%',
             }}
         >
             {/* Title */}
-            <Typography fontSize={{xs: 10, sm: 12}} fontWeight="bold" sx={{ wordBreak: "break-all" }}>
+            <Typography
+                fontSize={{ xs: 10, sm: 12 }}
+                fontWeight="bold"
+                sx={{
+                    wordBreak: "break-word",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    minWidth: 0,
+                    maxWidth: '100%',
+                }}
+                title={title}
+            >
                 {title}
             </Typography>
-            {taskDuration > 30 && <Typography variant="caption" noWrap sx={{ wordBreak: "break-all" }} >
-                {eventInfo.timeText}
-            </Typography>}
+            {taskDuration > 30 && (
+                <Typography
+                    variant="caption"
+                    sx={{
+                        wordBreak: "break-word",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        minWidth: 0,
+                        maxWidth: '100%',
+                    }}
+                    title={eventInfo.timeText}
+                >
+                    {eventInfo.timeText}
+                </Typography>
+            )}
             {/* Location */}
             {taskDuration >= 90 && location && (
-                <Typography variant="caption" color="secondary" noWrap sx={{ wordBreak: "break-all" }}>
+                <Typography
+                    variant="caption"
+                    color="secondary"
+                    sx={{
+                        wordBreak: "break-word",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        minWidth: 0,
+                        maxWidth: '100%',
+                    }}
+                    title={location}
+                >
                     <em>{location}</em>
                 </Typography>
             )}
