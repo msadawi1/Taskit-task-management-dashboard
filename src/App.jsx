@@ -80,9 +80,9 @@ function App() {
       grid: '#404040'
     },
     warning: {
-      main: '#ef5350',
-      dark: '#b71c1c',
-      light: '#ffcdd2',
+      main: '#ff4d4d',
+      dark: '#ff3333',
+      light: '#ff6666',
       contrastText: '#ffffff',
     },
     info: {
@@ -92,9 +92,9 @@ function App() {
       contrastText: '#ffffff',
     },
     success: {
-      main: '#66bb6a',
-      dark: '#388e3c',
-      light: '#66bb6a',
+      main: '#26734d',
+      dark: '#206040',
+      light: '#339966',
       contrastText: '#ffffff',
     },
     blue: {

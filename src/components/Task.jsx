@@ -60,7 +60,7 @@ export default function Task(props) {
                     </Grid>
                     <Grid size="grow" container direction='column' spacing={0} sx={{ p: 0, m: 0 }}>
                         <Box display='flex' alignItems='center' rowGap={0.5} columnGap={1} flexWrap="wrap">
-                            <Typography variant='subtitle1' fontWeight={400} sx={{ lineHeight: 1.2, textDecoration: props.status ? 'line-through' : 'none', color: props.status ? 'secondary.dark' : 'primary.main' }}>
+                            <Typography variant='subtitle1' fontWeight={400} sx={{ lineHeight: 1.2, textDecoration: props.status ? 'line-through' : 'none', color: props.status ? 'secondary.dark' : 'secondary' }}>
                                 {props.title}
                             </Typography>
                             <Chip label={priortyText[props.priority]} color={!props.status ? priorityColors[props.priority] : 'secondary'} size="small" />
