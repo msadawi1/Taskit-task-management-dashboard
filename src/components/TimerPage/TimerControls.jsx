@@ -1,7 +1,8 @@
+import React from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
-export default function TimerControls({ isRunning, isStoppedOrFinished, isPaused, onStart, onPause, onStop }) {
+function TimerControls({ isRunning, isStoppedOrFinished, isPaused, onStart, onPause, onStop }) {
     return (
         <Box sx={{ display: 'flex', gap: 1, width: '100%' }}>
             {isStoppedOrFinished &&
@@ -23,3 +24,5 @@ export default function TimerControls({ isRunning, isStoppedOrFinished, isPaused
         </Box>
     );
 }
+
+export default React.memo(TimerControls);

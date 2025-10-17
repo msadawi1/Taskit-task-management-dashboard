@@ -1,6 +1,9 @@
+import React from "react";
 import Typography from "@mui/material/Typography";
 
-export default function TabTitle({ title }) {
+function TabTitle({ title }) {
+    console.log("TabTitle rendered: ", title);
+    
     return <Typography
         variant="h4"
         fontWeight={600}
@@ -12,3 +15,5 @@ export default function TabTitle({ title }) {
         {title}
     </Typography>
 }
+
+export default React.memo(TabTitle);

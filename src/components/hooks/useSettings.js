@@ -2,7 +2,7 @@ import useLocalStorage from "./useLocalStorage";
 
 export default function useSettings() {
     const [settings, setSettings] = useLocalStorage("settings", {
-        theme: 'light',
+        theme: 'dark',
         defaultDuration: 25,
         notifications: true,
     });

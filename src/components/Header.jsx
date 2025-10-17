@@ -1,3 +1,4 @@
+import React from "react";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from "@mui/material/Typography";
@@ -5,9 +6,9 @@ import Grid from "@mui/material/Grid"
 import Divider from "@mui/material/Divider"
 
 
-export default function Header({onMenuClick}) {
+function Header({onMenuClick}) {
     const date = new Date();
-
+        
     const formattedDate = date.toLocaleDateString("en-GB", {
         weekday: "long",
         day: "numeric",
@@ -30,3 +31,5 @@ export default function Header({onMenuClick}) {
         </>
     );
 }
+
+export default React.memo(Header);

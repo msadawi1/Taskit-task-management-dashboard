@@ -23,6 +23,21 @@ export default function useTimerSession(durationMins) {
         setDuration(Math.max(encodeDuration(hours, minutes, seconds), minDuration));
     }
 
+    const timerAudio = useRef(null);
+    // initialize audio once
+    useEffect(() => {
+        try {
+            const src = (process.env.PUBLIC_URL || '') + '/sounds/timer-alert.mp3';
+            timerAudio.current = new Audio(src);
+            timerAudio.current.preload = 'auto';
+            // attempt to load the resource
+            try { timerAudio.current.load(); } catch (e) { /* ignore load errors */ }
+        } catch (e) {
+            console.warn('Failed to initialize timer audio', e);
+            timerAudio.current = null;
+        }
+    }, []);
+
     const start = useCallback(() => {
         if (status === "running") return;
         totalPausedRef.current = 0; // restart total paused counter
@@ -35,6 +50,17 @@ export default function useTimerSession(durationMins) {
         if (status === "stopped") return;
         setStatus("stopped");
         setDuration(durationInSeconds);
+        if (timerAudio.current) {
+            // reset and play; guard against play() rejection
+            try {
+                timerAudio.current.pause();
+                timerAudio.current.currentTime = 0;
+                const p = timerAudio.current.play();
+                if (p && p.catch) p.catch(err => console.warn('Audio play failed', err));
+            } catch (err) {
+                console.warn('Audio playback error', err);
+            }
+        }
     }, [durationInSeconds, status]);
 
     const togglePause = useCallback(() => {
@@ -51,6 +77,17 @@ export default function useTimerSession(durationMins) {
         if (status === "finished") return;
         setStatus("finished");
         setDuration(durationInSeconds);
+        if (timerAudio.current) {
+            // reset and play; guard against play() rejection
+            try {
+                timerAudio.current.pause();
+                timerAudio.current.currentTime = 0;
+                const p = timerAudio.current.play();
+                if (p && p.catch) p.catch(err => console.warn('Audio play failed', err));
+            } catch (err) {
+                console.warn('Audio playback error', err);
+            }
+        }
     }, [status, durationInSeconds]);
 
     useEffect(() => {

@@ -7,7 +7,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
-export default function Footer() {
+function Footer() {
     return (
         <Box
             component="footer"
@@ -60,3 +60,5 @@ export default function Footer() {
         </Box>
     );
 }
+
+export default React.memo(Footer);
