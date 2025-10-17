@@ -7,7 +7,8 @@ import TimerControls from "./TimerPage/TimerControls.jsx";
 import SessionStatus from "./TimerPage/SessionStatus.jsx";
 import Caption from "./mini_components/Caption.jsx";
 
-function TimerMenu({ status, elapsed, duration, togglePause, updateDuration, startSession, stopSession }) {    
+function TimerMenu({ status, elapsed, duration, togglePause, updateDuration, startSession, stopSession }) {
+    
     return (
         <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
             <Box component='section' display='flex' flexDirection={'column'}>

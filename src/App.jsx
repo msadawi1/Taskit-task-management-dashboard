@@ -74,8 +74,8 @@ function App() {
   }, []);
 
   const [tab, setTab] = useState(navbarIndex.dashboard);
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const toggleDrawer = useCallback(() => {
@@ -110,8 +110,7 @@ function App() {
           <Tab value={tab} index={navbarIndex.dashboard}>
             <Dashboard />
           </Tab>
-          {/* only fade animation when the timer is not running (to avoid animation at each tick when its running) */}
-          <Tab value={tab} index={navbarIndex.timer} shouldFadeAppear={status === "finished" || status === "stopped"}>
+          <Tab value={tab} index={navbarIndex.timer} shouldFadeAppear={false}>
             <TimerMenu
               status={status} elapsed={elapsed} duration={duration}
               startSession={start} stopSession={stop} togglePause={togglePause}

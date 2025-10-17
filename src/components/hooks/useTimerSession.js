@@ -1,27 +1,26 @@
 import { encodeDuration } from '../utils/TimerUtils';
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 
 export default function useTimerSession(durationMins) {
-    const durationInSeconds = encodeDuration(0, durationMins, 0);
-    
+    const durationInSeconds = useMemo(() => {        
+        return encodeDuration(0, durationMins, 0);
+    }, [durationMins]);
     const [status, setStatus] = useState("stopped");
     const [elapsed, setElapsed] = useState(0);
     const [duration, setDuration] = useState(durationInSeconds);
     // useEffect to keep the default duration updated when settings are changed
     useEffect(() => {
-        setDuration(encodeDuration(0, durationMins, 0));
-    }, [durationMins]);
+        setDuration(durationInSeconds);
+    }, [durationInSeconds]);
     const startTimeRef = useRef(null);
     const pausedTimeRef = useRef(null);
     const totalPausedRef = useRef(null);
-    
+
     const intervalRef = useRef(null); // ref for clearning interval later
 
-    const minDuration = 60;
-
-    function updateDuration(hours, minutes, seconds) {
-        setDuration(Math.max(encodeDuration(hours, minutes, seconds), minDuration));
-    }
+    const updateDuration = useCallback((hours, minutes, seconds) => {
+        setDuration(Math.max(encodeDuration(hours, minutes, seconds), 60)); // 60 is minimum duration
+    }, []);
 
     const timerAudio = useRef(null);
     // initialize audio once
@@ -123,10 +122,6 @@ export default function useTimerSession(durationMins) {
 
         return () => clearInterval(intervalRef.current);
     }, [status, duration, finish]);
-
-    useEffect(() => {
-        console.log("Status changed:", status);
-    }, [status]);
 
     return {
         status,
