@@ -16,6 +16,7 @@ import useTimerSession from "./components/hooks/useTimerSession";
 
 function App() {
   const { settings, setDefaultDuration, switchLightMode, toggleNotifications } = useSettings();
+
   const {
     status,
     start,

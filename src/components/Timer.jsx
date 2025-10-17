@@ -12,7 +12,6 @@ export default function Timer({ elapsed, duration, onChange, isRunning, isPaused
     } else {
         ({ hours, minutes, seconds } = decodeSeconds(duration));
     }
-    console.log("H:M:S", seconds);
 
     return (
         <Grid container columnSpacing={{ xs: 0.5, md: 1 }}>
