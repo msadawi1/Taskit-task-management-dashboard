@@ -1,7 +1,7 @@
 import { encodeDuration } from '../utils/TimerUtils';
 import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 
-export default function useTimerSession(durationMins) {
+export default function useTimerSession(durationMins, playSound) {
     const durationInSeconds = useMemo(() => {        
         return encodeDuration(0, durationMins, 0);
     }, [durationMins]);
@@ -51,7 +51,7 @@ export default function useTimerSession(durationMins) {
         if (status === "stopped") return;
         setStatus("stopped");
         setDuration(durationInSeconds);
-        if (timerAudio.current) {
+        if (timerAudio.current && playSound) {
             // reset and play; guard against play() rejection
             try {
                 timerAudio.current.pause();
@@ -62,7 +62,7 @@ export default function useTimerSession(durationMins) {
                 console.warn('Audio playback error', err);
             }
         }
-    }, [durationInSeconds, status]);
+    }, [durationInSeconds, status, playSound]);
 
     const togglePause = useCallback(() => {
         if (status === "paused") { // when u unpause: accumulate the paused time
@@ -78,7 +78,7 @@ export default function useTimerSession(durationMins) {
         if (status === "finished") return;
         setStatus("finished");
         setDuration(durationInSeconds);
-        if (timerAudio.current) {
+        if (timerAudio.current && playSound) {
             // reset and play; guard against play() rejection
             try {
                 timerAudio.current.pause();
@@ -89,7 +89,7 @@ export default function useTimerSession(durationMins) {
                 console.warn('Audio playback error', err);
             }
         }
-    }, [status, durationInSeconds]);
+    }, [status, durationInSeconds, playSound]);
 
     useEffect(() => {
         // if timer is running and the start time is set

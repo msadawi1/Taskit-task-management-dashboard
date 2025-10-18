@@ -3,8 +3,8 @@ import useTimerSession from "../hooks/useTimerSession";
 
 const TimerContext = createContext(null);
 
-export default function TimerContextProvider({ children, defaultDuration }) {
-    const timer = useTimerSession(defaultDuration);
+export default function TimerContextProvider({ children, defaultDuration, shouldAlert }) {
+    const timer = useTimerSession(defaultDuration, shouldAlert);
     return (
         <TimerContext.Provider value={timer}>
             {children}

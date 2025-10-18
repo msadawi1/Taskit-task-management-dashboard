@@ -11,9 +11,10 @@ import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
 import Footer from "./components/Footer"
 import useSettings from "./components/hooks/useSettings";
 import { lightPalette, darkPalette } from "./components/utils/Theme";
-
 import Tab from "./components/Tab";
+import SnackbarContextProvider from "./components/contexts/SnackbarContext";
 import TimerContextProvider from "./components/contexts/TimerContext";
+import SnackbarFeedback from "./components/mini_components/Snackbar";
 
 function App() {
   const { settings, setDefaultDuration, switchLightMode, toggleNotifications } = useSettings();
@@ -76,51 +77,54 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: "flex", minHeight: "100vh" }}>
-        {/* Drawer for all screens: permanent on md+, temporary on xs/sm */}
-        {isMdUp ? (
-          <Drawer
-            value={tab}
-            onChange={setTab}
-            index={navbarIndex}
-            open={true}
-            variant="permanent"
-          />
-        ) : (
-          <Drawer
-            value={tab}
-            onChange={setTab}
-            index={navbarIndex}
-            open={drawerOpen}
-            onClose={toggleDrawer}
-            variant="temporary"
-          />
-        )}
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flexGrow: 1, mt: 3, px: { xs: 2.5, sm: 3, md: 3.5, lg: 4.5, xl: 5 } }}>
-          <Header onMenuClick={toggleDrawer} />
-          <Tab value={tab} index={navbarIndex.dashboard}>
-            <Dashboard />
-          </Tab>
-          <TimerContextProvider defaultDuration={settings.defaultDuration}>
-            <Tab value={tab} index={navbarIndex.timer}>
-              <TimerMenu />
-            </Tab>
-          </TimerContextProvider>
-          <Tab value={tab} index={navbarIndex.calendar}>
-            <Calendar />
-          </Tab>
-          <Tab value={tab} index={navbarIndex.progress}>
-            <Progress />
-          </Tab>
-          <Tab value={tab} index={navbarIndex.settings}>
-            <Settings
-              settings={settings} setDefaultDuration={setDefaultDuration}
-              switchLightMode={switchLightMode} toggleNotifications={toggleNotifications}
+      <SnackbarContextProvider>
+        <Box sx={{ display: "flex", minHeight: "100vh" }}>
+          {/* Drawer for all screens: permanent on md+, temporary on xs/sm */}
+          {isMdUp ? (
+            <Drawer
+              value={tab}
+              onChange={setTab}
+              index={navbarIndex}
+              open={true}
+              variant="permanent"
             />
-          </Tab>
-          <Footer />
+          ) : (
+            <Drawer
+              value={tab}
+              onChange={setTab}
+              index={navbarIndex}
+              open={drawerOpen}
+              onClose={toggleDrawer}
+              variant="temporary"
+            />
+          )}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flexGrow: 1, mt: 3, px: { xs: 2.5, sm: 3, md: 3.5, lg: 4.5, xl: 5 } }}>
+            <Header onMenuClick={toggleDrawer} />
+            <Tab value={tab} index={navbarIndex.dashboard}>
+              <Dashboard />
+            </Tab>
+            <TimerContextProvider defaultDuration={settings.defaultDuration} shouldAlert={settings.notifications}>
+              <Tab value={tab} index={navbarIndex.timer}>
+                <TimerMenu />
+              </Tab>
+            </TimerContextProvider>
+            <Tab value={tab} index={navbarIndex.calendar}>
+              <Calendar />
+            </Tab>
+            <Tab value={tab} index={navbarIndex.progress}>
+              <Progress />
+            </Tab>
+            <Tab value={tab} index={navbarIndex.settings}>
+              <Settings
+                settings={settings} setDefaultDuration={setDefaultDuration}
+                switchLightMode={switchLightMode} toggleNotifications={toggleNotifications}
+              />
+            </Tab>
+            <SnackbarFeedback />
+            <Footer />
+          </Box>
         </Box>
-      </Box>
+      </SnackbarContextProvider>
     </ThemeProvider>
   );
 }

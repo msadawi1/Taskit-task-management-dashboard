@@ -10,12 +10,12 @@ export default function Notifications({ enabled, onChange }) {
         <Paper elevation={1} sx={{ width: '100%', p: 3, backgroundColor: "background.paper" }}>
             <Grid container rowSpacing={2}>
                 <Grid size={12}>
-                    <SubTitle title={"Notifications"} />
+                    <SubTitle title={"Alerts"} />
                 </Grid>
                 <Grid container size={12} columnSpacing={1}>
                     <Grid size="grow">
                         <Typography variant="body1" fontWeight={500}>
-                            Browser Notifications
+                            Timer Alert
                         </Typography>
                         <Typography variant="body1" color="secondary.dark" fontWeight={400} fontSize={14}>
                             Get notified when focus sessions complete
@@ -26,7 +26,7 @@ export default function Notifications({ enabled, onChange }) {
                     </Grid>
                     <Grid size={12}>
                         <Alert severity="success">
-                            Make sure to allow notifications in your browser for the best experience.
+                            Make sure to allow sounds in your browser for the best experience.
                         </Alert>
                     </Grid>
                 </Grid>
