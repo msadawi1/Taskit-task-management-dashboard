@@ -10,8 +10,10 @@ export default function useTimerSession(durationMins) {
     const [duration, setDuration] = useState(durationInSeconds);
     // useEffect to keep the default duration updated when settings are changed
     useEffect(() => {
-        setDuration(durationInSeconds);
-    }, [durationInSeconds]);
+        if (status === "finished" || status === "stopped") {
+            setDuration(durationInSeconds);
+        }
+    }, [durationInSeconds, status]);
     const startTimeRef = useRef(null);
     const pausedTimeRef = useRef(null);
     const totalPausedRef = useRef(null);
@@ -100,7 +102,6 @@ export default function useTimerSession(durationMins) {
                 // if used paused -> deduct the total paused time from the total elapsed time
                 let newElapsed;
                 if (totalPausedRef) {
-                    console.log("Paused for: ", totalPausedRef.current);
                     newElapsed = Math.floor(((now - startTimeRef.current) / 1000) - (totalPausedRef.current / 1000));
                 } else {
                     newElapsed = Math.floor(((now - startTimeRef.current) / 1000));

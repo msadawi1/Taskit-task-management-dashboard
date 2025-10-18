@@ -1,6 +1,7 @@
+import React from "react";
 import Typography from "@mui/material/Typography";
 
-export default function SessionSummary({ elapsed }) {
+function SessionSummary({ elapsed }) {
     const totalMinutes = Math.round(elapsed / 60);
     return (
         <Typography variant="h6" textAlign={'center'}>
@@ -8,3 +9,5 @@ export default function SessionSummary({ elapsed }) {
         </Typography>
     );
 }
+
+export default React.memo(SessionSummary);

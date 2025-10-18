@@ -2,11 +2,13 @@ import Fade from '@mui/material/Fade';
 import React from 'react';
 
 function Tab({ children, value, index, shouldFadeAppear = true }) {
-    return <Fade in={value === index} timeout={200} appear={shouldFadeAppear}>
-            <div style={{display: value === index ? 'block' : 'none'}}>
+    return ( value === index ? 
+        <Fade in={value === index} timeout={200} appear={shouldFadeAppear}>
+            <div>
                 {children}
             </div>
-        </Fade>
+        </Fade> : null
+    )
 }
 
 export default React.memo(Tab);

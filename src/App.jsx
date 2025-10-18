@@ -10,22 +10,13 @@ import Header from "./components/Header";
 import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
 import Footer from "./components/Footer"
 import useSettings from "./components/hooks/useSettings";
-import useTimerSession from "./components/hooks/useTimerSession";
 import { lightPalette, darkPalette } from "./components/utils/Theme";
+
 import Tab from "./components/Tab";
+import TimerContextProvider from "./components/contexts/TimerContext";
 
 function App() {
   const { settings, setDefaultDuration, switchLightMode, toggleNotifications } = useSettings();
-
-  const {
-    status,
-    start,
-    stop,
-    togglePause,
-    duration,
-    elapsed,
-    updateDuration
-  } = useTimerSession(settings.defaultDuration);
 
   const [themeMode, setThemeMode] = useState(settings.theme);
 
@@ -110,13 +101,11 @@ function App() {
           <Tab value={tab} index={navbarIndex.dashboard}>
             <Dashboard />
           </Tab>
-          <Tab value={tab} index={navbarIndex.timer} shouldFadeAppear={false}>
-            <TimerMenu
-              status={status} elapsed={elapsed} duration={duration}
-              startSession={start} stopSession={stop} togglePause={togglePause}
-              updateDuration={updateDuration}
-            />
-          </Tab>
+          <TimerContextProvider defaultDuration={settings.defaultDuration}>
+            <Tab value={tab} index={navbarIndex.timer}>
+              <TimerMenu />
+            </Tab>
+          </TimerContextProvider>
           <Tab value={tab} index={navbarIndex.calendar}>
             <Calendar />
           </Tab>

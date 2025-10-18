@@ -6,9 +6,18 @@ import SessionSummary from "./TimerPage/SessionSummary.jsx";
 import TimerControls from "./TimerPage/TimerControls.jsx";
 import SessionStatus from "./TimerPage/SessionStatus.jsx";
 import Caption from "./mini_components/Caption.jsx";
+import { useTimerContext } from './contexts/TimerContext.jsx';
 
-function TimerMenu({ status, elapsed, duration, togglePause, updateDuration, startSession, stopSession }) {
-    
+function TimerMenu() {
+    const {
+        status,
+        elapsed,
+        duration,
+        updateDuration,
+        start: startSession,
+        stop: stopSession,
+        togglePause
+    } = useTimerContext();
     return (
         <Box component='section' sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
             <Box component='section' display='flex' flexDirection={'column'}>

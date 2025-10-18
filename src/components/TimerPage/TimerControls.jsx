@@ -2,9 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
-function TimerControls({ isRunning, isStoppedOrFinished, isPaused, onStart, onPause, onStop }) {
-    console.log("TimerControls rendered");
-    
+function TimerControls({ isRunning, isStoppedOrFinished, isPaused, onStart, onPause, onStop }) {    
     return (
         <Box sx={{ display: 'flex', gap: 1, width: '100%' }}>
             {isStoppedOrFinished &&

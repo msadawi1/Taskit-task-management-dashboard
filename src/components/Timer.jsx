@@ -16,12 +16,12 @@ export default function Timer({ elapsed, duration, onChange, isRunning, isPaused
     return (
         <Grid container columnSpacing={{ xs: 0.5, md: 1 }}>
             <Grid size={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-                <Paper sx={{ alignSelf: 'stretch' }} elevation={1}>
+                <Paper sx={{ alignSelf: 'stretch', py: 5 }} elevation={1}>
                     <TextField variant="standard" fullWidth={true} size="large" name="hours" slotProps={{
                         htmlInput: {
                             'type': 'number', 'min': '0', 'max': '23', 'style': {
                                 padding: '20px',
-                                fontSize: '24px',
+                                fontSize: 'clamp(24px, 6vw, 36px)',
                                 textAlign: 'center'
                             }
                         },
@@ -33,12 +33,12 @@ export default function Timer({ elapsed, duration, onChange, isRunning, isPaused
                 <InputLabel id="hours" sx={{ fontSize: 18 }}>Hours</InputLabel>
             </Grid>
             <Grid size={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-                <Paper sx={{ alignSelf: 'stretch' }} elevation={1}>
+                <Paper sx={{ alignSelf: 'stretch', py: 5 }} elevation={1}>
                     <TextField variant="standard" fullWidth={true} size="large" name="minutes" slotProps={{
                         htmlInput: {
                             'type': 'number', 'min': '5', 'max': '59', 'style': {
                                 padding: '20px',
-                                fontSize: '24px',
+                                fontSize: 'clamp(24px, 6vw, 36px)',
                                 textAlign: 'center'
                             }
                         },
@@ -51,12 +51,12 @@ export default function Timer({ elapsed, duration, onChange, isRunning, isPaused
                 <InputLabel id="minutes" sx={{ fontSize: 18 }}>Minutes</InputLabel>
             </Grid>
             <Grid size={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-                <Paper sx={{ alignSelf: 'stretch' }} elevation={1}>
+                <Paper sx={{ alignSelf: 'stretch', py: 5 }} elevation={1}>
                     <TextField variant="standard" fullWidth={true} size="large" name="seconds" slotProps={{
                         htmlInput: {
                             'type': 'number', 'min': '0', 'max': '59', 'style': {
                                 padding: '20px',
-                                fontSize: '24px',
+                                fontSize: 'clamp(24px, 6vw, 36px)',
                                 textAlign: 'center'
                             }
                         },

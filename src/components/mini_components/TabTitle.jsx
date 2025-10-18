@@ -1,9 +1,7 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 
-function TabTitle({ title }) {
-    console.log("TabTitle rendered: ", title);
-    
+function TabTitle({ title }) {    
     return <Typography
         variant="h4"
         fontWeight={600}
