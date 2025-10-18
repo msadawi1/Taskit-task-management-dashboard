@@ -36,8 +36,6 @@ function Calendar() {
         dateError: null,
     });
     function handleDateSelect(selectInfo) {
-        let calendarApi = selectInfo.view.calendar
-        calendarApi.unselect() // clear date selection
         setData(prevValue => {
             // store as HH:MM string to display in the form
             const start = selectInfo.start.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
@@ -89,6 +87,7 @@ function Calendar() {
                 eventContent={(eventInfo) => (
                     <EventItem eventInfo={eventInfo} />
                 )}
+                
                 events={tasks}
                 dayHeaderContent={(args) => {
                     const dayName = args.date.toLocaleDateString('en-US', { weekday: 'short' });

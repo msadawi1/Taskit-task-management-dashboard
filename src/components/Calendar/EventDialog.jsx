@@ -68,7 +68,7 @@ export default function EventDialog({ open, onClose, event, goalTitle }) {
                             </Typography>}
                             {location && <Box display="flex" gap={2}>
                                 <LocationPinIcon sx={{ color: "text.secondary" }} />
-                                <Typography variant='h6' color='text.secondary' fontWeight="normal">
+                                <Typography variant='body1' color='text.secondary' fontWeight="normal">
                                     {location}
                                 </Typography>
                             </Box>}
