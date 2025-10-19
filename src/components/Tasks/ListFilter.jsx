@@ -15,9 +15,9 @@ export default function ListFilter({ lists, value, onChange }) {
                 onChange={(event) => { onChange(event.target.value) }}
                 size='small'
             >
-                <MenuItem value={0}>ِAll</MenuItem>
+                <MenuItem value={0}>All</MenuItem>
                 {lists.map(
-                    list => <MenuItem key={list.name} value={list.name}>ِ{list.name}</MenuItem>
+                    list => <MenuItem key={list.name} value={list.name}>{list.name}</MenuItem>
                 )}
             </Select>
         </FormControl>

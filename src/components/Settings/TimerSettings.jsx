@@ -1,3 +1,4 @@
+import React from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid"
 import SubTitle from "../mini_components/SubTitle";
@@ -6,7 +7,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-export default function TimerSettings({ defaultDuration, onChange }) {
+function TimerSettings({ defaultDuration, onChange }) {
     return (
         <Paper elevation={1} sx={{ width: '100%', p: 3, backgroundColor: "background.paper" }}>
             <Grid container rowSpacing={2}>
@@ -49,3 +50,5 @@ export default function TimerSettings({ defaultDuration, onChange }) {
         </Paper>
     );
 }
+
+export default React.memo(TimerSettings);

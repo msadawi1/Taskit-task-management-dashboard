@@ -1,3 +1,4 @@
+import React from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid"
 import SubTitle from "../mini_components/SubTitle";
@@ -8,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-export default function Appearance({ theme, onChange }) {
+function Appearance({ theme, onChange }) {
     return (
         <Paper elevation={1} sx={{ width: '100%', p: 3, backgroundColor: "background.paper" }}>
             <Grid container rowSpacing={2}>
@@ -45,3 +46,5 @@ export default function Appearance({ theme, onChange }) {
         </Paper>
     );
 }
+
+export default React.memo(Appearance);

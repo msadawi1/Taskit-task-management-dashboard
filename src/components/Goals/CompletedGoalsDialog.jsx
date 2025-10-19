@@ -4,10 +4,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import CompletedGoalsList from './CompletedGoalsList';
+import { useSnackbarContext } from '../contexts/SnackbarContext';
 
 export default function CompletedGoalsDialog({ open, onClose, goals, onGoalRemove }) {
+    const { showSnackbar } = useSnackbarContext();
     function handleRemove(goalId) {
         onGoalRemove(goalId);
+        showSnackbar("Goal deleted.");
         onClose();
     }
     return (

@@ -6,8 +6,10 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
 import AddIcon from '@mui/icons-material/Add';
+import { useSnackbarContext } from './contexts/SnackbarContext';
 
 function WeeklyGoal(props) {
+    const { showSnackbar } = useSnackbarContext()
     function handleAddButtonClick() {
         props.onClick();
     }
@@ -15,6 +17,13 @@ function WeeklyGoal(props) {
         const success = props.onComplete(props.id);
         if (!success) 
             props.onError();
+        else {
+            showSnackbar("Your goal has been marked as complete.");
+        }
+    }
+    function handleRemove() {
+        props.onRemove(props.id);
+        showSnackbar("Goal deleted.");
     }
     return (
         <Grid container columnSpacing={1} sx={{ width: "100%" }} alignItems='center'>
@@ -22,7 +31,7 @@ function WeeklyGoal(props) {
                 <Typography variant='h6' fontWeight={500} sx={{ lineHeight: 1.2 }}>{props.title[0].toUpperCase() + props.title.substring(1, props.title.length)}</Typography>
             </Grid>
             <Grid size="auto">
-                <IconButton onClick={() => props.onRemove(props.id)}>
+                <IconButton onClick={handleRemove}>
                     <DeleteIcon />
                 </IconButton >
             </Grid>

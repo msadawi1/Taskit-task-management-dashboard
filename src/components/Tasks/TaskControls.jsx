@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import ListForm from "./ListForm";
 import useLists from "../hooks/useLists";
 import Confirmation from "../mini_components/Confirmation";
+import { useSnackbarContext } from "../contexts/SnackbarContext";
 
 const MotionBox = motion.create(Box);
 
@@ -19,6 +20,8 @@ export default function TaskControls({ search, setSearch, list, setList, onRemov
     const [deletePopup, setDeletePopup] = useState(false);
     const [formError, setFormError] = useState('');
     const { lists, insertList, deleteList } = useLists(onRemove);
+
+    const { showSnackbar } = useSnackbarContext();
     function handleDeleteClick() {
         if (list !== 0)
             setDeletePopup(true);
@@ -30,10 +33,11 @@ export default function TaskControls({ search, setSearch, list, setList, onRemov
     function handleConfirmation() {
         setDeletePopup(false);
         // add delay to remove the list after animation finishes
+        showSnackbar(`List ${list} successfully deleted.`);
         setTimeout(() => {
             setList(0);
             deleteList(list);
-        }, 100)
+        }, 100);
     }
     function handleListSubmit(listName) {
         if (listName === "All") {
@@ -46,6 +50,7 @@ export default function TaskControls({ search, setSearch, list, setList, onRemov
             return false;
         } else {
             insertList(listName);
+            showSnackbar(`List ${listName} added.`)
             return true;
         }
     }
@@ -117,7 +122,7 @@ export default function TaskControls({ search, setSearch, list, setList, onRemov
                 </MotionBox>}
             </AnimatePresence>
             <Confirmation onClose={() => setDeletePopup(false)} onConfirm={handleConfirmation} open={deletePopup}
-                title={`Delete   "${list}"?`} caption={"This will delete all tasks in that list."}
+                title={`Delete "${list}"?`} caption={"This will delete all tasks in that list."}
                 confirmText={"Ok"} cancelText={"Cancel"}
             />
         </>

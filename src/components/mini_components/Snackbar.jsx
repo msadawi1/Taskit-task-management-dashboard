@@ -20,13 +20,12 @@ export default function SnackbarFeedback() {
         <Snackbar
             slotProps={{ content: { sx: { bgcolor: "primary.main" } } }}
             anchorOrigin={{ vertical, horizontal }}
-            autoHideDuration={6000}
+            autoHideDuration={4000}
             open={open}
             slots={{ transition: Slide }}
             onClose={closeSnackbar}
             message={message}
             action={action}
-            key={12345}
         />
     );
 }

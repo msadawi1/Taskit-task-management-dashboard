@@ -18,6 +18,7 @@ import { shiftWeek, getFormattedDate, getWeekOffset } from './utils/ProgressUtil
 import { motion, AnimatePresence } from "framer-motion";
 import ReflectionForm from './Progress/ReflectionForm';
 import ReflectionSection from './Progress/ReflectionSection';
+import { useSnackbarContext } from './contexts/SnackbarContext';
 
 const MotionBox = motion.create(Box);
 
@@ -29,6 +30,18 @@ function Progress() {
     const [showForm, setShowForm] = useState(false);
     const { getStats } = useStats(week);
     const { reflections, addReflection, removeReflection } = useReflections();
+
+    const { showSnackbar } = useSnackbarContext();
+
+    function handleReflectionSubmit(content, date) {
+        addReflection(content, date);
+        showSnackbar("New reflection added.");
+    }
+
+    function handleReflectionRemove(id) {
+        removeReflection(id);
+        showSnackbar("Reflection successfully deleted.");
+    }
     const stats = getStats();
     const totalHours = Math.floor(stats.totalTime / 60);
     const totalMins = stats.totalTime % 60;
@@ -69,7 +82,7 @@ function Progress() {
                         <TimeByList timeByList={stats.timeByList} totalTime={stats.totalTime} />
                     </Grid>
                     <Grid size={12}>
-                        <ReflectionSection reflections={reflections} onDelete={removeReflection} onClick={useCallback(() => setShowForm(true), [])}/>
+                        <ReflectionSection reflections={reflections} onDelete={handleReflectionRemove} onClick={useCallback(() => setShowForm(true), [])}/>
                     </Grid>
                 </Grid>
             </Box>
@@ -100,7 +113,7 @@ function Progress() {
                         transition={{ duration: 0.1, ease: "easeOut" }} sx={{ width: 'clamp(250px, 80vw, 500px)' }}>
                         <Paper elevation={10} sx={{ p: 3, borderRadius: 3 }}>
                             <ReflectionForm
-                                onSubmit={addReflection}
+                                onSubmit={handleReflectionSubmit}
                                 onClose={() => { setShowForm(false) }}
                             />
                         </Paper>

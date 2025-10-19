@@ -6,8 +6,8 @@ const SnackbarContext = createContext(null);
 // state goes here
 export default function SnackbarContextProvider({ children }) {
     const [state, setState] = useState({
-        open: true,
-        message: 'Snackbar',
+        open: false,
+        message: '',
         vertical: 'bottm',
         horizontal: 'left',
     });
