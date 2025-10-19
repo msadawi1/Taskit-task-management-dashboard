@@ -1,5 +1,6 @@
 import { uid } from 'uid';
 import useLocalStorage from './useLocalStorage';
+import { useCallback } from 'react';
 
 export default function useManager() {
     // note: id set as integers for testing to match tasks' goal ids
@@ -42,13 +43,13 @@ export default function useManager() {
 * remove a goal and all of its tasks.
 * @param {task} task task object 
 */
-    function addTask(task) {
+    const addTask = useCallback((task) => {
         setTasks(prevValue => [...prevValue, {
             id: uid(),
             ...task,
             status: false,
         }]);
-    }
+    }, [setTasks]);
     /**
 * complete a task
 * @param {string} id - id of the task to be completed

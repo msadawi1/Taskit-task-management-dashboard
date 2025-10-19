@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -19,8 +19,28 @@ const MotionBox = motion.create(Box);
 function Calendar() {
     const { tasks, getGoalTitleById, addTask } = useManager();
     const [showForm, setShowForm] = useState(false);
+    // When the calendar selection is tapped on mobile, the same touch can
+    // immediately activate controls inside the newly opened modal. We
+    // temporarily disable pointer events on the modal inner content for a
+    // short timeout when it opens to ignore that original tap.
+    const [modalInnerDisabled, setModalInnerDisabled] = useState(false);
     const [dialogEvent, setDialogEvent] = useState(null);
     const [dialogOpen, setDialogOpen] = useState(false);
+
+    const handleClose = useCallback(() => { setShowForm(false) }, [setShowForm]);
+
+    // Briefly disable pointer events on the inner modal when it first
+    // appears so the tapping finger that opened the modal doesn't also
+    // activate buttons/inputs inside it.
+    useEffect(() => {
+        let t;
+        if (showForm) {
+            setModalInnerDisabled(true);
+            // 350ms is enough to outlive the tap
+            t = setTimeout(() => setModalInnerDisabled(false), 350);
+        }
+        return () => clearTimeout(t);
+    }, [showForm]);
     const [data, setData] = useState({
         title: "",
         goalId: '',
@@ -49,6 +69,7 @@ function Calendar() {
                 taskDuration: !selectInfo.allDay ? diffInMinutes(start, end) : 0,
             };
         });
+        // Show the form and let the useEffect turn on the short tap-guard.
         setShowForm(true);
     }
     function handleEventClick(clickInfo) {
@@ -82,6 +103,7 @@ function Calendar() {
                     return start.toDateString() === end.toDateString();
                 }}
                 selectMirror={true}
+                longPressDelay={50}
                 select={handleDateSelect}
                 eventClick={handleEventClick}
                 eventContent={(eventInfo) => (
@@ -132,12 +154,19 @@ function Calendar() {
                         initial={{ opacity: 0, scale: 0.9, y: -30 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: -30 }}
-                        transition={{ duration: 0.1, ease: "easeOut" }} sx={{ maxWidth: 'clamp(250px, 80vw, 500px)' }}>
+                        transition={{ duration: 0.1, ease: "easeOut" }}
+                        sx={{
+                            maxWidth: 'clamp(250px, 80vw, 500px)',
+                            // Block pointer events for a short moment when the
+                            // modal first appears so the originating touch/click
+                            // doesn't activate controls inside the form.
+                            pointerEvents: modalInnerDisabled ? 'none' : 'auto'
+                        }}>
                         <Paper elevation={10} sx={{ p: 3, borderRadius: 3 }}>
                             <TaskForm
                                 data={data}
                                 onAdd={addTask}
-                                onClose={() => { setShowForm(false) }}
+                                onClose={handleClose}
                             />
                         </Paper>
                     </MotionBox>

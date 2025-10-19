@@ -9,9 +9,7 @@ import dayjs from "dayjs";
 function StartTime({ value, onChange, duration, error }) {
     const times = Array.from({ length: 24 * 2 }, (_, i) =>
         dayjs().startOf("day").add(i * 30, "minute").format("HH:mm")
-    );
-    console.log("StartTime rendered.");
-    
+    );    
     const hours = duration / 60;
     return (
         <FormControl fullWidth required={true} size='medium' error={error}>

@@ -4,9 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 
-function GoalSelect({ goals, value, onChange }) {
-    console.log("GoalSelect render");
-    
+function GoalSelect({ goals, value, onChange }) {    
     return (
         <FormControl fullWidth required={true} size='medium'>
             <InputLabel id="goal-select-label">Goal</InputLabel>

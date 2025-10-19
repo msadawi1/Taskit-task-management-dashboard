@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useCallback } from "react";
 import { diffInMinutes, parseTimeToDate } from "./utils/TaskFormUtils";
 import dayjs from 'dayjs';
@@ -18,7 +19,7 @@ import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close';
 import useManager from "./hooks/useManager";
 
-export default function TaskForm({ data, onAdd, onClose }) {
+function TaskForm({ data, onAdd, onClose }) {
     const { weeklyGoals } = useManager();
     const [taskFormInput, setTaskFormInput] = useState(data);
     const handleDateChange = useCallback((newValue) => {
@@ -140,3 +141,5 @@ export default function TaskForm({ data, onAdd, onClose }) {
         </Grid>
     </form>);
 }
+
+export default React.memo(TaskForm);

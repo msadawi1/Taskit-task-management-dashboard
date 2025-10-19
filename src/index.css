@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 * {
   margin: 0;
   padding: 0;
@@ -135,6 +131,19 @@ ul {
 
 .fc-scroller::-webkit-scrollbar-track {
   background: var(--fc-bg-hover);
+}
+
+/* Allow FullCalendar to receive touch/pointer gestures instead of the browser
+   handling them (prevents scrolling from stealing drag events). This improves
+   touch drag/select behavior on mobile and when using devtools device emulation. */
+.fc,
+.fc .fc-scroller,
+.fc-timegrid,
+.fc-timegrid .fc-scrollgrid,
+.fc .fc-timegrid-slot {
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* Header Layout */

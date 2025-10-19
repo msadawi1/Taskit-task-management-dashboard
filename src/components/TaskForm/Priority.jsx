@@ -4,9 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 
-function Priority({ value, onChange }) {
-    console.log("Priority rendered");
-    
+function Priority({ value, onChange }) {    
     return (
         <FormControl fullWidth required={true} size='medium'>
             <InputLabel id="priority-select-label">Priority</InputLabel>
