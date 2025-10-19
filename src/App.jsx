@@ -66,7 +66,10 @@ function App() {
   }, []);
 
   const [tab, setTab] = useState(navbarIndex.dashboard);
-
+  function handleTabChange(newValue) {
+    setTab(newValue);
+    setDrawerOpen(false);
+  }
   const [drawerOpen, setDrawerOpen] = useState(false);
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -83,7 +86,7 @@ function App() {
           {isMdUp ? (
             <Drawer
               value={tab}
-              onChange={setTab}
+              onChange={handleTabChange}
               index={navbarIndex}
               open={true}
               variant="permanent"
@@ -91,7 +94,7 @@ function App() {
           ) : (
             <Drawer
               value={tab}
-              onChange={setTab}
+              onChange={handleTabChange}
               index={navbarIndex}
               open={drawerOpen}
               onClose={toggleDrawer}
@@ -109,7 +112,7 @@ function App() {
               </Tab>
             </TimerContextProvider>
             <Tab value={tab} index={navbarIndex.calendar}>
-              <Calendar />
+              <Calendar isMobile={!isMdUp}/>
             </Tab>
             <Tab value={tab} index={navbarIndex.progress}>
               <Progress />

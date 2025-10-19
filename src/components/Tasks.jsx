@@ -43,7 +43,7 @@ export default function TaskSection({ goals, onClose, isFormVisible, setFormVisi
             <Grid display="flex" size='auto' justifyContent='flex-end'>
                 <Button variant="contained" onClick={() => setFormVisible(true)}>New Task</Button>
             </Grid>
-            <Grid size={12} sx={{ mt: -2, mb: 2 }}>
+            <Grid size={12} sx={{ mt: {xs: -1, md: -2}, mb: 2 }}>
                 <Caption text="Manage your tasks and stay productive" />
             </Grid>
             <Grid size={12} sx={{ mt: -1 }}>

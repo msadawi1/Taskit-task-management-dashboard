@@ -5,7 +5,6 @@ import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import InstagramIcon from '@mui/icons-material/Instagram';
 
 function Footer() {
     return (
@@ -25,7 +24,7 @@ function Footer() {
             <Box sx={{ display: "flex", gap: 1 }}>
                 <IconButton
                     component={Link}
-                    href="https://github.com/yourprofile"
+                    href="https://github.com/msadawi1"
                     target="_blank"
                     rel="noopener"
                     aria-label="GitHub"
@@ -35,7 +34,7 @@ function Footer() {
 
                 <IconButton
                     component={Link}
-                    href="https://linkedin.com/in/yourprofile"
+                    href="https://www.linkedin.com/in/mohammed-sadawi-13b176207/"
                     target="_blank"
                     rel="noopener"
                     aria-label="LinkedIn"
@@ -43,19 +42,10 @@ function Footer() {
                     <LinkedInIcon sx={{ fontSize: 28 }} color="primary" />
                 </IconButton>
 
-                <IconButton
-                    component={Link}
-                    href="https://instagram.com/yourprofile"
-                    target="_blank"
-                    rel="noopener"
-                    aria-label="Instagram"
-                >
-                    <InstagramIcon sx={{ fontSize: 28 }} color="primary" />
-                </IconButton>
             </Box>
 
             <Typography variant="body2" color="primary">
-                © {new Date().getFullYear()} Zikra
+                © {new Date().getFullYear()} Mohammed Sadawi
             </Typography>
         </Box>
     );

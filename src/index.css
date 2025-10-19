@@ -198,7 +198,7 @@ ul {
   }
 
   .fc-view-harness.fc-view-harness-active {
-    min-width: 100vw;
+    min-width: 250px;
   }
 
   .fc .fc-toolbar-title {

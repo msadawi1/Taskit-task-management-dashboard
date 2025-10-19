@@ -13,12 +13,14 @@ import TabTitle from './mini_components/TabTitle';
 import EventItem from './Calendar/EventItem';
 import EventDialog from './Calendar/EventDialog';
 import Caption from './mini_components/Caption';
+import FeedbackPopup from './mini_components/FeedbackPopup';
 
 const MotionBox = motion.create(Box);
 
-function Calendar() {
+function Calendar({ isMobile }) {
     const { tasks, getGoalTitleById, addTask } = useManager();
     const [showForm, setShowForm] = useState(false);
+    const [mobileAlert, setMobileAlert] = useState(isMobile);
     // When the calendar selection is tapped on mobile, the same touch can
     // immediately activate controls inside the newly opened modal. We
     // temporarily disable pointer events on the modal inner content for a
@@ -103,13 +105,13 @@ function Calendar() {
                     return start.toDateString() === end.toDateString();
                 }}
                 selectMirror={true}
-                longPressDelay={1}
+                longPressDelay={500}
                 select={handleDateSelect}
                 eventClick={handleEventClick}
                 eventContent={(eventInfo) => (
                     <EventItem eventInfo={eventInfo} />
                 )}
-                
+
                 events={tasks}
                 dayHeaderContent={(args) => {
                     const dayName = args.date.toLocaleDateString('en-US', { weekday: 'short' });
@@ -172,6 +174,10 @@ function Calendar() {
                     </MotionBox>
                 </MotionBox>}
             </AnimatePresence>
+            <FeedbackPopup
+                open={mobileAlert} onClose={() => setMobileAlert(false)}
+                title={"Note!"} text={"Long press on calendar to create events."}
+            />
         </Box>
     );
 }
