@@ -103,7 +103,7 @@ function Calendar() {
                     return start.toDateString() === end.toDateString();
                 }}
                 selectMirror={true}
-                longPressDelay={50}
+                longPressDelay={1}
                 select={handleDateSelect}
                 eventClick={handleEventClick}
                 eventContent={(eventInfo) => (
