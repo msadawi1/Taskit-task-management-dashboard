@@ -128,6 +128,6 @@ Special thanks to:
 
 ## Contact
 
-Developer: msadawi1 (me)
-Open to connections, check my LinkedIn in bio!
-Repository: https://github.com/msadawi1/task-manager-with-timer-react-web-application
+- Developer: msadawi1 (me)
+- Open to connections, check my LinkedIn in bio!
+- Repository: https://github.com/msadawi1/task-manager-with-timer-react-web-application
