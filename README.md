@@ -1,70 +1,133 @@
-# Getting Started with Create React App
+# Taskit — Time Management Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A lightweight, modern time and task management dashboard built with React. Taskit helps you organize tasks, progress, goals, and your calendar (similar to Google/Proton/Outlook Calendar) with a clean responsive UI, task lists, and a calendar view powered by FullCalendar.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [About](#about)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Acknowledgements](#acknowledgements)
+- [Contact](#contact)
 
-### `npm start`
+## About
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Taskit is a personal productivity dashboard that combines task management, goals tracking, and a calendar view, with a pomodoro-style timer. It includes features for creating goals, and tasks that align with these goals, lists to categorize the tasks, focus sessions, tracking weekly progress, and viewing tasks in a week/day calendar. The calendar integrates FullCalendar, and the UI is built with Material UI components (MUI).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+Prerequisites:
+- Node.js (16+ recommended)
+- npm (or yarn)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Steps:
 
-### `npm run build`
+1. Clone the repository
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git clone https://github.com/msadawi1/task-manager-with-timer-react-web-application.git
+cd task-manager-with-timer-react-web-application
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Install dependencies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm install
+# or
+# yarn
+```
 
-### `npm run eject`
+3. Start the dev server
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Build for production
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm run build
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Notes:
+- If you run into inconsistent dependency issues, remove `node_modules` and regenerate the lockfile:
 
-## Learn More
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Usage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Open the app at `http://localhost:3000` after running the dev server.
+- Navigate between the Dashboard, Tasks, Progress, and Calendar views.
+- Add goals, tasks and lists in the Dashboard tab.
+- Search for tasks using the search bar and the list filter.
+- Mark goals or tasks as complete, or delete them.
+	- To create a task, you should have at least one goal and at least one list.
+	- A task includes: title, goal, list, priority, location (optional), due date, start and end times (optional).
+	- Deleting a goal or a list will delete all associated tasks.
+	- To mark a goal complete you must complete all of its tasks.
+	- Unchecking a task associated with a completed goal is not allowed.
+- Navigate to the "Timer" tab and choose a duration to start a pomodoro-style timer focusing on your tasks.
+- Click and drag on calendar slots to create tasks using a calendar view.
+- Track your progress in the "Progress" tab:
+	1. How many tasks you have for the current week
+	2. How many have you finished so far
+	3. How many tasks are marked as "All Day" tasks
+	4. Total time spent on the tasks
+	5. Time spent by list
+- Progress is tracked using time-per-list (i.e: total time spent on tasks in a particular list, e.g: "Career", "Study", "Gym")
+- Add a Reflection in the Progress tab; a reflection is 2-4 sentences describing what you have done during the day and what remains (like a short daily diary).
+- You can change theme, timer default duration, and turn on/off web sounds.
 
-### Code Splitting
+**Screenshots**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![Dashboard dark screenshot](./docs/Calendar/dashboard-main-dark.png)
+![Dashboard light screenshot](./docs/Calendar/dashboard-main-light.png)
+![Timer off screenshot](./docs/Timer/timer-off.png)
+![Timer on screenshot](./docs/Timer/timer-on.png)
+![Calendar screenshot](./docs/Calendar/calendar-main.png)
+![Calendar task dialog screenshot](./docs/Calendar/calendar-dialog.png)
+![Progress screenshot](./docs/Progress/progress.png)
+![Settings screenshot](./docs/Settings/settings.png)
 
-### Analyzing the Bundle Size
+## Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Goal creation (long term achievements you want to make)
+- Task creation and lists (to-dos, start and end times, priorities, due dates, category)
+- Pomodoro-style timer, with ability to change timer to any duration between 1m-24hrs
+- Week/Day calendar view with FullCalendar (like Google/Outlook calendar)
+- Weekly progress tracking, track tasks and time spent on each list of tasks.
+- Create and delete daily reflections (wrap ups)
+- Mobile-friendly interactions and safeguards
+- Switch theme between light/dark.
+- Choose your favorite timer duration, and turn alerts off/on.
+- Material UI-based responsive layout
 
-### Making a Progressive Web App
+## Tech Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- React 19
+- Material UI (MUI)
+- FullCalendar (core, interaction, timegrid)
+- dayjs for date handling
+- framer-motion for animations
+- Plain CSS for calendar styling
 
-### Advanced Configuration
+## Acknowledgements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Special thanks to:
 
-### Deployment
+- FullCalendar — calendar UI and interactions
+- MUI (Material UI) — component library and theming
+- dayjs — date utilities
+- framer-motion — UI animations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Contact
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Developer: msadawi1 (me)
+Open to connections, check my LinkedIn in bio!
+Repository: https://github.com/msadawi1/task-manager-with-timer-react-web-application
