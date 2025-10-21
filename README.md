@@ -86,8 +86,8 @@ npm install
 
 **Screenshots**
 
-![Dashboard dark screenshot](./docs/Calendar/dashboard-main-dark.png)
-![Dashboard light screenshot](./docs/Calendar/dashboard-main-light.png)
+![Dashboard dark screenshot](./docs/Dashboard/dashboard-main-dark.png)
+![Dashboard light screenshot](./docs/Dashboard/dashboard-main-light.png)
 ![Timer off screenshot](./docs/Timer/timer-off.png)
 ![Timer on screenshot](./docs/Timer/timer-on.png)
 ![Calendar screenshot](./docs/Calendar/calendar-main.png)
