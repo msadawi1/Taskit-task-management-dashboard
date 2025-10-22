@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/task-manager-with-timer-react-web-application/static/css/main.1a19b168.css",
+    "main.js": "/task-manager-with-timer-react-web-application/static/js/main.ad7fd2a2.js",
+    "index.html": "/task-manager-with-timer-react-web-application/index.html",
+    "main.1a19b168.css.map": "/task-manager-with-timer-react-web-application/static/css/main.1a19b168.css.map",
+    "main.ad7fd2a2.js.map": "/task-manager-with-timer-react-web-application/static/js/main.ad7fd2a2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1a19b168.css",
+    "static/js/main.ad7fd2a2.js"
+  ]
+}
